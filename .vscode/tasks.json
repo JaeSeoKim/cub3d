@@ -1,0 +1,22 @@
+{
+  "tasks": [
+    {
+      "type": "cppbuild",
+      "label": "build cube3D!",
+      "command": "/usr/bin/make",
+      "args": [],
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "DEBUG" : "true"
+        }
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "detail": "debug make for cube3D"
+    }
+  ],
+  "version": "2.0.0"
+}
