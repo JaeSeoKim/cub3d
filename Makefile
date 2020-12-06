@@ -6,7 +6,7 @@
 #    By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/06 21:07:58 by jaeskim           #+#    #+#              #
-#    Updated: 2020/12/07 00:54:11 by jaeskim          ###   ########.fr        #
+#    Updated: 2020/12/07 01:14:04 by jaeskim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ CFLAGS += -I $(LIBFT_INC_DIR)
 # minilibx
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
+	git submodule init
 	MLX = libmlx.a
 	MLX_DIR = lib/minilibx-linux
 	MLX_FLAGS = -L./$(MLX_DIR) -lmlx -lXext -lX11
