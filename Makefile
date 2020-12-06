@@ -6,7 +6,7 @@
 #    By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/06 21:07:58 by jaeskim           #+#    #+#              #
-#    Updated: 2020/12/06 23:39:58 by jaeskim          ###   ########.fr        #
+#    Updated: 2020/12/07 00:17:29 by jaeskim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,8 @@ ifeq ($(UNAME_S),Linux)
 	MLX = libmlx.a
 	MLX_DIR = lib/minilibx-linux
 	MLX_FLAGS = -L./$(MLX_DIR) -lmlx -lXext -lX11
+	MLX_NOTIC = @printf "✅ $(FG_TEXT_PRIMARY)If you having trouble building minilibx library, try installing the package below.\n\
+		$(FG_TEXT)$(CL_BOLD)gcc make xorg libxext-dev libbsd-dev$(NO_COLOR)\n"
 endif
 ifeq ($(UNAME_S),Darwin)
 	MLX = libmlx.dylib
@@ -77,7 +79,7 @@ CRLF= \n$(LF)
 
 all : $(NAME)
 
-clean : $(LIBFT)_clean
+clean :
 	@$(RM) $(RMFLAGS) $(OBJS) $(OBJS_BONUS)
 	@printf "$(LF)🧹 $(FG_TEXT)Cleaning $(FG_TEXT_PRIMARY)$(NAME)'s Object files...\n"
 
@@ -94,7 +96,7 @@ $(OBJ_DIR)/%.o : %.c
 
 $(NAME) : cub3d.c $(MLX_FILE) $(LIBFT_FILE) $(HEADERS) $(OBJS)
 	@printf "$(LF)🚀 $(FG_TEXT)Successfully Created $(FG_TEXT_PRIMARY)$(NAME)'s Object files $(FG_TEXT)!"
-	@printf "$(CRLF)📚 $(FG_TEXT)Create cub3D! $(FG_TEXT_PRIMARY)$@"
+	@printf "$(CRLF)📚 $(FG_TEXT)Create $(FG_TEXT_PRIMARY)cub3D$(FG_TEXT)!\n"
 	@$(CC) $(CDEBUG) $(CFLAGS) $(CINCLUDES) cub3d.c -o $(NAME) $(LIBFT_FLAGS) $(MLX_FLAGS)
 	@printf "$(LF)🎉 $(FG_TEXT)Successfully Created $(FG_TEXT_PRIMARY)$@ $(FG_TEXT)!\n"
 
@@ -114,7 +116,10 @@ $(LIBFT)_fclean :
 $(MLX) : $(MLX_FILE)
 
 $(MLX_FILE) :
+	@printf "$(CRLF)📚 $(FG_TEXT)Create $(FG_TEXT_PRIMARY)minilibx$(FG_TEXT)!\n"
+	@$(MLX_NOTIC)
 	@make --no-print-directory -C $(MLX_DIR)
+	@printf "$(CRLF)🎉 $(FG_TEXT)Successfully Created $(FG_TEXT_PRIMARY)minilibx $(FG_TEXT)!\n"
 	@$(MLX_CP)
 
 $(MLX)_clean :
