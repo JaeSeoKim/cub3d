@@ -6,7 +6,7 @@
 #    By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/06 21:07:58 by jaeskim           #+#    #+#              #
-#    Updated: 2020/12/06 22:57:55 by jaeskim          ###   ########.fr        #
+#    Updated: 2020/12/06 23:39:58 by jaeskim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -92,7 +92,7 @@ $(OBJ_DIR)/%.o : %.c
 	@$(CC) $(CDEBUG) $(CFLAGS) $(CINCLUDES) -c $< -o $@
 	@printf "$(LF)🚧 $(FG_TEXT)Create $(FG_TEXT_PRIMARY)$@ $(FG_TEXT)from $(FG_TEXT_PRIMARY)$<"
 
-$(NAME) : $(NAME:=.c) $(MLX_FILE) $(LIBFT_FILE) $(HEADERS) $(OBJS)
+$(NAME) : cub3d.c $(MLX_FILE) $(LIBFT_FILE) $(HEADERS) $(OBJS)
 	@printf "$(LF)🚀 $(FG_TEXT)Successfully Created $(FG_TEXT_PRIMARY)$(NAME)'s Object files $(FG_TEXT)!"
 	@printf "$(CRLF)📚 $(FG_TEXT)Create cub3D! $(FG_TEXT_PRIMARY)$@"
 	@$(CC) $(CDEBUG) $(CFLAGS) $(CINCLUDES) cub3d.c -o $(NAME) $(LIBFT_FLAGS) $(MLX_FLAGS)
