@@ -6,7 +6,7 @@
 #    By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/06 21:07:58 by jaeskim           #+#    #+#              #
-#    Updated: 2020/12/07 01:14:04 by jaeskim          ###   ########.fr        #
+#    Updated: 2020/12/07 02:20:19 by jaeskim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,6 @@ ifeq ($(UNAME_S),Linux)
 		$(FG_TEXT)$(CL_BOLD)gcc make xorg libxext-dev libbsd-dev$(NO_COLOR)\n"
 endif
 ifeq ($(UNAME_S),Darwin)
-	CFLAGS += -I/opt/X11/include
 	MLX = libmlx.dylib
 	MLX_DIR = lib/minilibx_mms_20200219
 	MLX_FLAGS = -L./$(MLX_DIR) -lmlx
