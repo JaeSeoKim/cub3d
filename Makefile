@@ -26,7 +26,7 @@ CFLAGS += -I $(LIBFT_INC_DIR)
 # minilibx
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
-	git submodule init
+	MLX_SUBMODULE = git submodule update --init
 	MLX = libmlx.a
 	MLX_DIR = lib/minilibx-linux
 	MLX_FLAGS = -L./$(MLX_DIR) -lmlx -lXext -lX11
@@ -100,7 +100,7 @@ $(NAME) : cub3d.c $(MLX_FILE) $(LIBFT_FILE) $(HEADERS) $(OBJS)
 	@printf "$(LF)🚀 $(FG_TEXT)Successfully Created $(FG_TEXT_PRIMARY)$(NAME)'s Object files $(FG_TEXT)!"
 	@printf "$(CRLF)📚 $(FG_TEXT)Create $(FG_TEXT_PRIMARY)cub3D$(FG_TEXT)!\n"
 	@$(CC) $(CDEBUG) $(CFLAGS) $(CINCLUDES) cub3d.c -o $(NAME) $(LIBFT_FLAGS) $(MLX_FLAGS)
-	@printf "$(LF)🎉 $(FG_TEXT)Successfully Created $(FG_TEXT_PRIMARY)$@ $(FG_TEXT)!\n"
+	@printf "$(LF)🎉 $(FG_TEXT)Successfully Created $(FG_TEXT_PRIMARY)$@ $(FG_TEXT)!\n$(NO_COLOR)"
 
 # Libft
 $(LIBFT) : $(LIBFT_FILE)
@@ -119,6 +119,7 @@ $(MLX) : $(MLX_FILE)
 
 $(MLX_FILE) :
 	@printf "$(CRLF)📚 $(FG_TEXT)Create $(FG_TEXT_PRIMARY)minilibx$(FG_TEXT)!\n"
+	$(MLX_SUBMODULE)
 	@$(MLX_NOTIC)
 	@make --no-print-directory -C $(MLX_DIR)
 	@printf "$(CRLF)🎉 $(FG_TEXT)Successfully Created $(FG_TEXT_PRIMARY)minilibx $(FG_TEXT)!\n"
