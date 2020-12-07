@@ -17,9 +17,11 @@
 
 # define X_KEY_PRESS			2
 # define X_KEY_RELEASE			3
+# define X_KEY_LEAVE_WIN		17
 
 # define X_KEY_PRESS_MASK		1L<<0
 # define X_KEY_RELEASE_MASK		1L<<1
+# define X_KEY_LEAVE_WIN_MASK	1L<<5
 
 typedef struct	s_view
 {
@@ -31,6 +33,9 @@ typedef struct	s_img
 {
 	void		*ptr;
 	t_ui		*data;
+	int			width;
+	int			height;
+
 	int			size_l;
 	int			arr_l;
 	int			bpp;

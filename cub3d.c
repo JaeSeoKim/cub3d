@@ -6,11 +6,13 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 22:47:42 by jaeskim           #+#    #+#             */
-/*   Updated: 2020/12/07 20:50:25 by jaeskim          ###   ########.fr       */
+/*   Updated: 2020/12/07 22:48:25 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mlx.h>
+#include <math.h>
+// #include <X11/X.h>
 #include <stdio.h>
 #include "libft.h"
 #include "cub3d_type.h"
@@ -42,6 +44,13 @@ int		handle_key_pressd(int keycode, void *param)
 	return (0);
 }
 
+int		handle_exit_window(void *param)
+{
+	if (param == NULL)
+		exit(0);
+	return (0);
+}
+
 int		main(void)
 {
 	t_view view;
@@ -64,13 +73,14 @@ int		main(void)
 		while (++count_w < 800)
 		{
 			if (count_h % 100 == 0 || count_w % 100 == 0)
-				img.data[img.arr_l * count_h + count_w] = 0xFFFFFF;
-			else
 				img.data[img.arr_l * count_h + count_w] = 0xFF0000;
+			else
+				img.data[img.arr_l * count_h + count_w] = 0xFFFFFF;
 		}
 	}
 	mlx_put_image_to_window(view.mlx, view.win, img.ptr, 0, 0);
-	mlx_hook(view.win, X_KEY_PRESS, X_KEY_PRESS_MASK, &handle_key_pressd, NULL);
+	mlx_hook(view.win, X_KEY_PRESS, 0, &handle_key_pressd, NULL);
+	mlx_hook(view.win, X_KEY_LEAVE_WIN, 0, &handle_exit_window, NULL);
 	mlx_loop(view.mlx);
 	return (0);
 }
