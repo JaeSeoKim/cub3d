@@ -6,17 +6,14 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 22:47:42 by jaeskim           #+#    #+#             */
-/*   Updated: 2020/12/07 22:48:25 by jaeskim          ###   ########.fr       */
+/*   Updated: 2020/12/07 23:25:07 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mlx.h>
 #include <math.h>
-// #include <X11/X.h>
 #include <stdio.h>
-#include "libft.h"
-#include "cub3d_type.h"
-#include "cub3d_key.h"
+#include "cub3d.h"
 
 int		handle_key_pressd(int keycode, void *param)
 {
@@ -46,8 +43,10 @@ int		handle_key_pressd(int keycode, void *param)
 
 int		handle_exit_window(void *param)
 {
-	if (param == NULL)
-		exit(0);
+	t_view	*view;
+
+	view = (t_view *)param;
+	exit(0);
 	return (0);
 }
 
@@ -79,8 +78,8 @@ int		main(void)
 		}
 	}
 	mlx_put_image_to_window(view.mlx, view.win, img.ptr, 0, 0);
-	mlx_hook(view.win, X_KEY_PRESS, 0, &handle_key_pressd, NULL);
-	mlx_hook(view.win, X_KEY_LEAVE_WIN, 0, &handle_exit_window, NULL);
+	mlx_hook(view.win, X_KEY_PRESS, X_KEY_PRESS_MASK, &handle_key_pressd, NULL);
+	mlx_hook(view.win, X_DESTROY_NOTIFY, X_STRUCTURE_NOTIFY_MASK, &handle_exit_window, &view);
 	mlx_loop(view.mlx);
 	return (0);
 }

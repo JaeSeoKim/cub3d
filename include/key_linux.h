@@ -1,37 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d_type.h                                      :+:      :+:    :+:   */
+/*   key_linux.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/05 19:43:26 by jaeskim           #+#    #+#             */
-/*   Updated: 2020/12/07 02:01:41 by jaeskim          ###   ########.fr       */
+/*   Created: 2020/12/07 02:01:56 by jaeskim           #+#    #+#             */
+/*   Updated: 2020/12/07 23:25:04 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_TYPE_H
-# define CUB3D_TYPE_H
+#ifndef KEY_LINUX_H
+# define KEY_LINUX_H
 
-# define CUB3D_TITLE	"jaeskim's cu3D"
+# define KEY_W		119
+# define KEY_A		97
+# define KEY_S		115
+# define KEY_D		100
+# define KEY_ESC	65307
+# define KEY_UP		65362
+# define KEY_DOWN	65364
+# define KEY_LEFT	65361
+# define KEY_RIGHT	65363
 
-typedef struct	s_view
-{
-	void		*mlx;
-	void		*win;
-}				t_view;
-
-typedef struct	s_img
-{
-	void		*ptr;
-	t_ui		*data;
-	int			width;
-	int			height;
-
-	int			size_l;
-	int			arr_l;
-	int			bpp;
-	int			endian;
-}				t_img;
-
-#endif
+# endif

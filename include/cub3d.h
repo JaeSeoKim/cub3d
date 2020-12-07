@@ -1,37 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d_type.h                                      :+:      :+:    :+:   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/05 19:43:26 by jaeskim           #+#    #+#             */
-/*   Updated: 2020/12/07 02:01:41 by jaeskim          ###   ########.fr       */
+/*   Created: 2020/12/07 23:19:39 by jaeskim           #+#    #+#             */
+/*   Updated: 2020/12/07 23:25:03 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_TYPE_H
-# define CUB3D_TYPE_H
+#ifndef CUB3D_H
+# define CUB3D_H
 
-# define CUB3D_TITLE	"jaeskim's cu3D"
+# include <mlx.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include "libft.h"
+# include "cub3d_type.h"
+# include "x_evnet.h"
 
-typedef struct	s_view
-{
-	void		*mlx;
-	void		*win;
-}				t_view;
-
-typedef struct	s_img
-{
-	void		*ptr;
-	t_ui		*data;
-	int			width;
-	int			height;
-
-	int			size_l;
-	int			arr_l;
-	int			bpp;
-	int			endian;
-}				t_img;
+# ifdef __APPLE__
+#  include "key_mac.h"
+# else
+#  include "key_linux.h"
+# endif
 
 #endif
