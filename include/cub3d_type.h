@@ -23,15 +23,16 @@
 
 typedef struct	s_view
 {
-	void		*mlx_ptr;
-	void		*win_ptr;
+	void		*mlx;
+	void		*win;
 }				t_view;
 
 typedef struct	s_img
 {
-	void		*img_ptr;
-	int			*data;
+	void		*ptr;
+	t_ui		*data;
 	int			size_l;
+	int			arr_l;
 	int			bpp;
 	int			endian;
 }				t_img;

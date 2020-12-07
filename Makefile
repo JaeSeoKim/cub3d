@@ -6,7 +6,7 @@
 #    By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/06 21:07:58 by jaeskim           #+#    #+#              #
-#    Updated: 2020/12/07 02:20:19 by jaeskim          ###   ########.fr        #
+#    Updated: 2020/12/07 16:29:32 by jaeskim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,10 @@ LIBFT_INC_DIR = $(LIBFT_DIR)/include
 LIBFT_FLAGS = -L./$(LIBFT_DIR) -lft
 CFLAGS += -I $(LIBFT_INC_DIR)
 
+ifeq ($(DEBUG),true)
+	CDEBUG = -g
+endif
+
 # minilibx
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
@@ -33,6 +37,14 @@ ifeq ($(UNAME_S),Linux)
 	MLX_NOTIC = @printf "✅ $(FG_TEXT_PRIMARY)If you having trouble building minilibx library, try installing the package below.\n\
 		$(FG_TEXT)$(CL_BOLD)gcc make xorg libxext-dev libbsd-dev$(NO_COLOR)\n"
 endif
+# minilibx opengl
+# ifeq ($(UNAME_S),Darwin)
+# 	MLX = libmlx.a
+# 	MLX_DIR = lib/minilibx_opengl_20191021
+# 	MLX_FLAGS = -L./$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit -lz
+# 	# MLX_CP = cp $(MLX_FILE) $(MLX)
+# 	# MLX_RM = rm -f $(MLX)
+# endif
 ifeq ($(UNAME_S),Darwin)
 	MLX = libmlx.dylib
 	MLX_DIR = lib/minilibx_mms_20200219

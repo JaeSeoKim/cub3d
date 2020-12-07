@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 16:46:47 by jaeskim           #+#    #+#             */
-/*   Updated: 2020/11/16 16:49:48 by jaeskim          ###   ########.fr       */
+/*   Updated: 2020/12/07 20:36:18 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ typedef	unsigned long long	t_ull;
 typedef long long			t_ll;
 typedef unsigned long		t_ul;
 typedef long				t_l;
+typedef unsigned int		t_ui;
 
 typedef struct	s_not_use
 {
@@ -24,6 +25,7 @@ typedef struct	s_not_use
 	t_ll		ll;
 	t_ul		ul;
 	t_l			l;
+	t_ui		ui;
 }				t_not_use;
 
 #endif
