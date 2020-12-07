@@ -6,14 +6,14 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:01:56 by jaeskim           #+#    #+#             */
-/*   Updated: 2020/12/07 02:16:50 by jaeskim          ###   ########.fr       */
+/*   Updated: 2020/12/07 15:10:51 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_KEY_H
 # define CUB3D_KEY_H
 
-# ifdef __MACH__
+# ifdef __APPLE__
 #  define KEY_W		13
 #  define KEY_A		0
 #  define KEY_S		1

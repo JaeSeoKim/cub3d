@@ -21,11 +21,11 @@
 # define X_KEY_PRESS_MASK		1L<<0
 # define X_KEY_RELEASE_MASK		1L<<1
 
-typedef struct	s_mlx
+typedef struct	s_view
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
-}				t_mlx;
+}				t_view;
 
 typedef struct	s_img
 {
