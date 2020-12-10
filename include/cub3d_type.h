@@ -13,6 +13,8 @@
 #ifndef CUB3D_TYPE_H
 # define CUB3D_TYPE_H
 
+# include "libft.h"
+
 # define CUB3D_TITLE	"jaeskim's cu3D"
 
 typedef struct	s_view

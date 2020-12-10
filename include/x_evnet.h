@@ -6,13 +6,13 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 23:21:24 by jaeskim           #+#    #+#             */
-/*   Updated: 2020/12/07 23:25:06 by jaeskim          ###   ########.fr       */
+/*   Updated: 2020/12/10 18:37:50 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #ifndef X_EVENT_H
-# define X_ENVENT_H
+# define X_EVENT_H
 
 # define X_KEY_PRESS 2
 # define X_KEY_RELEASE 3
