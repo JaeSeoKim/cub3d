@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 23:19:39 by jaeskim           #+#    #+#             */
-/*   Updated: 2020/12/07 23:25:03 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/01/01 00:29:00 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,11 @@
 # else
 #  include "key_linux.h"
 # endif
+
+# define WALL_STRIP_WIDTH 1;
+
+void	fill(int color);
+void	stroke(int color);
+void	line(t_img *view, t_vec a, t_vec b);
 
 #endif

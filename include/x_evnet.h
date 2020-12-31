@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 23:21:24 by jaeskim           #+#    #+#             */
-/*   Updated: 2020/12/10 18:37:50 by jaeskim          ###   ########.fr       */
+/*   Updated: 2020/12/10 20:53:00 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@
 # ifdef __APPLE__
 #  define X_KEY_PRESS_MASK 0
 #  define X_KEY_RELEASE_MASK 0
-#  define X_STRUCTURE_NOTIFY_MASK 0
+#  define X_SUB_STRUCTURE_NOTIFY_MASK 0
 # else
 #  define X_KEY_PRESS_MASK 1L<<0
 #  define X_KEY_RELEASE_MASK 1L<<1
-#  define X_STRUCTURE_NOTIFY_MASK 1L<<17
+#  define X_SUB_STRUCTURE_NOTIFY_MASK 1L<<19
 # endif
 
 #endif
