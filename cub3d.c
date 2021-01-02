@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 21:50:30 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/01 00:42:08 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/01/02 16:52:03 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,13 +114,12 @@ int		render_player_2d(t_cub3d *game)
 	t_vec	target;
 
 	data = game->img.data;
-	for (int x = -5; x < 5; x++)
-	{
-		for (int y = -5; y < 5; y++)
-			data[(y + (int)game->player.vec.y) * game->img.line + x + (int)game->player.vec.x] = 0xFFFF00;
-	}
+
+	stroke_rgba(255, 255, 0, 125);
+	rect(&game->img, game->player.vec, 10, 10);
 	target.x = game->player.vec.x + cos(game->player.rotationAngle) * 20;
 	target.y = game->player.vec.y + sin(game->player.rotationAngle) * 20;
+	stroke_rgba(0, 255, 0, 125);
 	line(&game->img, game->player.vec, target);
 	return (0);
 }
