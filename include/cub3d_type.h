@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 19:43:26 by jaeskim           #+#    #+#             */
-/*   Updated: 2020/12/31 23:07:58 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/01/02 17:10:15 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,18 @@ typedef struct	s_img
 typedef struct	s_player
 {
 	t_vec		vec;
-	int			walkDirection;
-	int			turnDirection;
-	float		rotationAngle;
-	float		moveSpeed;
-	float		rotateSpeed;
+	int			walk_direct;
+	int			turn_direct;
+	float		rotate_angle;
+	float		move_speed;
+	float		rotate_speed;
 }				t_player;
 
 typedef struct	s_ray
 {
-	float		rayAngle;
-	float		wallHitX;
-	float		wallHitY;
+	float		ray_angle;
+	float		wall_hitx;
+	float		wall_hity;
 	float		distance;
 }				t_ray;
 

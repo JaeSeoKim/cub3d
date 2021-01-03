@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 21:50:30 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/02 16:52:03 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/01/03 17:20:23 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,11 @@ void	init(t_cub3d *game, int width, int height, char *title)
 	img->line = img->size_l / (img->bpp / 8);
 	game->player.vec.x = width / 4;
 	game->player.vec.y = height / 5;
-	game->player.moveSpeed = 3.0;
-	game->player.rotateSpeed = 3 * (M_PI / 180);
-	game->player.rotationAngle = M_PI / 2;
-	game->player.turnDirection = 0;
-	game->player.walkDirection = 0;
+	game->player.move_speed = 3.0;
+	game->player.rotate_speed = 3 * (M_PI / 180);
+	game->player.rotate_angle = M_PI / 2;
+	game->player.turn_direct = 0;
+	game->player.walk_direct = 0;
 	i = 0;
 	while (i < 6)
 		game->key[i++] = 0;
@@ -85,24 +85,26 @@ int init_img(t_cub3d *game)
 	i = 0;
 	length = game->img.line * game->height;
 	while (i < length)
-		game->img.data[i++] = 0x000000;
+		game->img.data[i++] = 0x111111;
 	return (0);
 }
 
 int render_map_2d(t_cub3d *game)
 {
-	t_ui *data;
+	t_vec	vec;
+	t_ui	*data;
 
 	data = game->img.data;
+
+	stroke_rgba(255, 255, 255, 255);
+	fill_rgba(0, 0, 0, 255);
 	for (int i = 0; i < CUB; i++)
 	{
 		if (map[i])
 		{
-			for (int x = 1; x < CUB - 1; x++)
-			{
-				for (int y = 1; y < CUB - 1; y++)
-					data[((y + (i / 8 * CUB)) * game->img.line) + x + (i % 8 * CUB)] = 0xFFFFFF;
-			}
+			vec.y = (i / 8) * CUB;
+			vec.x = (i % 8) * CUB;
+			rect(&game->img, vec, CUB, CUB);
 		}
 	}
 	return (0);
@@ -115,10 +117,11 @@ int		render_player_2d(t_cub3d *game)
 
 	data = game->img.data;
 
-	stroke_rgba(255, 255, 0, 125);
+	no_stroke();
+	fill_rgba(255, 255, 0, 125);
 	rect(&game->img, game->player.vec, 10, 10);
-	target.x = game->player.vec.x + cos(game->player.rotationAngle) * 20;
-	target.y = game->player.vec.y + sin(game->player.rotationAngle) * 20;
+	target.x = game->player.vec.x + cos(game->player.rotate_angle) * 20;
+	target.y = game->player.vec.y + sin(game->player.rotate_angle) * 20;
 	stroke_rgba(0, 255, 0, 125);
 	line(&game->img, game->player.vec, target);
 	return (0);
@@ -126,27 +129,27 @@ int		render_player_2d(t_cub3d *game)
 
 void	update_plyer(t_cub3d *game)
 {
-	float		new_x;
-	float		new_y;
+	t_vec		new_vec;
 	float		move_step;
 	t_player	*p;
 	t_ll		*key;
 
 	p = &game->player;
 	key = game->key;
-	game->player.turnDirection = check_key_press(KEY_LEFT, key) ? -1 : 0;
-	game->player.turnDirection += check_key_press(KEY_RIGHT, key) ? 1 : 0;
-	game->player.walkDirection = check_key_press(KEY_UP, key) ? 1 : 0;
-	game->player.walkDirection += check_key_press(KEY_DOWN, key) ? -1 : 0;
-	game->player.rotationAngle =
-		normalize_angle(game->player.rotationAngle + game->player.turnDirection * game->player.rotateSpeed);
-	move_step = game->player.walkDirection * game->player.moveSpeed;
-	new_x = game->player.vec.x + cos(game->player.rotationAngle) * move_step;
-	new_y = game->player.vec.y + sin(game->player.rotationAngle) * move_step;
-	if (!has_wall_at(game, new_x, new_y))
+	game->player.turn_direct = check_key_press(KEY_LEFT, key) ? -1 : 0;
+	game->player.turn_direct += check_key_press(KEY_RIGHT, key) ? 1 : 0;
+	game->player.walk_direct = check_key_press(KEY_UP, key) ? 1 : 0;
+	game->player.walk_direct += check_key_press(KEY_DOWN, key) ? -1 : 0;
+	game->player.rotate_angle =
+		normalize_angle(game->player.rotate_angle + \
+						game->player.turn_direct * game->player.rotate_speed);
+	move_step = game->player.walk_direct * game->player.move_speed;
+	new_vec.x = game->player.vec.x + cos(game->player.rotate_angle) * move_step;
+	new_vec.y = game->player.vec.y + sin(game->player.rotate_angle) * move_step;
+	if (!has_wall_at(game, new_vec.x, new_vec.y))
 	{
-		game->player.vec.x = new_x;
-		game->player.vec.y = new_y;
+		game->player.vec.x = new_vec.x;
+		game->player.vec.y = new_vec.y;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 23:19:39 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/01 00:29:00 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/01/03 17:17:56 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,11 @@
 # define WALL_STRIP_WIDTH 1;
 
 void	fill(int color);
+void	fill_rgba(t_uc r, t_uc g, t_uc b, t_uc a);
 void	stroke(int color);
+void	stroke_rgba(t_uc r, t_uc g, t_uc b, t_uc a);
+void	no_stroke();
 void	line(t_img *view, t_vec a, t_vec b);
+void	rect(t_img *view, t_vec position, int width, int height);
 
 #endif
