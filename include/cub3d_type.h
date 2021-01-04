@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 19:43:26 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/02 17:10:15 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/01/04 21:22:48 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@
 # include "libft.h"
 
 # define CUB3D_TITLE "jaeskim's cu3D"
+
+typedef struct	s_ivec
+{
+	int			x;
+	int			y;
+}				t_ivec;
 
 typedef struct	s_vec
 {
@@ -45,10 +51,22 @@ typedef struct	s_player
 
 typedef struct	s_ray
 {
-	float		ray_angle;
-	float		wall_hitx;
-	float		wall_hity;
+	float		angle;
 	float		distance;
+	t_vec		wallhit;
+	char		up;
+	char		down;
+	char		left;
+	char		right;
+
+	t_vec		intercept;
+	t_vec		step;
+	t_vec		vertwallhit;
+	int			verthit;
+	float		vertDistance;
+	t_vec		horzwallhit;
+	int			horzhit;
+	float		horzDistance;
 }				t_ray;
 
 typedef struct	s_cub3d
@@ -60,7 +78,7 @@ typedef struct	s_cub3d
 	t_ll		key[6];
 	t_img		img;
 	t_player	player;
-	t_ray		rays[1];
+	t_ray		rays[512];
 }				t_cub3d;
 
 #endif

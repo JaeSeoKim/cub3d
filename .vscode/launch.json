@@ -5,12 +5,12 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "gcc - 활성 파일 빌드 및 디버그",
+      "name": "cub3d debuging process",
       "type": "cppdbg",
       "request": "launch",
       "program": "${workspaceFolder}/cub3D",
       "args": [],
-      "stopAtEntry": true,
+      "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
       "environment": [],
       "externalConsole": false,
@@ -20,7 +20,7 @@
       "linux": {
         "MIMode": "gdb"
       },
-      "preLaunchTask": "build cube3D!"
+      "preLaunchTask": "build cub3d!"
     }
   ]
 }

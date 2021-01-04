@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 21:50:30 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/03 17:20:23 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/01/04 21:45:19 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@
 
 #define WIDTH 1024
 #define HEIGHT 512
-#define CUB 64
+#define TILE_SIZE 64
+
+const float FOV_ANGLE = 60 * (M_PI / 180);
 
 int		check_key_press(int keycode, t_ll *key);
 
@@ -46,7 +48,7 @@ int		has_wall_at(t_cub3d *game, float x, float y)
 {
 	if (x < 0 || y < 0 || x > game->width || y > game->height)
 		return (1);
-	return (map[(int)floor(y / CUB) * mapx + (int)floor(x / CUB)] == 1 ? 1 : 0);
+	return (map[(int)floor(y / TILE_SIZE) * mapx + (int)floor(x / TILE_SIZE)] == 1 ? 1 : 0);
 }
 
 void	init(t_cub3d *game, int width, int height, char *title)
@@ -65,8 +67,8 @@ void	init(t_cub3d *game, int width, int height, char *title)
 	img->data = (t_ui *)mlx_get_data_addr(
 		game->img.ptr, &img->bpp, &img->size_l, &img->endian);
 	img->line = img->size_l / (img->bpp / 8);
-	game->player.vec.x = width / 4;
-	game->player.vec.y = height / 5;
+	game->player.vec.x = width / 3;
+	game->player.vec.y = height / 4;
 	game->player.move_speed = 3.0;
 	game->player.rotate_speed = 3 * (M_PI / 180);
 	game->player.rotate_angle = M_PI / 2;
@@ -98,13 +100,13 @@ int render_map_2d(t_cub3d *game)
 
 	stroke_rgba(255, 255, 255, 255);
 	fill_rgba(0, 0, 0, 255);
-	for (int i = 0; i < CUB; i++)
+	for (int i = 0; i < TILE_SIZE; i++)
 	{
 		if (map[i])
 		{
-			vec.y = (i / 8) * CUB;
-			vec.x = (i % 8) * CUB;
-			rect(&game->img, vec, CUB, CUB);
+			vec.y = (i / 8) * TILE_SIZE;
+			vec.x = (i % 8) * TILE_SIZE;
+			rect(&game->img, vec, TILE_SIZE, TILE_SIZE);
 		}
 	}
 	return (0);
@@ -118,16 +120,16 @@ int		render_player_2d(t_cub3d *game)
 	data = game->img.data;
 
 	no_stroke();
-	fill_rgba(255, 255, 0, 125);
-	rect(&game->img, game->player.vec, 10, 10);
+	fill_rgba(255, 255, 0, 1);
+	mid_point_rect(&game->img, game->player.vec, 10, 10);
 	target.x = game->player.vec.x + cos(game->player.rotate_angle) * 20;
 	target.y = game->player.vec.y + sin(game->player.rotate_angle) * 20;
-	stroke_rgba(0, 255, 0, 125);
+	stroke_rgba(0, 255, 0, 1);
 	line(&game->img, game->player.vec, target);
 	return (0);
 }
 
-void	update_plyer(t_cub3d *game)
+void	update_player(t_cub3d *game)
 {
 	t_vec		new_vec;
 	float		move_step;
@@ -153,17 +155,137 @@ void	update_plyer(t_cub3d *game)
 	}
 }
 
-void	cast_rays(t_cub3d *game)
+t_ray	*setup_ray(t_ray *ray, float ray_angle)
 {
+	ray->angle = normalize_angle(ray_angle);
+	ray->vertwallhit.x = 0;
+	ray->vertwallhit.y = 0;
+	ray->distance = 0;
+	ray->down = ray->angle > 0 && ray->angle < M_PI;
+	ray->up = !ray->down;
+	ray->right = ray->angle < 0.5 * M_PI || ray->angle > 1.5 * M_PI;
+	ray->left = !ray->right;
+	ray->verthit = 0;
+	ray->horzhit = 0;
+	ray->vertwallhit.x = 0;
+	ray->vertwallhit.y = 0;
+	ray->horzwallhit.x = 0;
+	ray->horzwallhit.y = 0;
+
+	return (ray);
+}
+
+void	cast_ray_vert(t_cub3d *game, t_ray *ray, t_vec p)
+{
+	t_vec	next;
+
+	ray->intercept.x = floor(p.x / TILE_SIZE) * TILE_SIZE;
+	ray->intercept.x += ray->right ? TILE_SIZE : 0;
+	ray->intercept.y = p.y + (ray->intercept.x - p.x) * tan(ray->angle);
+	ray->step.x = ray->left ? -TILE_SIZE : TILE_SIZE;
+	ray->step.y = TILE_SIZE * tan(ray->angle);
+	ray->step.y *= ray->up && ray->step.y > 0 ? -1 : 1;
+	ray->step.y *= ray->down && ray->step.y < 0 ? -1 : 1;
+	next = ray->intercept;
+	while (
+		next.x >= 0 &&
+		next.x <= WIDTH / 2 &&
+		next.y >= 0 &&
+		next.y <= HEIGHT
+	)
+	{
+		if (has_wall_at(
+				game,
+				next.x - (ray->left ? 1 : 0),
+				next.y
+			))
+		{
+			ray->verthit = 1;
+			ray->vertwallhit = next;
+			break ;
+		}
+		else
+		{
+			next.x += ray->step.x;
+			next.y += ray->step.y;
+		}
+	}
+}
+
+void	cast_ray_horz(t_cub3d *game, t_ray *ray, t_vec p)
+{
+	t_vec	next;
+
+	ray->intercept.y = floor(p.y / TILE_SIZE) * TILE_SIZE;
+	ray->intercept.y += ray->down ? TILE_SIZE : 0;
+
+	ray->intercept.x = p.x + (ray->intercept.y - p.y) / tan(ray->angle);
+	ray->step.y = ray->up ? -TILE_SIZE : TILE_SIZE;
+	ray->step.x = TILE_SIZE / tan(ray->angle);
+	ray->step.x *= ray->left && ray->step.x > 0 ? -1 : 1;
+	ray->step.x *= ray->right && ray->step.x < 0 ? -1 : 1;
+	next = ray->intercept;
+	while (
+		next.x >= 0 &&
+		next.x <= WIDTH / 2 &&
+		next.y >= 0 &&
+		next.y <= HEIGHT
+	)
+	{
+		if (has_wall_at(
+				game,
+				next.x,
+				next.y - (ray->up ? 1 : 0)
+			))
+		{
+			ray->horzhit = 1;
+			ray->horzwallhit = next;
+			break ;
+		}
+		else
+		{
+			next.x += ray->step.x;
+			next.y += ray->step.y;
+		}
+	}
+}
+
+double	distance_point(t_vec a, t_vec b)
+{
+	return (sqrt((b.x - a.x) * (b.x - a.x) + (b.y - a.y) * (b.y - a.y)));
+}
+
+void	cast_all_rays(t_cub3d *game)
+{
+	int		i;
+	float	ray_angle;
+	t_vec	player;
 	t_ray	*ray;
 
-	ray = &game->rays[0];
+	player = game->player.vec;
+	ray_angle = game->player.rotate_angle - FOV_ANGLE / 2;
+	i = 0;
+	while (i < 512)
+	{
+		ray = setup_ray(&game->rays[i++], ray_angle);
+		cast_ray_vert(game, ray, player);
+		cast_ray_horz(game, ray, player);
+		ray->vertDistance = ray->verthit ? \
+			distance_point(player, ray->vertwallhit) : __INT_MAX__;
+		ray->horzDistance = ray->horzhit ? \
+			distance_point(player, ray->horzwallhit) : __INT_MAX__;
+		ray->wallhit = ray->vertDistance > ray->horzDistance ? \
+						ray->horzwallhit : ray->vertwallhit;
+		stroke_rgba(255, 0, 0, 0.1);
+		line(&game->img, player, ray->wallhit);
+		ray_angle += FOV_ANGLE / 512;
+	}
 }
 
 void	update(t_cub3d *game)
 {
-	update_plyer(game);
-	cast_rays(game);
+	update_player(game);
+	cast_all_rays(game);
 }
 
 int 	draw(t_cub3d *game)
