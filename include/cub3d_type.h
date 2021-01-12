@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 19:43:26 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/04 21:22:48 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/01/08 20:56:39 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct	s_player
 	t_vec		vec;
 	int			walk_direct;
 	int			turn_direct;
-	float		rotate_angle;
+	float		angle;
 	float		move_speed;
 	float		rotate_speed;
 }				t_player;
@@ -78,7 +78,10 @@ typedef struct	s_cub3d
 	t_ll		key[6];
 	t_img		img;
 	t_player	player;
-	t_ray		rays[512];
+	t_ray		*rays;
+	int			wall_strip_width;
+	int			num_rays;
+	float		fov_angle;
 }				t_cub3d;
 
 #endif
