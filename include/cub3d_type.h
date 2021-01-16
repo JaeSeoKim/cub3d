@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 19:43:26 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/08 20:56:39 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/01/16 21:09:22 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "libft.h"
 
-# define CUB3D_TITLE "jaeskim's cu3D"
+# define CUB3D_TITLE "jaeskim's cub3D"
 
 typedef struct	s_ivec
 {
@@ -33,6 +33,9 @@ typedef struct	s_img
 {
 	void		*ptr;
 	t_ui		*data;
+
+	int			width;
+	int			height;
 	int			size_l;
 	int			line;
 	int			bpp;
@@ -58,6 +61,7 @@ typedef struct	s_ray
 	char		down;
 	char		left;
 	char		right;
+	char		wasHitVertical;
 
 	t_vec		intercept;
 	t_vec		step;

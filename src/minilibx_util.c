@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/01 00:22:18 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/11 22:55:40 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/01/16 21:08:08 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,11 @@ void	put_pixel(t_img *view, int x, int y)
 {
 	int	index;
 
-	index = y * view->line + x;
-	view->data[index] = calc_rgba(view->data[index], g_color);
+	if (0 <= x && x < 512 && 0 <= y && y < 512)
+	{
+		index = y * view->line + x;
+		view->data[index] = calc_rgba(view->data[index], g_color);
+	}
 }
 
 // void	ft_int_swap(int *a, int *b)

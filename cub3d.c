@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 21:50:30 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/12 12:52:49 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/01/17 03:14:30 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 #include <stdio.h>
 
 #define TILE_SIZE 64
-#define MAP_SCALE 0.3
+#define MAP_SCALE 0
 
+t_img	texture;
 const float FOV_ANGLE = 60 * (M_PI / 180);
 
 int		check_key_press(int keycode, t_ll *key);
@@ -77,7 +78,7 @@ void	init(t_cub3d *game, int width, int height, char *title)
 	game->player.turn_direct = 0;
 	game->player.walk_direct = 0;
 
-	game->wall_strip_width = 4;
+	game->wall_strip_width = 1;
 	game->num_rays = (width) / game->wall_strip_width;
 	game->fov_angle = 60 * (M_PI / 180);
 
@@ -91,13 +92,17 @@ void	init(t_cub3d *game, int width, int height, char *title)
 
 int		init_img(t_cub3d *game)
 {
-	int		length;
-	int		i;
+	t_vec	vec;
 
-	i = 0;
-	length = game->img.line * game->height;
-	while (i < length)
-		game->img.data[i++] = 0x00000000;
+	no_stroke();
+	fill_rgba(80, 188, 233, 1);
+	vec.x = 0;
+	vec.y = 0;
+	rect(&game->img, vec, game->width, game->height / 2);
+	fill_rgba(252, 206, 177, 1);
+	vec.x = 0;
+	vec.y = game->height / 2;
+	rect(&game->img, vec, game->width, game->height / 2);
 	return (0);
 }
 
@@ -142,7 +147,7 @@ int		render_player_2d(t_cub3d *game)
 	mid_point_rect(&game->img, player, MAP_SCALE * 10, MAP_SCALE * 10);
 
 	i = 0;
-	stroke_rgba(255, 0, 0, 1);
+	stroke_rgba(255, 0, 0, 0.1);
 	while (i < game->num_rays)
 	{
 		target.x = game->rays[i].wallhit.x * MAP_SCALE;
@@ -177,7 +182,7 @@ void	update_player(t_cub3d *game)
 	move_step = game->player.walk_direct * game->player.move_speed;
 	new_vec.x = game->player.vec.x + cos(game->player.angle) * move_step;
 	new_vec.y = game->player.vec.y + sin(game->player.angle) * move_step;
-	if (!has_wall_at(game, new_vec.x, new_vec.y))
+	if (!has_wall_at(game, new_vec.x , new_vec.y))
 	{
 		game->player.vec.x = new_vec.x;
 		game->player.vec.y = new_vec.y;
@@ -216,18 +221,12 @@ void	cast_ray_vert(t_cub3d *game, t_ray *ray, t_vec p)
 	ray->step.y *= ray->up && ray->step.y > 0 ? -1 : 1;
 	ray->step.y *= ray->down && ray->step.y < 0 ? -1 : 1;
 	next = ray->intercept;
-	while (
-		next.x >= 0 &&
+	while (next.x >= 0 &&
 		next.x <= game->width &&
 		next.y >= 0 &&
-		next.y <= game->height
-	)
+		next.y <= game->height)
 	{
-		if (has_wall_at(
-				game,
-				next.x - (ray->left ? 1 : 0),
-				next.y
-			))
+		if (has_wall_at(game, next.x - (ray->left ? 1 : 0), next.y))
 		{
 			ray->verthit = 1;
 			ray->vertwallhit = next;
@@ -305,6 +304,7 @@ void	cast_all_rays(t_cub3d *game)
 						ray->horzwallhit : ray->vertwallhit;
 		ray->distance = ray->vertDistance > ray->horzDistance ? \
 						ray->horzDistance : ray->vertDistance;
+		ray->wasHitVertical = ray->vertDistance > ray->horzDistance ? 0 : 1;
 		ray_angle += game->fov_angle / game->num_rays;
 	}
 }
@@ -323,17 +323,6 @@ void	draw_map_ray(t_cub3d *game)
 	float	wall_dist;
 	float	distanceProjPlane;
 	float	wallStripHeight;
-	t_vec	vec;
-
-	no_stroke();
-	fill_rgba(80, 188, 233, 1);
-	vec.x = 0;
-	vec.y = 0;
-	rect(&game->img, vec, game->width, game->height / 2);
-	fill_rgba(252, 206, 177, 1);
-	vec.x = 0;
-	vec.y = game->height / 2;
-	rect(&game->img, vec, game->width, game->height / 2);
 
 	// no_stroke();
 	stroke_rgba(0, 255, 0, 1);
@@ -343,7 +332,7 @@ void	draw_map_ray(t_cub3d *game)
 		ray = game->rays[i];
 		wall_dist = ray.distance * cos(game->player.angle - ray.angle);
 		distanceProjPlane = game->width / 2 / tan(game->fov_angle / 2);
-		wallStripHeight = (TILE_SIZE / wall_dist) * distanceProjPlane;
+		wallStripHeight = TILE_SIZE * distanceProjPlane / wall_dist;
 		float alpha = 200 / wall_dist;
 		(alpha > 1.0 ? alpha = 1 : 0);
 		position.x = i++ * game->wall_strip_width;
@@ -351,6 +340,28 @@ void	draw_map_ray(t_cub3d *game)
 		fill_rgba(255, 255, 255, alpha);
 		g_fill = calc_rgba(0x000000, g_fill);
 		rect(&game->img, position, game->wall_strip_width, wallStripHeight);
+
+		int x = ray.wasHitVertical ? (int)ray.wallhit.y % TILE_SIZE * texture.width / TILE_SIZE  : (int)ray.wallhit.x % TILE_SIZE * texture.width / TILE_SIZE;
+		if (position.x < 0){
+			position.x = 0;
+		}
+		else if (position.x > 512){
+			position.x = 512;
+		}
+		if (position.y < 0){
+			position.y = 0;
+		}
+		else if (position.y > 512){
+			position.y = 512;
+		}
+		int j = 0;
+		while (++j < wallStripHeight && ++position.y < game->height)
+		{
+			int texY = ((position.y) - (game->height / 2 - wallStripHeight / 2))
+				/ wallStripHeight * texture.height;
+			g_color = texture.data[texY * texture.line + x];
+			put_pixel(&game->img, position.x, (position.y));
+		}
 	}
 }
 
@@ -368,7 +379,7 @@ int		draw(t_cub3d *game)
 	return (0);
 }
 
-int		handle_key_pressd(int keycode, t_cub3d *game)
+int		handle_key_pressed(int keycode, t_cub3d *game)
 {
 	game->key[keycode / 64] |= (1 << (keycode % 64));
 	return (0);
@@ -392,7 +403,12 @@ int		main(void)
 	t_cub3d game;
 
 	init(&game, TILE_SIZE * mapx, TILE_SIZE * mapy, CUB3D_TITLE);
-	mlx_hook(game.win, X_KEY_PRESS, X_KEY_PRESS_MASK, handle_key_pressd, &game);
+
+	texture.ptr = mlx_png_file_to_image(game.mlx, "./img/redbrick.png", &texture.width, &texture.height);
+	texture.data = (t_ui *)mlx_get_data_addr(texture.ptr, &texture.bpp, &texture.size_l, &texture.endian);
+	texture.line = texture.size_l / (texture.bpp / 8);
+
+	mlx_hook(game.win, X_KEY_PRESS, X_KEY_PRESS_MASK, handle_key_pressed, &game);
 	mlx_hook(game.win, X_KEY_RELEASE, X_KEY_RELEASE_MASK, handle_key_released,&game);
 	// mlx_hook(game.win, X_DESTROY_NOTIFY,
 	// 		 X_SUB_STRUCTURE_NOTIFY_MASK, handle_exit_window, &game);

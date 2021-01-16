@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 21:14:14 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/08 20:54:55 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/01/16 21:01:28 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,17 @@ void	color_rgba(t_uc r, t_uc g, t_uc b, float a)
 	g_color |= (r << 16);
 	g_color |= (g << 8);
 	g_color |= b;
+}
+
+int		rgba(t_uc r, t_uc g, t_uc b, float a)
+{
+	int		color;
+
+	color = 0;
+	color |= ((t_uc)(255 - a * 255) << 24);
+	color |= (r << 16);
+	color |= (g << 8);
+	color |= b;
+
+	return (color);
 }
