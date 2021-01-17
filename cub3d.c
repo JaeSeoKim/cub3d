@@ -6,192 +6,180 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 21:50:30 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/17 03:14:30 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/01/17 21:48:38 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <mlx.h>
-#include <stdio.h>
 
-#define TILE_SIZE 64
-#define MAP_SCALE 0
+# define SCALE 0.1
+# define mapWidth 24
+# define mapHeight 24
 
-t_img	texture;
-const float FOV_ANGLE = 60 * (M_PI / 180);
+int	worldMap[mapWidth * mapHeight] = {
+	4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 7, 7, 7, 7, 7, 7, 7, 7,
+	4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 7,
+	4, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7,
+	4, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7,
+	4, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 7,
+	4, 0, 4, 0, 0, 0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 7, 7, 0, 7, 7, 7, 7, 7,
+	4, 0, 5, 0, 0, 0, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 7, 0, 0, 0, 7, 7, 7, 1,
+	4, 0, 6, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 5, 7, 0, 0, 0, 0, 0, 0, 8,
+	4, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 7, 1,
+	4, 0, 8, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 5, 7, 0, 0, 0, 0, 0, 0, 8,
+	4, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 5, 7, 0, 0, 0, 7, 7, 7, 1,
+	4, 0, 0, 0, 0, 0, 0, 5, 5, 5, 5, 0, 5, 5, 5, 5, 7, 7, 7, 7, 7, 7, 7, 1,
+	6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 0, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
+	8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4,
+	6, 6, 6, 6, 6, 6, 0, 6, 6, 6, 6, 0, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
+	4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 6, 0, 6, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3,
+	4, 0, 0, 0, 0, 0, 0, 0, 0, 4, 6, 0, 6, 2, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2,
+	4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 2, 0, 0, 5, 0, 0, 2, 0, 0, 0, 2,
+	4, 0, 0, 0, 0, 0, 0, 0, 0, 4, 6, 0, 6, 2, 0, 0, 0, 0, 0, 2, 2, 0, 2, 2,
+	4, 0, 6, 0, 6, 0, 0, 0, 0, 4, 6, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 2,
+	4, 0, 0, 5, 0, 0, 0, 0, 0, 4, 6, 0, 6, 2, 0, 0, 0, 0, 0, 2, 2, 0, 2, 2,
+	4, 0, 6, 0, 6, 0, 0, 0, 0, 4, 6, 0, 6, 2, 0, 0, 5, 0, 0, 2, 0, 0, 0, 2,
+	4, 0, 0, 0, 0, 0, 0, 0, 0, 4, 6, 0, 6, 2, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2,
+	4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3};
 
-int		check_key_press(int keycode, t_ll *key);
-
-int mapx = 8, mapy = 8;
-int map[] = {
-	1,1,1,1,1,1,1,1,
-	1,0,0,0,0,0,0,1,
-	1,0,0,0,1,1,1,1,
-	1,0,0,0,0,0,0,1,
-	1,1,1,1,0,0,0,1,
-	1,0,0,0,0,0,0,1,
-	1,0,0,0,0,0,0,1,
-	1,1,1,1,1,1,1,1,
-};
-
-float	normalize_angle(float angle)
+int		load_texture(t_cub3d *g, t_img *img, char *path)
 {
-	angle = fmodf(angle, 2 * M_PI);
-	if (angle < 0)
-		angle += 2 * M_PI;
+	if (!(img->ptr = \
+		mlx_png_file_to_image(g->mlx, path, &img->width, &img->height)))
+		return (ERROR);
+	img->data = (int *)mlx_get_data_addr(\
+		img->ptr, &img->bpp, &img->size_l, &img->endian);
+	img->line = img->size_l / (img->bpp / 8);
+	return (SUCCES);
+}
+
+void	init_texture(t_cub3d *g)
+{
+	if (!(g->texture = malloc(sizeof(t_img) * 8)))
+	{
+		free(g->rays);
+		mlx_destroy_image(g->mlx, g->img.ptr);
+		mlx_destroy_window(g->mlx, g->win);
+		mlx_destroy_display(g->mlx);
+		exit(ERROR);
+	}
+	load_texture(g, &g->texture[0], "./img/barrel.png");
+	load_texture(g, &g->texture[1], "./img/bluestone.png");
+	load_texture(g, &g->texture[2], "./img/colorstone.png");
+	load_texture(g, &g->texture[3], "./img/greystone.png");
+	load_texture(g, &g->texture[4], "./img/mossy.png");
+	load_texture(g, &g->texture[5], "./img/purplestone.png");
+	load_texture(g, &g->texture[6], "./img/wood.png");
+	load_texture(g, &g->texture[7], "./img/wood.png");
+}
+
+void	init_key(t_key *key)
+{
+	key->w = 0;
+	key->a = 0;
+	key->s = 0;
+	key->d = 0;
+	key->up = 0;
+	key->down = 0;
+	key->left = 0;
+	key->right = 0;
+}
+
+void	init_player(t_player *player, int x, int y)
+{
+	player->vec.x = x;
+	player->vec.y = y;
+	player->move_s = 5.0;
+	player->rotate_s = 2 * (M_PI / 180);
+	player->angle = 45 * (M_PI / 180);
+	player->turn_d = 0;
+	player->walk_d = 0;
+}
+
+void	init_map(t_cub3d *g)
+{
+	g->map.x = mapWidth;
+	g->map.y = mapHeight;
+	g->map.data = (int *)worldMap;
+}
+
+void	init_rays(t_cub3d *g)
+{
+	g->num_rays = (g->img.width) / WALL_STRIP_WIDTH;
+
+	if (!(g->rays = malloc(sizeof(t_ray) * g->num_rays)))
+	{
+		mlx_destroy_image(g->mlx, g->img.ptr);
+		mlx_destroy_window(g->mlx, g->win);
+		mlx_destroy_display(g->mlx);
+		exit(ERROR);
+	}
+}
+
+void	init_connect(t_cub3d *g, int width, int height, char *title)
+{
+	if (!(g->mlx = mlx_init()))
+		exit(ERROR);
+	if (!(g->win = mlx_new_window(g->mlx, width, height, title)))
+	{
+		mlx_destroy_display(g->mlx);
+		exit(ERROR);
+	}
+}
+
+void	init_img(t_cub3d *g, int width, int height)
+{
+	g->img.width = width;
+	g->img.height = height;
+	if (!(g->img.ptr = mlx_new_image(g->mlx, width, height)))
+	{
+		mlx_destroy_window(g->mlx, g->win);
+		mlx_destroy_display(g->mlx);
+		exit(ERROR);
+	}
+	g->img.data = (int *)mlx_get_data_addr(
+		g->img.ptr, &g->img.bpp, &g->img.size_l, &g->img.endian);
+	g->img.line = g->img.size_l / (g->img.bpp / 8);
+}
+
+void	init(t_cub3d *g, int width, int height, char *title)
+{
+	init_connect(g, width, height, title);
+	g->fov_angle = 60 * (M_PI / 180);
+	init_img(g, width, height);
+	init_key(&g->key);
+	init_player(&g->p, width / 3, height / 2);
+	init_rays(g);
+	init_map(g);
+	init_texture(g);
+}
+
+t_vec	new_vec(float x, float y)
+{
+	t_vec	result;
+
+	result.x = x;
+	result.y = y;
+	return (result);
+}
+
+int		has_wall_at(t_cub3d *g, int x, int y)
+{
+	if (x < 0 || y < 0 || x / TILE_SIZE > g->map.x || y / TILE_SIZE > g->map.y)
+		return (1);
+	return (g->map.data[y / TILE_SIZE * g->map.y + x / TILE_SIZE]);
+}
+
+float	normal_angle(float angle)
+{
+	if ((angle = fmodf(angle, M_2PI)) < 0)
+		angle += M_2PI;
 	return (angle);
 }
 
-int		has_wall_at(t_cub3d *game, float x, float y)
+t_ray	*init_ray(t_ray *ray, float ray_angle)
 {
-	int		index;
-
-	if (x < 0 || y < 0 || x > game->width || y > game->height)
-		return (1);
-	index = (int)(y / TILE_SIZE) * mapx + (int)(x / TILE_SIZE);
-	return (map[index] == 1 ? 1 : 0);
-}
-
-void	init(t_cub3d *game, int width, int height, char *title)
-{
-	int			i;
-	t_img		*img;
-
-	img = &game->img;
-	if (!(game->mlx = mlx_init()))
-		exit(1);
-	if (!(game->win = mlx_new_window(game->mlx, width, height, title)))
-		exit(1);
-	game->width = width;
-	game->height = height;
-
-	img->ptr = mlx_new_image(game->mlx, width, height);
-	img->data = (t_ui *)mlx_get_data_addr(
-		game->img.ptr, &img->bpp, &img->size_l, &img->endian);
-	img->line = img->size_l / (img->bpp / 8);
-
-	game->player.vec.x = width / 3;
-	game->player.vec.y = height / 4;
-	game->player.move_speed = 3.0;
-	game->player.rotate_speed = 3 * (M_PI / 180);
-	game->player.angle = 45 * (M_PI / 180);
-	game->player.turn_direct = 0;
-	game->player.walk_direct = 0;
-
-	game->wall_strip_width = 1;
-	game->num_rays = (width) / game->wall_strip_width;
-	game->fov_angle = 60 * (M_PI / 180);
-
-	if (!(game->rays = malloc(sizeof(t_ray) * game->num_rays)))
-		exit(1);
-
-	i = 0;
-	while (i < 6)
-		game->key[i++] = 0;
-}
-
-int		init_img(t_cub3d *game)
-{
-	t_vec	vec;
-
-	no_stroke();
-	fill_rgba(80, 188, 233, 1);
-	vec.x = 0;
-	vec.y = 0;
-	rect(&game->img, vec, game->width, game->height / 2);
-	fill_rgba(252, 206, 177, 1);
-	vec.x = 0;
-	vec.y = game->height / 2;
-	rect(&game->img, vec, game->width, game->height / 2);
-	return (0);
-}
-
-int		render_map_2d(t_cub3d *game)
-{
-	t_vec	vec;
-	t_ui	*data;
-
-	data = game->img.data;
-
-	vec.x = 0;
-	vec.y = 0;
-	fill_rgba(50, 50, 50, 1);
-	rect(&game->img, vec, MAP_SCALE * game->width, MAP_SCALE * game->height);
-	stroke_rgba(255, 255, 255, 1);
-	fill_rgba(0, 0, 0, 1);
-	for (int i = 0; i < TILE_SIZE; i++)
-	{
-		if (map[i])
-		{
-			vec.y = MAP_SCALE * ((i / 8) * TILE_SIZE);
-			vec.x = MAP_SCALE * ((i % 8) * TILE_SIZE);
-			rect(&game->img, vec, MAP_SCALE * TILE_SIZE, MAP_SCALE * TILE_SIZE);
-		}
-	}
-	return (0);
-}
-
-int		render_player_2d(t_cub3d *game)
-{
-	int		i;
-	t_ui	*data;
-	t_vec	player;
-	t_vec	target;
-
-	data = game->img.data;
-
-	no_stroke();
-	fill_rgba(255, 255, 0, 1);
-	player.x = MAP_SCALE * game->player.vec.x;
-	player.y = MAP_SCALE * game->player.vec.y;
-	mid_point_rect(&game->img, player, MAP_SCALE * 10, MAP_SCALE * 10);
-
-	i = 0;
-	stroke_rgba(255, 0, 0, 0.1);
-	while (i < game->num_rays)
-	{
-		target.x = game->rays[i].wallhit.x * MAP_SCALE;
-		target.y = game->rays[i].wallhit.y * MAP_SCALE;
-		line(&game->img, player, target);
-		++i;
-	}
-
-	target.x = MAP_SCALE * (game->player.vec.x + cos(game->player.angle) * 20);
-	target.y = MAP_SCALE * (game->player.vec.y + sin(game->player.angle) * 20);
-	stroke_rgba(0, 255, 0, 1);
-	line(&game->img, player, target);
-	return (0);
-}
-
-void	update_player(t_cub3d *game)
-{
-	t_vec		new_vec;
-	float		move_step;
-	t_player	*p;
-	t_ll		*key;
-
-	p = &game->player;
-	key = game->key;
-	game->player.turn_direct = check_key_press(KEY_LEFT, key) ? -1 : 0;
-	game->player.turn_direct += check_key_press(KEY_RIGHT, key) ? 1 : 0;
-	game->player.walk_direct = check_key_press(KEY_UP, key) ? 1 : 0;
-	game->player.walk_direct += check_key_press(KEY_DOWN, key) ? -1 : 0;
-	game->player.angle =
-		normalize_angle(game->player.angle + \
-						game->player.turn_direct * game->player.rotate_speed);
-	move_step = game->player.walk_direct * game->player.move_speed;
-	new_vec.x = game->player.vec.x + cos(game->player.angle) * move_step;
-	new_vec.y = game->player.vec.y + sin(game->player.angle) * move_step;
-	if (!has_wall_at(game, new_vec.x , new_vec.y))
-	{
-		game->player.vec.x = new_vec.x;
-		game->player.vec.y = new_vec.y;
-	}
-}
-
-t_ray	*setup_ray(t_ray *ray, float ray_angle)
-{
-	ray->angle = normalize_angle(ray_angle);
+	ray->angle = normal_angle(ray_angle);
 	ray->vertwallhit.x = 0;
 	ray->vertwallhit.y = 0;
 	ray->distance = 0;
@@ -209,9 +197,14 @@ t_ray	*setup_ray(t_ray *ray, float ray_angle)
 	return (ray);
 }
 
-void	cast_ray_vert(t_cub3d *game, t_ray *ray, t_vec p)
+float	distance_point(t_vec a, t_vec b)
 {
-	t_vec	next;
+	return (sqrtf((b.x - a.x) * (b.x - a.x) + (b.y - a.y) * (b.y - a.y)));
+}
+
+void	cast_ray_vert(t_cub3d *g, t_ray *ray, t_vec p)
+{
+	t_vec	n;
 
 	ray->intercept.x = floor(p.x / TILE_SIZE) * TILE_SIZE;
 	ray->intercept.x += ray->right ? TILE_SIZE : 0;
@@ -220,199 +213,280 @@ void	cast_ray_vert(t_cub3d *game, t_ray *ray, t_vec p)
 	ray->step.y = TILE_SIZE * tan(ray->angle);
 	ray->step.y *= ray->up && ray->step.y > 0 ? -1 : 1;
 	ray->step.y *= ray->down && ray->step.y < 0 ? -1 : 1;
-	next = ray->intercept;
-	while (next.x >= 0 &&
-		next.x <= game->width &&
-		next.y >= 0 &&
-		next.y <= game->height)
+	n = ray->intercept;
+	while (n.x >= 0 && n.x <= g->map.x * TILE_SIZE \
+		&& n.y >= 0 && n.y <= g->map.y * TILE_SIZE)
 	{
-		if (has_wall_at(game, next.x - (ray->left ? 1 : 0), next.y))
+		if ((ray->verthit = has_wall_at(g, n.x - (ray->left ? 1 : 0), n.y)))
 		{
-			ray->verthit = 1;
-			ray->vertwallhit = next;
+			ray->vertwallhit = n;
 			break ;
 		}
 		else
 		{
-			next.x += ray->step.x;
-			next.y += ray->step.y;
+			n.x += ray->step.x;
+			n.y += ray->step.y;
 		}
 	}
 }
 
-void	cast_ray_horz(t_cub3d *game, t_ray *ray, t_vec p)
+void	cast_ray_horz(t_cub3d *g, t_ray *ray, t_vec p)
 {
-	t_vec	next;
+	t_vec	n;
 
 	ray->intercept.y = floor(p.y / TILE_SIZE) * TILE_SIZE;
 	ray->intercept.y += ray->down ? TILE_SIZE : 0;
-
 	ray->intercept.x = p.x + (ray->intercept.y - p.y) / tan(ray->angle);
 	ray->step.y = ray->up ? -TILE_SIZE : TILE_SIZE;
 	ray->step.x = TILE_SIZE / tan(ray->angle);
 	ray->step.x *= ray->left && ray->step.x > 0 ? -1 : 1;
 	ray->step.x *= ray->right && ray->step.x < 0 ? -1 : 1;
-	next = ray->intercept;
-	while (
-		next.x >= 0 &&
-		next.x <= game->width &&
-		next.y >= 0 &&
-		next.y <= game->height
-	)
+	n = ray->intercept;
+	while (n.x >= 0 && n.x <= g->map.x * TILE_SIZE \
+		&& n.y >= 0 && n.y <= g->map.y * TILE_SIZE)
 	{
-		if (has_wall_at(
-				game,
-				next.x,
-				next.y - (ray->up ? 1 : 0)
-			))
+		if ((ray->horzhit = has_wall_at(g, n.x, n.y - (ray->up ? 1 : 0))))
 		{
-			ray->horzhit = 1;
-			ray->horzwallhit = next;
+			ray->horzwallhit = n;
 			break ;
 		}
 		else
 		{
-			next.x += ray->step.x;
-			next.y += ray->step.y;
+			n.x += ray->step.x;
+			n.y += ray->step.y;
 		}
 	}
 }
 
-double	distance_point(t_vec a, t_vec b)
-{
-	return (sqrt((b.x - a.x) * (b.x - a.x) + (b.y - a.y) * (b.y - a.y)));
-}
-
-void	cast_all_rays(t_cub3d *game)
+void	cast_all_rays(t_cub3d *g)
 {
 	int		i;
 	float	ray_angle;
 	t_ray	*ray;
 
-	ray_angle = game->player.angle - game->fov_angle / 2;
+	ray_angle = g->p.angle - g->fov_angle / 2;
 	i = 0;
-	while (i < game->num_rays)
+	while (i < g->num_rays)
 	{
-		ray = setup_ray(&game->rays[i++], ray_angle);
-		cast_ray_vert(game, ray, game->player.vec);
-		cast_ray_horz(game, ray, game->player.vec);
-		ray->vertDistance = ray->verthit ? \
-			distance_point(game->player.vec, ray->vertwallhit) : __INT_MAX__;
-		ray->horzDistance = ray->horzhit ? \
-			distance_point(game->player.vec, ray->horzwallhit) : __INT_MAX__;
-		ray->wallhit = ray->vertDistance > ray->horzDistance ? \
+		ray = init_ray(&g->rays[i++], ray_angle);
+		cast_ray_vert(g, ray, g->p.vec);
+		cast_ray_horz(g, ray, g->p.vec);
+		ray->vert_d = ray->verthit ? \
+			distance_point(g->p.vec, ray->vertwallhit) : __INT_MAX__;
+		ray->horz_d = ray->horzhit ? \
+			distance_point(g->p.vec, ray->horzwallhit) : __INT_MAX__;
+		ray->wallhit = ray->vert_d > ray->horz_d ? \
 						ray->horzwallhit : ray->vertwallhit;
-		ray->distance = ray->vertDistance > ray->horzDistance ? \
-						ray->horzDistance : ray->vertDistance;
-		ray->wasHitVertical = ray->vertDistance > ray->horzDistance ? 0 : 1;
-		ray_angle += game->fov_angle / game->num_rays;
+		ray->distance = ray->vert_d > ray->horz_d ? \
+						ray->horz_d : ray->vert_d;
+		ray->was_vertical = ray->vert_d > ray->horz_d ? 0 : 1;
+		ray_angle += g->fov_angle / g->num_rays;
 	}
 }
 
-void	update(t_cub3d *game)
+void	update_player(t_cub3d *g)
 {
-	update_player(game);
-	cast_all_rays(game);
+	t_vec		new_pos;
+	float		step;
+
+	g->p.turn_d = g->key.a ? -1 : 0;
+	g->p.turn_d += g->key.d ? 1 : 0;
+	g->p.walk_d = g->key.w ? 1 : 0;
+	g->p.walk_d += g->key.s ? -1 : 0;
+	g->p.angle = normal_angle(g->p.angle + g->p.turn_d * g->p.rotate_s);
+	step = g->p.walk_d * g->p.move_s;
+	new_pos.x = g->p.vec.x + cos(g->p.angle) * step;
+	new_pos.y = g->p.vec.y + sin(g->p.angle) * step;
+	if (!has_wall_at(g, new_pos.x, new_pos.y))
+		g->p.vec = new_pos;
 }
 
-void	draw_map_ray(t_cub3d *game)
+void	update(t_cub3d *g)
+{
+	update_player(g);
+	cast_all_rays(g);
+}
+
+void	draw_ceiling(t_cub3d *g)
+{
+	t_vec	pos;
+
+	pos = new_vec(0, 0);
+	no_stroke();
+	fill_rgba(80, 188, 233, 1);
+	rect(&g->img, pos, g->img.width, g->img.height / 2);
+}
+
+void	draw_floor(t_cub3d *g)
+{
+	t_vec	pos;
+
+	pos = new_vec(0, g->img.height / 2);
+	no_stroke();
+	fill_rgba(252, 206, 177, 1);
+	rect(&g->img, pos, g->img.width, g->img.height / 2);
+}
+
+void	draw_2dmap(t_cub3d *g)
+{
+	int		i;
+	t_vec	vec;
+	t_img	*img;
+
+	img = &g->img;
+	vec = new_vec(0, 0);
+	fill_rgba(50, 50, 50, 1);
+	rect(&g->img, vec, SCALE * g->map.x * TILE_SIZE, \
+						SCALE * g->map.y * TILE_SIZE);
+	stroke_rgba(255, 255, 255, 1);
+	fill_rgba(0, 0, 0, 1);
+	i = 0;
+	while (i < g->map.x * g->map.y)
+	{
+		if (g->map.data[i] > 0)
+		{
+			vec.x = SCALE * ((i % g->map.x) * TILE_SIZE);
+			vec.y = SCALE * ((i / g->map.x) * TILE_SIZE);
+			rect(&g->img, vec, SCALE * TILE_SIZE, SCALE * TILE_SIZE);
+		}
+		++i;
+	}
+}
+
+void	draw_2dmap_player(t_cub3d *g)
+{
+	int		i;
+
+	no_stroke();
+	fill_rgba(255, 255, 0, 1);
+	mid_point_rect(&g->img, \
+		new_vec(SCALE * g->p.vec.x, SCALE * g->p.vec.y), 2, 2);
+
+	stroke_rgba(255, 0, 0, 0.1);
+	i = -1;
+	while (++i < g->num_rays)
+		line(&g->img, new_vec(SCALE * g->p.vec.x, SCALE * g->p.vec.y), \
+			new_vec(SCALE * g->rays[i].wallhit.x,\
+			SCALE * g->rays[i].wallhit.y));
+
+	stroke_rgba(0, 255, 0, 1);
+	line(&g->img, \
+		new_vec(SCALE * g->p.vec.x, SCALE * g->p.vec.y), \
+		new_vec(SCALE * (g->p.vec.x + cos(g->p.angle) * 30),\
+			SCALE * (g->p.vec.y + sin(g->p.angle) * 30)));
+}
+
+void	draw_3d_wall(t_cub3d *g)
 {
 	int		i;
 	t_vec	position;
-	t_ray	ray;
 	float	wall_dist;
 	float	distanceProjPlane;
 	float	wallStripHeight;
 
-	// no_stroke();
-	stroke_rgba(0, 255, 0, 1);
-	i = 0;
-	while (i < game->num_rays)
+	no_stroke();
+	i = -1;
+	while (++i < g->num_rays)
 	{
-		ray = game->rays[i];
-		wall_dist = ray.distance * cos(game->player.angle - ray.angle);
-		distanceProjPlane = game->width / 2 / tan(game->fov_angle / 2);
+		wall_dist = g->rays[i].distance * cos(g->p.angle - g->rays[i].angle);
+		distanceProjPlane = g->img.width / 2 / tan(g->fov_angle / 2);
 		wallStripHeight = TILE_SIZE * distanceProjPlane / wall_dist;
-		float alpha = 200 / wall_dist;
-		(alpha > 1.0 ? alpha = 1 : 0);
-		position.x = i++ * game->wall_strip_width;
-		position.y = game->height / 2 - wallStripHeight / 2;
-		fill_rgba(255, 255, 255, alpha);
-		g_fill = calc_rgba(0x000000, g_fill);
-		rect(&game->img, position, game->wall_strip_width, wallStripHeight);
-
-		int x = ray.wasHitVertical ? (int)ray.wallhit.y % TILE_SIZE * texture.width / TILE_SIZE  : (int)ray.wallhit.x % TILE_SIZE * texture.width / TILE_SIZE;
-		if (position.x < 0){
+		position.x = i * WALL_STRIP_WIDTH;
+		position.y = g->img.height / 2 - wallStripHeight / 2;
+		if (position.x < 0)
 			position.x = 0;
-		}
-		else if (position.x > 512){
-			position.x = 512;
-		}
-		if (position.y < 0){
+		else if (position.x > g->img.width)
+			position.x = g->img.width - 1;
+		if (position.y < 0)
 			position.y = 0;
-		}
-		else if (position.y > 512){
-			position.y = 512;
-		}
-		int j = 0;
-		while (++j < wallStripHeight && ++position.y < game->height)
+		else if (position.y > g->img.height)
+			position.y = g->img.height - 1;
+		int index;
+		if (g->rays[i].was_vertical)
+			index  = g->rays[i].left ? 3 : 4;
+		else
+			index  = g->rays[i].up ? 1 : 2;
+		int x = g->rays[i].was_vertical ? \
+			(int)g->rays[i].wallhit.y % TILE_SIZE * g->texture[index].width / TILE_SIZE  : \
+			(int)g->rays[i].wallhit.x % TILE_SIZE * g->texture[index].width / TILE_SIZE;
+		int	j = -1;
+		while (++j < wallStripHeight && position.y < g->img.height)
 		{
-			int texY = ((position.y) - (game->height / 2 - wallStripHeight / 2))
-				/ wallStripHeight * texture.height;
-			g_color = texture.data[texY * texture.line + x];
-			put_pixel(&game->img, position.x, (position.y));
+			int texY = ((position.y) - (g->img.height / 2 - wallStripHeight / 2))
+				/ wallStripHeight * g->texture[index].height;
+			g_color = g->texture[index].data[texY * g->texture[index].line + x];
+			put_pixel(&g->img, position.x, position.y++);
 		}
 	}
 }
 
-int		draw(t_cub3d *game)
+void	draw(t_cub3d *g)
 {
-	init_img(game);
+	draw_ceiling(g);
+	draw_floor(g);
+	draw_3d_wall(g);
+	draw_2dmap(g);
+	draw_2dmap_player(g);
+}
 
-	update(game);
-
-	draw_map_ray(game);
-	render_map_2d(game);
-	render_player_2d(game);
-	mlx_put_image_to_window(game->mlx, game->win, game->img.ptr, 0, 0);
-	mlx_do_sync(game->mlx);
+int		loop(t_cub3d *g)
+{
+	update(g);
+	draw(g);
+	mlx_put_image_to_window(g->mlx, g->win, g->img.ptr, 0, 0);
+	mlx_do_sync(g->mlx);
 	return (0);
 }
 
-int		handle_key_pressed(int keycode, t_cub3d *game)
+int		handle_exit_window(t_cub3d *g)
 {
-	game->key[keycode / 64] |= (1 << (keycode % 64));
+	free(g->rays);
+	mlx_destroy_image(g->mlx, g->img.ptr);
+	mlx_destroy_window(g->mlx, g->win);
+	mlx_destroy_display(g->mlx);
+	exit(SUCCES);
+}
+
+int		handle_key_pressed(int keycode, t_cub3d *g)
+{
+	(keycode == KEY_W ? g->key.w = 1 : 0);
+	(keycode == KEY_A ? g->key.a = 1 : 0);
+	(keycode == KEY_S ? g->key.s = 1 : 0);
+	(keycode == KEY_D ? g->key.d = 1 : 0);
+	(keycode == KEY_UP ? g->key.up = 1 : 0);
+	(keycode == KEY_DOWN ? g->key.down = 1 : 0);
+	(keycode == KEY_LEFT ? g->key.left = 1 : 0);
+	(keycode == KEY_DOWN ? g->key.down = 1 : 0);
+	if (keycode == KEY_ESC)
+		handle_exit_window(g);
 	return (0);
 }
 
-int		handle_key_released(int keycode, t_cub3d *game)
+int		handle_key_released(int keycode, t_cub3d *g)
 {
-	game->key[keycode / 64] &= ~(1 << (keycode % 64));
-	return (0);
-}
-
-int		check_key_press(int keycode, t_ll *key)
-{
-	if (key[keycode / 64] & 1 << (keycode % 64))
-		return (1);
+	(keycode == KEY_W ? g->key.w = 0 : 0);
+	(keycode == KEY_A ? g->key.a = 0 : 0);
+	(keycode == KEY_S ? g->key.s = 0 : 0);
+	(keycode == KEY_D ? g->key.d = 0 : 0);
+	(keycode == KEY_UP ? g->key.up = 0 : 0);
+	(keycode == KEY_DOWN ? g->key.down = 0 : 0);
+	(keycode == KEY_LEFT ? g->key.left = 0 : 0);
+	(keycode == KEY_DOWN ? g->key.down = 0 : 0);
+	if (keycode == KEY_ESC)
+		handle_exit_window(g);
 	return (0);
 }
 
 int		main(void)
 {
-	t_cub3d game;
+	t_cub3d		g;
 
-	init(&game, TILE_SIZE * mapx, TILE_SIZE * mapy, CUB3D_TITLE);
-
-	texture.ptr = mlx_png_file_to_image(game.mlx, "./img/redbrick.png", &texture.width, &texture.height);
-	texture.data = (t_ui *)mlx_get_data_addr(texture.ptr, &texture.bpp, &texture.size_l, &texture.endian);
-	texture.line = texture.size_l / (texture.bpp / 8);
-
-	mlx_hook(game.win, X_KEY_PRESS, X_KEY_PRESS_MASK, handle_key_pressed, &game);
-	mlx_hook(game.win, X_KEY_RELEASE, X_KEY_RELEASE_MASK, handle_key_released,&game);
-	// mlx_hook(game.win, X_DESTROY_NOTIFY,
-	// 		 X_SUB_STRUCTURE_NOTIFY_MASK, handle_exit_window, &game);
-	mlx_loop_hook(game.mlx, draw, &game);
-	mlx_loop(game.mlx);
+	init(&g, 1280, 720, CUB3D_TITLE);
+	mlx_hook(g.win, X_KEY_PRESS, X_KEY_PRESS_MASK, handle_key_pressed, &g);
+	mlx_hook(g.win, X_KEY_RELEASE, X_KEY_RELEASE_MASK, handle_key_released, &g);
+	mlx_hook(g.win, X_DESTROY_NOTIFY,
+			X_SUB_STRUCTURE_NOTIFY_MASK, handle_exit_window, &g);
+	mlx_loop_hook(g.mlx, loop, &g);
+	mlx_loop(g.mlx);
 	return (0);
 }

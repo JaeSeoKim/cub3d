@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 19:43:26 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/16 21:09:22 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/01/17 05:54:15 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 # define CUB3D_TYPE_H
 
 # include "libft.h"
-
-# define CUB3D_TITLE "jaeskim's cub3D"
 
 typedef struct	s_ivec
 {
@@ -29,11 +27,23 @@ typedef struct	s_vec
 	float		y;
 }				t_vec;
 
+typedef struct	s_key
+{
+	char		w;
+	char		a;
+	char		s;
+	char		d;
+	char		up;
+	char		down;
+	char		left;
+	char		right;
+	char		esc;
+}				t_key;
+
 typedef struct	s_img
 {
 	void		*ptr;
-	t_ui		*data;
-
+	int			*data;
 	int			width;
 	int			height;
 	int			size_l;
@@ -45,11 +55,11 @@ typedef struct	s_img
 typedef struct	s_player
 {
 	t_vec		vec;
-	int			walk_direct;
-	int			turn_direct;
+	int			walk_d;
+	int			turn_d;
 	float		angle;
-	float		move_speed;
-	float		rotate_speed;
+	float		move_s;
+	float		rotate_s;
 }				t_player;
 
 typedef struct	s_ray
@@ -61,29 +71,37 @@ typedef struct	s_ray
 	char		down;
 	char		left;
 	char		right;
-	char		wasHitVertical;
+	char		was_vertical;
 
 	t_vec		intercept;
 	t_vec		step;
+
+	char		verthit;
 	t_vec		vertwallhit;
-	int			verthit;
-	float		vertDistance;
+	float		vert_d;
+
+	char		horzhit;
 	t_vec		horzwallhit;
-	int			horzhit;
-	float		horzDistance;
+	float		horz_d;
 }				t_ray;
+
+typedef	struct	s_map
+{
+	int			*data;
+	int			x;
+	int			y;
+}				t_map;
 
 typedef struct	s_cub3d
 {
 	void		*mlx;
 	void		*win;
-	int			width;
-	int			height;
-	t_ll		key[6];
 	t_img		img;
-	t_player	player;
+	t_img		*texture;
+	t_key		key;
+	t_player	p;
+	t_map		map;
 	t_ray		*rays;
-	int			wall_strip_width;
 	int			num_rays;
 	float		fov_angle;
 }				t_cub3d;

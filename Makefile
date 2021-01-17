@@ -6,14 +6,14 @@
 #    By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/06 21:07:58 by jaeskim           #+#    #+#              #
-#    Updated: 2021/01/11 22:40:23 by jaeskim          ###   ########.fr        #
+#    Updated: 2021/01/17 20:21:42 by jaeskim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -O3 -Wall -Wextra -Werror
 
 # libft
 LIBFT = libft.a
@@ -63,6 +63,13 @@ SRCS = $(wildcard $(SRC_DIR)/*.c)
 
 vpath %.c \
 	$(SRC_DIR)
+
+ifeq ($(UNAME_S),Linux)
+endif
+ifeq ($(UNAME_S),Darwin)
+	SRCS += $(wildcard $(SRC_DIR)/dummy_mac/*.c)
+	vpath %c $(SRC_DIR)/dummy_mac
+endif
 
 OBJS = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.o)))
 
