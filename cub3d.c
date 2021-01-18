@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 21:50:30 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/17 21:48:38 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/01/18 17:22:36 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,15 @@ int		load_texture(t_cub3d *g, t_img *img, char *path)
 	if (!(img->ptr = \
 		mlx_png_file_to_image(g->mlx, path, &img->width, &img->height)))
 		return (ERROR);
-	img->data = (int *)mlx_get_data_addr(\
+	img->data = (t_color *)mlx_get_data_addr(\
 		img->ptr, &img->bpp, &img->size_l, &img->endian);
 	img->line = img->size_l / (img->bpp / 8);
 	return (SUCCES);
 }
+
+/*
+** TODO: fix init_texture
+*/
 
 void	init_texture(t_cub3d *g)
 {
@@ -63,14 +67,14 @@ void	init_texture(t_cub3d *g)
 		mlx_destroy_display(g->mlx);
 		exit(ERROR);
 	}
-	load_texture(g, &g->texture[0], "./img/barrel.png");
-	load_texture(g, &g->texture[1], "./img/bluestone.png");
-	load_texture(g, &g->texture[2], "./img/colorstone.png");
-	load_texture(g, &g->texture[3], "./img/greystone.png");
-	load_texture(g, &g->texture[4], "./img/mossy.png");
-	load_texture(g, &g->texture[5], "./img/purplestone.png");
-	load_texture(g, &g->texture[6], "./img/wood.png");
-	load_texture(g, &g->texture[7], "./img/wood.png");
+	load_texture(g, &g->texture[0], "./img/coal_ore.png");
+	load_texture(g, &g->texture[1], "./img/cobblestone.png");
+	load_texture(g, &g->texture[2], "./img/diamond_ore.png");
+	load_texture(g, &g->texture[3], "./img/dirt.png");
+	load_texture(g, &g->texture[4], "./img/emerald_ore.png");
+	load_texture(g, &g->texture[5], "./img/gold_ore.png");
+	load_texture(g, &g->texture[6], "./img/iron_ore.png");
+	load_texture(g, &g->texture[7], "./img/oxeye_daisy.png");
 }
 
 void	init_key(t_key *key)
@@ -87,8 +91,8 @@ void	init_key(t_key *key)
 
 void	init_player(t_player *player, int x, int y)
 {
-	player->vec.x = x;
-	player->vec.y = y;
+	player->pos.x = x;
+	player->pos.y = y;
 	player->move_s = 5.0;
 	player->rotate_s = 2 * (M_PI / 180);
 	player->angle = 45 * (M_PI / 180);
@@ -137,7 +141,7 @@ void	init_img(t_cub3d *g, int width, int height)
 		mlx_destroy_display(g->mlx);
 		exit(ERROR);
 	}
-	g->img.data = (int *)mlx_get_data_addr(
+	g->img.data = (t_color *)mlx_get_data_addr(
 		g->img.ptr, &g->img.bpp, &g->img.size_l, &g->img.endian);
 	g->img.line = g->img.size_l / (g->img.bpp / 8);
 }
@@ -269,12 +273,12 @@ void	cast_all_rays(t_cub3d *g)
 	while (i < g->num_rays)
 	{
 		ray = init_ray(&g->rays[i++], ray_angle);
-		cast_ray_vert(g, ray, g->p.vec);
-		cast_ray_horz(g, ray, g->p.vec);
+		cast_ray_vert(g, ray, g->p.pos);
+		cast_ray_horz(g, ray, g->p.pos);
 		ray->vert_d = ray->verthit ? \
-			distance_point(g->p.vec, ray->vertwallhit) : __INT_MAX__;
+			distance_point(g->p.pos, ray->vertwallhit) : __INT_MAX__;
 		ray->horz_d = ray->horzhit ? \
-			distance_point(g->p.vec, ray->horzwallhit) : __INT_MAX__;
+			distance_point(g->p.pos, ray->horzwallhit) : __INT_MAX__;
 		ray->wallhit = ray->vert_d > ray->horz_d ? \
 						ray->horzwallhit : ray->vertwallhit;
 		ray->distance = ray->vert_d > ray->horz_d ? \
@@ -286,19 +290,23 @@ void	cast_all_rays(t_cub3d *g)
 
 void	update_player(t_cub3d *g)
 {
-	t_vec		new_pos;
-	float		step;
+	t_vec		pos[2];
+	float		step[2];
 
 	g->p.turn_d = g->key.a ? -1 : 0;
 	g->p.turn_d += g->key.d ? 1 : 0;
 	g->p.walk_d = g->key.w ? 1 : 0;
 	g->p.walk_d += g->key.s ? -1 : 0;
 	g->p.angle = normal_angle(g->p.angle + g->p.turn_d * g->p.rotate_s);
-	step = g->p.walk_d * g->p.move_s;
-	new_pos.x = g->p.vec.x + cos(g->p.angle) * step;
-	new_pos.y = g->p.vec.y + sin(g->p.angle) * step;
-	if (!has_wall_at(g, new_pos.x, new_pos.y))
-		g->p.vec = new_pos;
+	step[0] = g->p.walk_d * g->p.move_s;
+	step[1] = g->p.walk_d * TILE_SIZE / 2;
+	pos[0].x = g->p.pos.x + cos(g->p.angle) * step[0];
+	pos[0].y = g->p.pos.y + sin(g->p.angle) * step[0];
+	pos[1].x = g->p.pos.x + cos(g->p.angle) * step[1];
+	pos[1].y = g->p.pos.y + sin(g->p.angle) * step[1];
+	if (!has_wall_at(g, pos[0].x, pos[0].y) && \
+		!has_wall_at(g, pos[1].x, pos[1].y))
+		g->p.pos = pos[0];
 }
 
 void	update(t_cub3d *g)
@@ -307,17 +315,45 @@ void	update(t_cub3d *g)
 	cast_all_rays(g);
 }
 
-void	draw_ceiling(t_cub3d *g)
+void	render_ceiling(t_cub3d *g)
 {
-	t_vec	pos;
+	// t_vec	pos;
 
-	pos = new_vec(0, 0);
-	no_stroke();
-	fill_rgba(80, 188, 233, 1);
-	rect(&g->img, pos, g->img.width, g->img.height / 2);
+	// pos = new_vec(0, 0);
+	// no_stroke();
+	// fill_rgba(80, 188, 233, 1);
+	// rect(&g->img, pos, g->img.width, g->img.height / 2);
+
+	float rayDirX0 = sin(g->p.angle - g->fov_angle / 2);
+	float rayDirY0 = cos(g->p.angle - g->fov_angle / 2);
+	float rayDirX1 = sin(g->p.angle + g->fov_angle / 2);
+	float rayDirY1 = cos(g->p.angle + g->fov_angle / 2);
+
+	for (int y = 0; y < g->img.height / 2; y++)
+	{
+		int p = y - g->img.height / 2;
+		float dist = fabs(0.5 * g->img.height / p);
+
+		float obj_x = g->p.pos.x + rayDirX0 * dist;
+		float obj_y = g->p.pos.x + rayDirY0 * dist;
+
+		float step_x = (rayDirX1 - rayDirX0) * dist / g->img.width;
+		float step_y = (rayDirY1 - rayDirY0) * dist / g->img.height;
+
+		for (int x = 0; x < g->img.width; ++x)
+		{
+			int img_x = (int)(g->texture[4].width * (obj_x - floor(obj_x)));
+			int img_y = (int)(g->texture[4].height * (obj_y - floor(obj_y)));
+
+			g_color = g->texture[4].data[img_y * g->texture[4].line + img_x];
+			put_pixel(&g->img, x, y);
+			obj_x += step_x;
+			obj_y += step_y;
+		}
+	}
 }
 
-void	draw_floor(t_cub3d *g)
+void	render_floor(t_cub3d *g)
 {
 	t_vec	pos;
 
@@ -327,7 +363,7 @@ void	draw_floor(t_cub3d *g)
 	rect(&g->img, pos, g->img.width, g->img.height / 2);
 }
 
-void	draw_2dmap(t_cub3d *g)
+void	render_2dmap(t_cub3d *g)
 {
 	int		i;
 	t_vec	vec;
@@ -353,30 +389,30 @@ void	draw_2dmap(t_cub3d *g)
 	}
 }
 
-void	draw_2dmap_player(t_cub3d *g)
+void	render_2dmap_player(t_cub3d *g)
 {
 	int		i;
 
 	no_stroke();
 	fill_rgba(255, 255, 0, 1);
 	mid_point_rect(&g->img, \
-		new_vec(SCALE * g->p.vec.x, SCALE * g->p.vec.y), 2, 2);
+		new_vec(SCALE * g->p.pos.x, SCALE * g->p.pos.y), 2, 2);
 
 	stroke_rgba(255, 0, 0, 0.1);
 	i = -1;
 	while (++i < g->num_rays)
-		line(&g->img, new_vec(SCALE * g->p.vec.x, SCALE * g->p.vec.y), \
+		line(&g->img, new_vec(SCALE * g->p.pos.x, SCALE * g->p.pos.y), \
 			new_vec(SCALE * g->rays[i].wallhit.x,\
 			SCALE * g->rays[i].wallhit.y));
 
 	stroke_rgba(0, 255, 0, 1);
 	line(&g->img, \
-		new_vec(SCALE * g->p.vec.x, SCALE * g->p.vec.y), \
-		new_vec(SCALE * (g->p.vec.x + cos(g->p.angle) * 30),\
-			SCALE * (g->p.vec.y + sin(g->p.angle) * 30)));
+		new_vec(SCALE * g->p.pos.x, SCALE * g->p.pos.y), \
+		new_vec(SCALE * (g->p.pos.x + cos(g->p.angle) * 30),\
+			SCALE * (g->p.pos.y + sin(g->p.angle) * 30)));
 }
 
-void	draw_3d_wall(t_cub3d *g)
+void	render_3d_wall(t_cub3d *g)
 {
 	int		i;
 	t_vec	position;
@@ -420,19 +456,19 @@ void	draw_3d_wall(t_cub3d *g)
 	}
 }
 
-void	draw(t_cub3d *g)
+void	render(t_cub3d *g)
 {
-	draw_ceiling(g);
-	draw_floor(g);
-	draw_3d_wall(g);
-	draw_2dmap(g);
-	draw_2dmap_player(g);
+	render_floor(g);
+	render_ceiling(g);
+	render_3d_wall(g);
+	render_2dmap(g);
+	render_2dmap_player(g);
 }
 
-int		loop(t_cub3d *g)
+int		draw(t_cub3d *g)
 {
 	update(g);
-	draw(g);
+	render(g);
 	mlx_put_image_to_window(g->mlx, g->win, g->img.ptr, 0, 0);
 	mlx_do_sync(g->mlx);
 	return (0);
@@ -486,7 +522,7 @@ int		main(void)
 	mlx_hook(g.win, X_KEY_RELEASE, X_KEY_RELEASE_MASK, handle_key_released, &g);
 	mlx_hook(g.win, X_DESTROY_NOTIFY,
 			X_SUB_STRUCTURE_NOTIFY_MASK, handle_exit_window, &g);
-	mlx_loop_hook(g.mlx, loop, &g);
+	mlx_loop_hook(g.mlx, draw, &g);
 	mlx_loop(g.mlx);
 	return (0);
 }

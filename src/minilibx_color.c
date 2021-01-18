@@ -6,24 +6,25 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 21:14:14 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/17 04:32:39 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/01/17 23:22:28 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		g_color = 0x00000000;
-int		g_stroke = 0x00000000;
-int		g_fill = 0x00000000;
-int		g_no_stroke = 0;
+t_color		g_color = (t_color)0x00000000;
+t_color		g_stroke = (t_color)0x00000000;
+t_color		g_fill = (t_color)0x00000000;
+int			g_no_stroke = 0;
 
 void	fill_rgba(t_uc r, t_uc g, t_uc b, float a)
 {
-	g_fill = 0;
-	g_fill |= ((t_uc)(255 - a * 255) << 24);
-	g_fill |= (r << 16);
-	g_fill |= (g << 8);
-	g_fill |= b;
+	if (a > 1)
+		a = 1;
+	g_fill.bit.t = 255 - a * 255;
+	g_fill.bit.r = r;
+	g_fill.bit.g = g;
+	g_fill.bit.b = b;
 }
 
 void	no_stroke(void)
@@ -33,32 +34,35 @@ void	no_stroke(void)
 
 void	stroke_rgba(t_uc r, t_uc g, t_uc b, float a)
 {
+	if (a > 1)
+		a = 1;
 	g_no_stroke = 0;
-	g_stroke = 0;
-	g_stroke |= ((t_uc)(255 - a * 255) << 24);
-	g_stroke |= (r << 16);
-	g_stroke |= (g << 8);
-	g_stroke |= b;
+	g_stroke.bit.t = 255 - a * 255;
+	g_stroke.bit.r = r;
+	g_stroke.bit.g = g;
+	g_stroke.bit.b = b;
 }
 
 void	color_rgba(t_uc r, t_uc g, t_uc b, float a)
 {
-	g_color = 0;
-	g_color |= ((t_uc)(255 - a * 255) << 24);
-	g_color |= (r << 16);
-	g_color |= (g << 8);
-	g_color |= b;
+	if (a > 1)
+		a = 1;
+	g_color.bit.t = 255 - a * 255;
+	g_color.bit.r = r;
+	g_color.bit.g = g;
+	g_color.bit.b = b;
 }
 
-int		rgba(t_uc r, t_uc g, t_uc b, float a)
+t_color	rgba(t_uc r, t_uc g, t_uc b, float a)
 {
-	int		color;
+	t_color		color;
 
-	color = 0;
-	color |= ((t_uc)(255 - a * 255) << 24);
-	color |= (r << 16);
-	color |= (g << 8);
-	color |= b;
+	if (a > 1)
+		a = 1;
+	color.bit.t = 255 - a * 255;
+	color.bit.r = r;
+	color.bit.g = g;
+	color.bit.b = b;
 
 	return (color);
 }

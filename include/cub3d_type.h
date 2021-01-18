@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 19:43:26 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/17 05:54:15 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/01/18 16:00:11 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,18 @@
 # define CUB3D_TYPE_H
 
 # include "libft.h"
+
+typedef union	u_color
+{
+	struct
+	{
+		int		b	:8;
+		int		g	:8;
+		int		r	:8;
+		int		t	:8;
+	}			bit;
+	int			i;
+}				t_color;
 
 typedef struct	s_ivec
 {
@@ -43,7 +55,7 @@ typedef struct	s_key
 typedef struct	s_img
 {
 	void		*ptr;
-	int			*data;
+	t_color		*data;
 	int			width;
 	int			height;
 	int			size_l;
@@ -54,7 +66,7 @@ typedef struct	s_img
 
 typedef struct	s_player
 {
-	t_vec		vec;
+	t_vec		pos;
 	int			walk_d;
 	int			turn_d;
 	float		angle;
