@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 21:50:30 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/18 17:22:36 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/01/19 15:15:08 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,15 @@ int	worldMap[mapWidth * mapHeight] = {
 	4, 0, 0, 0, 0, 0, 0, 0, 0, 4, 6, 0, 6, 2, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2,
 	4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3};
 
+t_vec	new_vec(float x, float y)
+{
+	t_vec	result;
+
+	result.x = x;
+	result.y = y;
+	return (result);
+}
+
 int		load_texture(t_cub3d *g, t_img *img, char *path)
 {
 	if (!(img->ptr = \
@@ -73,7 +82,7 @@ void	init_texture(t_cub3d *g)
 	load_texture(g, &g->texture[3], "./img/dirt.png");
 	load_texture(g, &g->texture[4], "./img/emerald_ore.png");
 	load_texture(g, &g->texture[5], "./img/gold_ore.png");
-	load_texture(g, &g->texture[6], "./img/iron_ore.png");
+	load_texture(g, &g->texture[6], "./img/green_concrete_powder.png");
 	load_texture(g, &g->texture[7], "./img/oxeye_daisy.png");
 }
 
@@ -95,7 +104,7 @@ void	init_player(t_player *player, int x, int y)
 	player->pos.y = y;
 	player->move_s = 5.0;
 	player->rotate_s = 2 * (M_PI / 180);
-	player->angle = 45 * (M_PI / 180);
+	player->angle = 270 * (M_PI / 180);
 	player->turn_d = 0;
 	player->walk_d = 0;
 }
@@ -149,22 +158,13 @@ void	init_img(t_cub3d *g, int width, int height)
 void	init(t_cub3d *g, int width, int height, char *title)
 {
 	init_connect(g, width, height, title);
-	g->fov_angle = 60 * (M_PI / 180);
 	init_img(g, width, height);
-	init_key(&g->key);
+	g->fov = 66 * (M_PI / 180);
 	init_player(&g->p, width / 3, height / 2);
+	init_key(&g->key);
 	init_rays(g);
 	init_map(g);
 	init_texture(g);
-}
-
-t_vec	new_vec(float x, float y)
-{
-	t_vec	result;
-
-	result.x = x;
-	result.y = y;
-	return (result);
 }
 
 int		has_wall_at(t_cub3d *g, int x, int y)
@@ -268,7 +268,7 @@ void	cast_all_rays(t_cub3d *g)
 	float	ray_angle;
 	t_ray	*ray;
 
-	ray_angle = g->p.angle - g->fov_angle / 2;
+	ray_angle = g->p.angle - g->fov / 2;
 	i = 0;
 	while (i < g->num_rays)
 	{
@@ -284,7 +284,7 @@ void	cast_all_rays(t_cub3d *g)
 		ray->distance = ray->vert_d > ray->horz_d ? \
 						ray->horz_d : ray->vert_d;
 		ray->was_vertical = ray->vert_d > ray->horz_d ? 0 : 1;
-		ray_angle += g->fov_angle / g->num_rays;
+		ray_angle += g->fov / g->num_rays;
 	}
 }
 
@@ -304,6 +304,7 @@ void	update_player(t_cub3d *g)
 	pos[0].y = g->p.pos.y + sin(g->p.angle) * step[0];
 	pos[1].x = g->p.pos.x + cos(g->p.angle) * step[1];
 	pos[1].y = g->p.pos.y + sin(g->p.angle) * step[1];
+
 	if (!has_wall_at(g, pos[0].x, pos[0].y) && \
 		!has_wall_at(g, pos[1].x, pos[1].y))
 		g->p.pos = pos[0];
@@ -317,40 +318,12 @@ void	update(t_cub3d *g)
 
 void	render_ceiling(t_cub3d *g)
 {
-	// t_vec	pos;
+	t_vec	pos;
 
-	// pos = new_vec(0, 0);
-	// no_stroke();
-	// fill_rgba(80, 188, 233, 1);
-	// rect(&g->img, pos, g->img.width, g->img.height / 2);
-
-	float rayDirX0 = sin(g->p.angle - g->fov_angle / 2);
-	float rayDirY0 = cos(g->p.angle - g->fov_angle / 2);
-	float rayDirX1 = sin(g->p.angle + g->fov_angle / 2);
-	float rayDirY1 = cos(g->p.angle + g->fov_angle / 2);
-
-	for (int y = 0; y < g->img.height / 2; y++)
-	{
-		int p = y - g->img.height / 2;
-		float dist = fabs(0.5 * g->img.height / p);
-
-		float obj_x = g->p.pos.x + rayDirX0 * dist;
-		float obj_y = g->p.pos.x + rayDirY0 * dist;
-
-		float step_x = (rayDirX1 - rayDirX0) * dist / g->img.width;
-		float step_y = (rayDirY1 - rayDirY0) * dist / g->img.height;
-
-		for (int x = 0; x < g->img.width; ++x)
-		{
-			int img_x = (int)(g->texture[4].width * (obj_x - floor(obj_x)));
-			int img_y = (int)(g->texture[4].height * (obj_y - floor(obj_y)));
-
-			g_color = g->texture[4].data[img_y * g->texture[4].line + img_x];
-			put_pixel(&g->img, x, y);
-			obj_x += step_x;
-			obj_y += step_y;
-		}
-	}
+	pos = new_vec(0, 0);
+	no_stroke();
+	fill_rgba(80, 188, 233, 1);
+	rect(&g->img, pos, g->img.width, g->img.height / 2);
 }
 
 void	render_floor(t_cub3d *g)
@@ -425,7 +398,7 @@ void	render_3d_wall(t_cub3d *g)
 	while (++i < g->num_rays)
 	{
 		wall_dist = g->rays[i].distance * cos(g->p.angle - g->rays[i].angle);
-		distanceProjPlane = g->img.width / 2 / tan(g->fov_angle / 2);
+		distanceProjPlane = g->img.width / 2 / tan(g->fov / 2);
 		wallStripHeight = TILE_SIZE * distanceProjPlane / wall_dist;
 		position.x = i * WALL_STRIP_WIDTH;
 		position.y = g->img.height / 2 - wallStripHeight / 2;

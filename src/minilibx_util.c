@@ -6,27 +6,27 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/01 00:22:18 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/17 08:22:37 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/01/19 14:44:01 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		calc_rgba(int background, int color)
+t_color		calc_rgba(t_color background, t_color color)
 {
-	int		transparent;
-	int		result;
 	float	alpha;
+	t_color	result;
 
-	if ((transparent = color >> 24 & 255) == 0)
+	if (color.bit.t == 0)
 		return (color);
-	alpha = ((255 - (transparent)) / 255.0f);
-	result = 0;
-	result |= (int)((1 - alpha) * (background >> 16 & 255) \
-				+ alpha * (color >> 16 & 255)) << 16;
-	result |= (int)((1 - alpha) * (background >> 8 & 255) \
-				+ alpha * (color >> 8 & 255)) << 8;
-	result |= (int)((1 - alpha) * (background & 255) + alpha * (color & 255));
+	alpha = ((255 - (color.bit.t)) / 255.0);
+	result.i = 0;
+	result.bit.r = ((1 - alpha) * (background.bit.r) \
+				+ alpha * (color.bit.r));
+	result.bit.g = ((1 - alpha) * (background.bit.g) \
+				+ alpha * (color.bit.g));
+	result.bit.b = ((1 - alpha) * (background.bit.b) \
+				+ alpha * (color.bit.b));
 	return (result);
 }
 
@@ -35,5 +35,5 @@ void	put_pixel(t_img *view, int x, int y)
 	int	index;
 
 	index = y * view->line + x;
-	view->data[index] = g_color;
+	view->data[index] = calc_rgba(view->data[index], g_color);
 }

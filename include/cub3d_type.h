@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 19:43:26 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/18 16:00:11 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/01/19 15:13:50 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ typedef struct	s_cub3d
 	t_map		map;
 	t_ray		*rays;
 	int			num_rays;
-	float		fov_angle;
+	float		fov;
 }				t_cub3d;
 
 #endif

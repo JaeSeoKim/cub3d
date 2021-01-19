@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 21:18:38 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/17 23:22:46 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/01/18 20:20:14 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	stroke_rgba(t_uc r, t_uc g, t_uc b, float a);
 void	color_rgba(t_uc r, t_uc g, t_uc b, float a);
 void	no_stroke(void);
 
-int		calc_rgba(int background, int color);
+t_color	calc_rgba(t_color background, t_color color);
 void	put_pixel(t_img *view, int x, int y);
 
 void	line(t_img *view, t_vec a, t_vec b);
