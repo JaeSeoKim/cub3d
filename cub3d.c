@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 21:50:30 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/19 15:15:08 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/01/19 20:47:23 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,6 @@ int	worldMap[mapWidth * mapHeight] = {
 	4, 0, 6, 0, 6, 0, 0, 0, 0, 4, 6, 0, 6, 2, 0, 0, 5, 0, 0, 2, 0, 0, 0, 2,
 	4, 0, 0, 0, 0, 0, 0, 0, 0, 4, 6, 0, 6, 2, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2,
 	4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3};
-
-t_vec	new_vec(float x, float y)
-{
-	t_vec	result;
-
-	result.x = x;
-	result.y = y;
-	return (result);
-}
 
 int		load_texture(t_cub3d *g, t_img *img, char *path)
 {

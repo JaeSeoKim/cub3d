@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 23:19:39 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/17 21:48:38 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/01/19 20:47:43 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "cub3d_type.h"
 # include "x_evnet.h"
 
+# include "cub3d_util.h"
 # include "minilibx_util.h"
 
 # ifdef __APPLE__

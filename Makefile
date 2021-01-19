@@ -6,7 +6,7 @@
 #    By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/06 21:07:58 by jaeskim           #+#    #+#              #
-#    Updated: 2021/01/18 21:26:24 by jaeskim          ###   ########.fr        #
+#    Updated: 2021/01/19 20:45:53 by jaeskim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -113,6 +113,9 @@ $(NAME) : cub3d.c $(MLX_FILE) $(LIBFT_FILE) $(HEADERS) $(OBJS)
 	@$(CC) $(CDEBUG) $(CFLAGS) $(CINCLUDES) $(OBJS) cub3d.c -o $(NAME) $(LIBFT_FLAGS) $(MLX_FLAGS)
 	@printf "$(LF)🎉 $(FG_TEXT)Successfully Created $(FG_TEXT_PRIMARY)$@ $(FG_TEXT)!\n$(NO_COLOR)"
 
+test : $(NAME)
+	@./cub3D
+
 # Libft
 $(LIBFT) : $(LIBFT_FILE)
 
@@ -140,6 +143,6 @@ $(MLX)_clean :
 	@make --no-print-directory -C $(MLX_DIR) clean
 	@$(MLX_RM)
 
-.PHONY: all clean fclean re \
+.PHONY: all clean fclean re test\
 	$(LIBFT) $(LIBFT)_clean $(LIBFT)_fclean \
 	$(MLX) $(MLX)_clean
