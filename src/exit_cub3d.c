@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   key_mac.h                                          :+:      :+:    :+:   */
+/*   exit_cub3d.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/07 02:01:56 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/26 13:38:08 by jaeskim          ###   ########.fr       */
+/*   Created: 2021/01/26 17:28:36 by jaeskim           #+#    #+#             */
+/*   Updated: 2021/01/26 17:54:06 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef KEY_MAC_H
-# define KEY_MAC_H
+#include "cub3d.h"
 
-# define KEY_W		13
-# define KEY_A		0
-# define KEY_S		1
-# define KEY_D		2
-# define KEY_ESC	53
-# define KEY_UP		126
-# define KEY_DOWN	125
-# define KEY_LEFT	123
-# define KEY_RIGHT	124
-
-# endif
+// TODO: 종료시 FREE 처리 필요!
+void	exit_cub3d(t_cub3d *g, int code)
+{
+	exit(code);
+}

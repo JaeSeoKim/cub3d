@@ -5,15 +5,27 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/05 19:43:26 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/19 15:13:50 by jaeskim          ###   ########.fr       */
+/*   Created: 2021/01/26 13:39:01 by jaeskim           #+#    #+#             */
+/*   Updated: 2021/01/26 15:50:39 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_TYPE_H
 # define CUB3D_TYPE_H
 
-# include "libft.h"
+# include "cub3d.h"
+
+typedef struct	s_vec
+{
+	float		x;
+	float		y;
+}				t_vec;
+
+typedef struct	s_ivec
+{
+	int			x;
+	int			y;
+}				t_ivec;
 
 typedef union	u_color
 {
@@ -27,29 +39,17 @@ typedef union	u_color
 	int			i;
 }				t_color;
 
-typedef struct	s_ivec
-{
-	int			x;
-	int			y;
-}				t_ivec;
-
-typedef struct	s_vec
-{
-	float		x;
-	float		y;
-}				t_vec;
-
 typedef struct	s_key
 {
-	char		w;
-	char		a;
-	char		s;
-	char		d;
-	char		up;
-	char		down;
-	char		left;
-	char		right;
-	char		esc;
+	char		w		:1;
+	char		a		:1;
+	char		s		:1;
+	char		d		:1;
+	char		up		:1;
+	char		down	:1;
+	char		left	:1;
+	char		right	:1;
+	char		esc		:1;
 }				t_key;
 
 typedef struct	s_img
@@ -64,58 +64,42 @@ typedef struct	s_img
 	int			endian;
 }				t_img;
 
-typedef struct	s_player
-{
-	t_vec		pos;
-	int			walk_d;
-	int			turn_d;
-	float		angle;
-	float		move_s;
-	float		rotate_s;
-}				t_player;
-
 typedef struct	s_ray
 {
+	t_vec		hit;
+	t_vec		dir;
+	t_ivec		map;
 	float		angle;
-	float		distance;
-	t_vec		wallhit;
-	char		up;
-	char		down;
-	char		left;
-	char		right;
-	char		was_vertical;
-
-	t_vec		intercept;
-	t_vec		step;
-
-	char		verthit;
-	t_vec		vertwallhit;
-	float		vert_d;
-
-	char		horzhit;
-	t_vec		horzwallhit;
-	float		horz_d;
+	float		dist;
+	char		side;
+	char		cp;
 }				t_ray;
 
-typedef	struct	s_map
+typedef struct	s_map
 {
-	int			*data;
-	int			x;
-	int			y;
+	char		*data;
+	int			width;
+	int			height;
 }				t_map;
 
 typedef struct	s_cub3d
 {
 	void		*mlx;
 	void		*win;
-	t_img		img;
-	t_img		*texture;
+	t_img		v;
+
 	t_key		key;
-	t_player	p;
-	t_map		map;
-	t_ray		*rays;
+
+	t_img		tex[7];
+
 	int			num_rays;
+	t_ray		*rays;
+
+	t_map		map;
+
 	float		fov;
+	float		angle;
+	t_vec		pos;
 }				t_cub3d;
 
 #endif

@@ -6,7 +6,7 @@
 #    By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/06 21:07:58 by jaeskim           #+#    #+#              #
-#    Updated: 2021/01/19 20:45:53 by jaeskim          ###   ########.fr        #
+#    Updated: 2021/01/26 16:30:52 by jaeskim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,16 +59,22 @@ OBJ_DIR = obj
 
 HEADERS = $(wildcard $(INC_DIR)/*.h)
 
-SRCS = $(wildcard $(SRC_DIR)/*.c)
+MINILIBX_DIR = $(SRC_DIR)/minilibx_tool
+MINILIBX_SRCS = $(wildcard $(MINILIBX_DIR)/*.c)
+
+SRCS = \
+	$(wildcard $(SRC_DIR)/*.c) \
+	$(MINILIBX_SRCS)
 
 vpath %.c \
-	$(SRC_DIR)
+	$(SRC_DIR) \
+	$(MINILIBX_DIR)
 
 ifeq ($(UNAME_S),Linux)
 endif
 ifeq ($(UNAME_S),Darwin)
 	SRCS += $(wildcard $(SRC_DIR)/dummy_mac/*.c)
-	vpath %c $(SRC_DIR)/dummy_mac
+	vpath %.c $(SRC_DIR)/dummy_mac
 endif
 
 OBJS = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.o)))
@@ -110,7 +116,7 @@ $(OBJ_DIR)/%.o : %.c
 $(NAME) : cub3d.c $(MLX_FILE) $(LIBFT_FILE) $(HEADERS) $(OBJS)
 	@printf "$(LF)🚀 $(FG_TEXT)Successfully Created $(FG_TEXT_PRIMARY)$(NAME)'s Object files $(FG_TEXT)!"
 	@printf "$(CRLF)📚 $(FG_TEXT)Create $(FG_TEXT_PRIMARY)cub3D$(FG_TEXT)!\n"
-	@$(CC) $(CDEBUG) $(CFLAGS) $(CINCLUDES) $(OBJS) cub3d.c -o $(NAME) $(LIBFT_FLAGS) $(MLX_FLAGS)
+	@$(CC) $(CDEBUG) $(CFLAGS) $(CINCLUDES) $(OBJS) -o $(NAME) $(LIBFT_FLAGS) $(MLX_FLAGS)
 	@printf "$(LF)🎉 $(FG_TEXT)Successfully Created $(FG_TEXT_PRIMARY)$@ $(FG_TEXT)!\n$(NO_COLOR)"
 
 test : $(NAME)
