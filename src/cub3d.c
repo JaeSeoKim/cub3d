@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 21:50:30 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/26 18:02:08 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/01/26 21:42:33 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		main(void)
 {
 	t_cub3d		g;
 
-	init(&g, 1280, 720, CUB3D_TITLE);
+	init(&g, 720, 480, CUB3D_TITLE);
 	mlx_hook(g.win, X_KEY_PRESS, X_KEY_PRESS_MASK, handle_key_pressed, &g);
 	mlx_hook(g.win, X_KEY_RELEASE, X_KEY_RELEASE_MASK, handle_key_released, &g);
 	mlx_hook(g.win, X_DESTROY_NOTIFY,

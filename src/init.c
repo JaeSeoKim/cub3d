@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 21:25:17 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/26 18:16:14 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/01/26 22:01:33 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static void	init_player(t_cub3d *g, t_vec pos)
 	g->fov = FOV * M_PI_180;
 	g->pos = pos;
 	g->dir = new_vec(-1, 0);
-	g->plane = rot_vec(g->dir, 270 * M_PI_180);
+	g->plane = rot_vec(g->dir, 90 * M_PI_180);
 	g->plane.x *= tan(g->fov / 2);
 	g->plane.y *= tan(g->fov / 2);
 }
@@ -95,7 +95,7 @@ void		init(t_cub3d *g, int width, int height, char *title)
 {
 	ft_memset(g, 0, sizeof(t_cub3d));
 	init_window(g, width, height, title);
-	init_player(g, new_vec(11, 5));
+	init_player(g, new_vec(1.5, 1.5));
 	g->num_rays = g->v.width / WALL_STRIP_WIDTH;
 	if (!(g->rays = malloc(sizeof(t_ray) * g->num_rays)))
 		exit_cub3d(g, ERROR);

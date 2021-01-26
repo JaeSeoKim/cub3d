@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:57:51 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/26 18:16:17 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/01/26 21:58:36 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int		handle_exit_window(t_cub3d *g)
 
 int		handle_loop(t_cub3d *g)
 {
+	g_color = rgba(0, 0, 0, 1);
+	rect(&g->v, new_vec(0, 0), g->v.width, g->v.height);
 	update(g);
 	render(g);
 	mlx_put_image_to_window(g->mlx, g->win, g->v.ptr, 0, 0);
