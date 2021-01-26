@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:26:11 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/26 17:54:03 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/01/26 18:16:15 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 
 void	render(t_cub3d *g)
 {
-
+	if (g)
+		printf("%f %f\n", g->pos.x, g->pos.y);
 }

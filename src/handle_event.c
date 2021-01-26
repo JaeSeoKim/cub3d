@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:57:51 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/26 17:54:05 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/01/26 18:16:17 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		handle_key_pressed(int keycode, t_cub3d *g)
 	(keycode == KEY_LEFT ? g->key.left = 1 : 0);
 	(keycode == KEY_DOWN ? g->key.down = 1 : 0);
 	if (keycode == KEY_ESC)
-		exit_free(g, SUCCES);
+		exit_cub3d(g, SUCCES);
 	return (0);
 }
 
@@ -40,13 +40,9 @@ int		handle_key_released(int keycode, t_cub3d *g)
 	return (0);
 }
 
-/*
-** TODO: 작업 종료시에 대해서 처리 필요!
-*/
-
 int		handle_exit_window(t_cub3d *g)
 {
-	exit_free(g, SUCCES);
+	exit_cub3d(g, SUCCES);
 	return (0);
 }
 

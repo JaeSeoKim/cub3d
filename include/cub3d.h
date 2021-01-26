@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 23:19:39 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/26 17:32:25 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/01/26 18:16:43 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <math.h>
 # include "libft.h"
 # include "cub3d_type.h"
-# include "x_evnet.h"
+# include "x_event.h"
 
 # include "cub3d_util.h"
 # include "minilibx_tool.h"
@@ -35,7 +35,7 @@
 # define WALL_STRIP_WIDTH 1
 # define TILE 64
 # define FOV 66
-# define WALK_S 5
+# define WALK_S 0.05
 # define TURN_S 1
 
 # define NO 0

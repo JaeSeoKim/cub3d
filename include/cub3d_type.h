@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:39:01 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/26 15:50:39 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/01/26 18:08:47 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,8 @@ typedef struct	s_cub3d
 	t_map		map;
 
 	float		fov;
-	float		angle;
+	t_vec		dir;
+	t_vec		plane;
 	t_vec		pos;
 }				t_cub3d;
 
