@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 21:25:17 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/28 21:13:23 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/01/28 23:04:56 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,5 +103,7 @@ void		init(t_cub3d *g, int width, int height, char *title)
 	g->map.width = mapWidth;
 	g->map.height = mapHeight;
 	g->map.data = (char *)worldMap;
+	g->ceiling = rgba(75, 173, 220, 1);
+	g->floor = rgba(167, 217, 107, 1);
 	init_texture(g);
 }

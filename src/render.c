@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:26:11 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/28 21:46:36 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/01/28 23:02:43 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	render_wall_texture(t_cub3d *g, t_ray *ray, t_vec pos, int wall_h)
 	}
 }
 
-void		render_wall(t_cub3d *g)
+static void	render_wall(t_cub3d *g)
 {
 	int		i;
 	int		wall_h;
@@ -56,7 +56,11 @@ void		render_wall(t_cub3d *g)
 	}
 }
 
-void	render(t_cub3d *g)
+void		render(t_cub3d *g)
 {
+	g_color = g->ceiling;
+	rect(&g->v, new_vec(0, 0), g->v.width, g->v.height / 2);
+	g_color = g->floor;
+	rect(&g->v, new_vec(0, g->v.height / 2), g->v.width, g->v.height / 2);
 	render_wall(g);
 }
