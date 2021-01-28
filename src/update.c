@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:26:06 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/26 21:59:49 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/01/28 21:46:12 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ static void	cast_ray(t_cub3d *g, t_ray *ray)
 static void	cast_all_rays(t_cub3d *g)
 {
 	int		i;
+	int		tex_i;
 	float	camera_x;
 
 	i = -1;
@@ -80,9 +81,12 @@ static void	cast_all_rays(t_cub3d *g)
 		g->rays[i].dir.x = g->dir.x + g->plane.x * camera_x;
 		g->rays[i].dir.y = g->dir.y + g->plane.y * camera_x;
 		g->rays[i].map = new_ivec(g->pos.x, g->pos.y);
-		g->rays[i].cp |= g->rays[i].dir.x < 0 ? 1 << NO : 1 << SO;
-		g->rays[i].cp |= g->rays[i].dir.y < 0 ? 1 << WE : 1 << EA;
 		cast_ray(g, &g->rays[i]);
+		if (g->rays[i].side)
+			tex_i = g->rays[i].dir.y < 0 ? NO : SO;
+		else
+			tex_i = g->rays[i].dir.x < 0 ? EA : WE;
+		g->rays[i].tex = &g->tex[tex_i];
 	}
 }
 

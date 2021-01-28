@@ -6,7 +6,7 @@
 #    By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/06 21:07:58 by jaeskim           #+#    #+#              #
-#    Updated: 2021/01/26 16:30:52 by jaeskim          ###   ########.fr        #
+#    Updated: 2021/01/28 20:55:49 by jaeskim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -102,9 +102,11 @@ clean :
 	@$(RM) $(RMFLAGS) $(OBJS) $(OBJS_BONUS)
 	@printf "$(LF)🧹 $(FG_TEXT)Cleaning $(FG_TEXT_PRIMARY)$(NAME)'s Object files...\n"
 
-fclean : clean $(LIBFT)_fclean $(MLX)_clean
+fclean : clean
 	@$(RM) $(RMFLAGS) $(NAME)
 	@printf "$(LF)🧹 $(FG_TEXT)Cleaning $(FG_TEXT_PRIMARY)$(NAME)\n"
+
+lib_clean : $(LIBFT)_fclean $(MLX)_clean
 
 re : fclean all
 
@@ -151,4 +153,4 @@ $(MLX)_clean :
 
 .PHONY: all clean fclean re test\
 	$(LIBFT) $(LIBFT)_clean $(LIBFT)_fclean \
-	$(MLX) $(MLX)_clean
+	$(MLX) $(MLX)_clean lib_clean

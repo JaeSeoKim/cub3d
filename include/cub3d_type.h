@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:39:01 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/26 21:45:24 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/01/28 21:39:54 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ typedef struct	s_ray
 	t_ivec		map;
 	float		dist;
 	char		side;
-	char		cp;
+	t_img		*tex;
 }				t_ray;
 
 typedef struct	s_map
@@ -96,6 +96,7 @@ typedef struct	s_cub3d
 	t_map		map;
 
 	float		fov;
+	float		fov_h;
 	t_vec		dir;
 	t_vec		plane;
 	t_vec		pos;

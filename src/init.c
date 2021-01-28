@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 21:25:17 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/26 22:01:33 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/01/28 21:13:23 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,9 @@ static void	init_window(t_cub3d *g, int width, int height, char *title)
 static void	init_player(t_cub3d *g, t_vec pos)
 {
 	g->fov = FOV * M_PI_180;
+	g->fov_h = g->v.width / 2 / tan(g->fov / 2);
 	g->pos = pos;
-	g->dir = new_vec(-1, 0);
+	g->dir = new_vec(1, 0);
 	g->plane = rot_vec(g->dir, 90 * M_PI_180);
 	g->plane.x *= tan(g->fov / 2);
 	g->plane.y *= tan(g->fov / 2);
