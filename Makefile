@@ -6,7 +6,7 @@
 #    By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/06 21:07:58 by jaeskim           #+#    #+#              #
-#    Updated: 2021/01/28 20:55:49 by jaeskim          ###   ########.fr        #
+#    Updated: 2021/01/31 00:28:52 by jaeskim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ NAME = cub3D
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
+# -g3 -fsanitize=address
 
 # libft
 LIBFT = libft.a
@@ -110,8 +111,10 @@ lib_clean : $(LIBFT)_fclean $(MLX)_clean
 
 re : fclean all
 
-$(OBJ_DIR)/%.o : %.c
-	@mkdir -p $(OBJ_DIR)
+$(OBJ_DIR) :
+	@mkdir $(OBJ_DIR)
+
+$(OBJ_DIR)/%.o : %.c | $(OBJ_DIR)
 	@$(CC) $(CDEBUG) $(CFLAGS) $(CINCLUDES) -c $< -o $@
 	@printf "$(LF)🚧 $(FG_TEXT)Create $(FG_TEXT_PRIMARY)$@ $(FG_TEXT)from $(FG_TEXT_PRIMARY)$<"
 

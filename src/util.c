@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:21:25 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/26 18:16:18 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/01/31 00:28:53 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,4 @@ t_vec	rot_vec(t_vec v, float angle)
 	result.x = rotate.x * v.x - rotate.y * v.y;
 	result.y = rotate.y * v.x + rotate.x * v.y;
 	return (result);
-}
-
-float	normal_angle(float angle)
-{
-	if ((angle = fmodf(angle, M_2PI)) < 0)
-		angle += M_2PI;
-	return (angle);
 }

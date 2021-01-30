@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 23:19:39 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/28 21:09:45 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/01/31 00:21:18 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,10 @@
 # define WALK_S 0.25
 # define TURN_S 1.5
 
+#define U_DIV 1
+#define V_DIV 1
+#define V_MOVE 0.1
+
 # define NO 0
 # define SO 1
 # define WE 2
@@ -63,7 +67,10 @@ int		handle_exit_window(t_cub3d *g);
 int		handle_loop(t_cub3d *g);
 
 void	update(t_cub3d *g);
+void	update_sprite(t_cub3d *g);
+
 void	render(t_cub3d *g);
+void	render_sprite(t_cub3d *g);
 
 void	exit_cub3d(t_cub3d *g, int code);
 

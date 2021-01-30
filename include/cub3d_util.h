@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:32:35 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/26 15:00:04 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/01/29 21:18:40 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,5 @@
 t_vec	new_vec(float x, float y);
 t_ivec	new_ivec(int x, int y);
 t_vec	rot_vec(t_vec v, float angle);
-
-float	normal_angle(float angle);
 
 #endif

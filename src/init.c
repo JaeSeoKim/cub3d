@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 21:25:17 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/28 23:04:56 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/01/31 00:18:14 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	worldMap[mapWidth * mapHeight] = {
 	4, 0, 0, 0, 0, 0, 0, 0, 0, 4, 6, 0, 6, 2, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2,
 	4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3};
 
-int		load_texture(t_cub3d *g, t_img *img, char *path)
+static int		load_texture(t_cub3d *g, t_img *img, char *path)
 {
 	if (!(img->ptr = \
 		mlx_xpm_file_to_image(g->mlx, path, &img->width, &img->height)))
@@ -80,16 +80,33 @@ static void	init_player(t_cub3d *g, t_vec pos)
 
 static void	init_texture(t_cub3d *g)
 {
-	(load_texture(g, &g->tex[0], "./img/wall_n.xpm") ? exit_cub3d(g, ERROR) : 0);
-	(load_texture(g, &g->tex[1], "./img/wall_s.xpm") ? exit_cub3d(g, ERROR) : 0);
-	(load_texture(g, &g->tex[2], "./img/wall_e.xpm") ? exit_cub3d(g, ERROR) : 0);
-	(load_texture(g, &g->tex[3], "./img/wall_w.xpm") ? exit_cub3d(g, ERROR) : 0);
+	(load_texture(g, &g->tex[NO], "./img/wall_n.xpm") ? exit_cub3d(g, ERROR) : 0);
+	(load_texture(g, &g->tex[SO], "./img/wall_s.xpm") ? exit_cub3d(g, ERROR) : 0);
+	(load_texture(g, &g->tex[EA], "./img/wall_e.xpm") ? exit_cub3d(g, ERROR) : 0);
+	(load_texture(g, &g->tex[WE], "./img/wall_w.xpm") ? exit_cub3d(g, ERROR) : 0);
+	(load_texture(g, &g->tex[S], "./img/sprite_squirtle.xpm") ? exit_cub3d(g, ERROR) : 0);
 
-	// TODO: FLOOR, CELING, SPRITE Texture 추가 필요!
-	// (!load_texture(g, &g->tex[4], "./img/") ? exit_cub3d(g, ERROR) : 0);
+	// TODO: FLOOR, CELINGTexture 추가 필요!
 	// (!load_texture(g, &g->tex[5], "./img/") ? exit_cub3d(g, ERROR) : 0);
 	// (!load_texture(g, &g->tex[6], "./img/") ? exit_cub3d(g, ERROR) : 0);
 	// (!load_texture(g, &g->tex[7], "./img/") ? exit_cub3d(g, ERROR) : 0);
+}
+
+static void	init_sprite(t_cub3d *g)
+{
+	int		i;
+
+	// TODO: Map Parsing 하여 Sprite 정보 추가 필요.
+	g->num_sp = 10;
+	g->sp = malloc(sizeof(t_sprite) * g->num_sp);
+	g->sp_order = malloc(sizeof(int) * g->num_sp);
+	g->sp_dist = malloc(sizeof(float) * g->num_sp);
+	i = -1;
+	while (++i < g->num_sp)
+	{
+		g->sp[i].pos = new_vec(6.5 + i, 2.5 + i);
+		g->sp[i].tex = &g->tex[S];
+	}
 }
 
 void		init(t_cub3d *g, int width, int height, char *title)
@@ -106,4 +123,5 @@ void		init(t_cub3d *g, int width, int height, char *title)
 	g->ceiling = rgba(75, 173, 220, 1);
 	g->floor = rgba(167, 217, 107, 1);
 	init_texture(g);
+	init_sprite(g);
 }

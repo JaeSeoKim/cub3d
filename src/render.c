@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:26:11 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/28 23:02:43 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/01/30 23:21:31 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,12 @@
 
 static void	render_wall_texture(t_cub3d *g, t_ray *ray, t_vec pos, int wall_h)
 {
-	int		i;
 	int		y;
+	t_ivec	iv;
 	float	step;
 	t_vec	tex_p;
 
-	tex_p.x = ray->side ? \
-		g->pos.x + ray->dist * ray->dir.x :
+	tex_p.x = ray->side ? g->pos.x + ray->dist * ray->dir.x :
 		g->pos.y + ray->dist * ray->dir.y;
 	tex_p.x = (int)((tex_p.x - floor(tex_p.x)) * ray->tex->width);
 	if ((!ray->side && ray->dir.x < 0) || (ray->side && ray->dir.y > 0))
@@ -29,14 +28,16 @@ static void	render_wall_texture(t_cub3d *g, t_ray *ray, t_vec pos, int wall_h)
 	(pos.y < 0 ? (pos.y = 0) : 0);
 	tex_p.y = (pos.y - g->v.height / 2 + wall_h / 2) * step;
 	(wall_h > g->v.height ? (wall_h = g->v.height - 1) : 0);
-	i = 0;
-	while (i < wall_h)
+	iv.y = 0;
+	while (iv.y < wall_h)
 	{
 		y = ((int)tex_p.y & ray->tex->height - 1);
 		g_color = ray->tex->data[y * ray->tex->line + (int)tex_p.x];
-		put_pixel(&g->v, pos.x, pos.y + i);
+		iv.x = 0;
+		while (iv.x < WALL_STRIP_WIDTH)
+			put_pixel(&g->v, pos.x + iv.x++, pos.y + iv.y);
 		tex_p.y += step;
-		i++;
+		iv.y++;
 	}
 }
 
@@ -63,4 +64,5 @@ void		render(t_cub3d *g)
 	g_color = g->floor;
 	rect(&g->v, new_vec(0, g->v.height / 2), g->v.width, g->v.height / 2);
 	render_wall(g);
+	render_sprite(g);
 }

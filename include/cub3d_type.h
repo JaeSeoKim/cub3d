@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:39:01 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/28 22:57:01 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/01/31 00:26:47 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ typedef union	u_color
 {
 	struct
 	{
-		int		b	:8;
-		int		g	:8;
-		int		r	:8;
-		int		t	:8;
+		t_ui	b	:8;
+		t_ui	g	:8;
+		t_ui	r	:8;
+		t_ui	t	:8;
 	}			bit;
 	int			i;
 }				t_color;
@@ -80,6 +80,13 @@ typedef struct	s_map
 	int			height;
 }				t_map;
 
+typedef struct	s_sprite
+{
+	t_vec		pos;
+	t_vec		trans;
+	t_img		*tex;
+}				t_sprite;
+
 typedef struct	s_cub3d
 {
 	void		*mlx;
@@ -92,6 +99,11 @@ typedef struct	s_cub3d
 
 	int			num_rays;
 	t_ray		*rays;
+
+	int			num_sp;
+	t_sprite	*sp;
+	int			*sp_order;
+	float		*sp_dist;
 
 	t_map		map;
 

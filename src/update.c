@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:26:06 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/28 22:54:07 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/01/30 21:47:47 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static void	cast_all_rays(t_cub3d *g)
 		g->rays[i].map = new_ivec(g->pos.x, g->pos.y);
 		cast_ray(g, &g->rays[i]);
 		if (g->rays[i].side)
-			tex_i = g->rays[i].dir.y < 0 ? NO : SO;
+			tex_i = g->rays[i].dir.y < 0 ? SO : NO;
 		else
 			tex_i = g->rays[i].dir.x < 0 ? EA : WE;
 		g->rays[i].tex = &g->tex[tex_i];
@@ -94,4 +94,5 @@ void		update(t_cub3d *g)
 {
 	update_player(g);
 	cast_all_rays(g);
+	update_sprite(g);
 }
