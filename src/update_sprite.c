@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 20:54:49 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/31 00:27:32 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/01 21:41:47 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,7 @@ void		update_sprite(t_cub3d *g)
 			(g->pos.x - g->sp[i].pos.x) * (g->pos.x - g->sp[i].pos.x)
 			+ (g->pos.y - g->sp[i].pos.y) * (g->pos.y - g->sp[i].pos.y);
 	}
-	sort_sprite(g);
-	i = -1;
+	((i = -1) == -1 ? sort_sprite(g) : 0);
 	while (++i < g->num_sp)
 	{
 		sp = &g->sp[g->sp_order[i]];

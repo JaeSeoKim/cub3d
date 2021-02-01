@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 20:18:54 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/31 00:29:10 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/01 21:41:43 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,27 +24,23 @@ void		render_sprite_tex(
 	t_ivec	end;
 
 	start.x = -size.x / 2 + move.x;
-	(start.x < 0 ? start.x = 0 : 0);
 	end.x = size.x / 2 + move.x;
-	(end.x > g->v.width ? end.x = g->v.width - 1 : 0);
-
 	start.y = -size.y / 2 + g->v.height / 2;
-	(start.y < 0 ? start.y = 0 : 0);
 	end.y = size.y / 2 + g->v.height / 2;
-	(end.y > g->v.height ? end.y = g->v.height - 1 : 0);
+	normalise_ipos(g, &start);
+	normalise_ipos(g, &end);
 	iv.x = start.x - 1;
 	while (++iv.x < end.x)
 	{
-		tex.x = (int)(256 * (iv.x - (-size.x / 2 + move.x)) * sp->tex->width / size.x) / 256;
+		tex.x = ((iv.x - (-size.x / 2 + move.x)) * sp->tex->width / size.x);
 		iv.y = (sp->trans.y > 0 && iv.x > 0 && iv.x < g->v.width && sp->trans.y
-			< g->rays[iv.x].dist ? start.y - 1 : end.y + 1);
+			< g->rays[iv.x].dist ? start.y - 1 : end.y);
 		while (++iv.y < end.y)
 		{
 			tex.y = (iv.y - move.y) * 256 - g->v.height * 128 + size.y * 128;
 			tex.y = ((tex.y * sp->tex->height) / size.y) / 256;
 			g_color = sp->tex->data[sp->tex->line * tex.y + tex.x];
-			if (g_color.bit.t != 255)
-				put_pixel(&g->v, iv.x, iv.y);
+			(g_color.bit.t != 255 ? put_pixel(&g->v, iv.x, iv.y) : 0);
 		}
 	}
 }

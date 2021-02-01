@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 21:14:14 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/26 21:32:38 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/01 16:48:09 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,5 @@ t_color	rgba(t_uc r, t_uc g, t_uc b, float a)
 	color.bit.r = r;
 	color.bit.g = g;
 	color.bit.b = b;
-
 	return (color);
 }

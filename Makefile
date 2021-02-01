@@ -6,7 +6,7 @@
 #    By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/06 21:07:58 by jaeskim           #+#    #+#              #
-#    Updated: 2021/01/31 00:28:52 by jaeskim          ###   ########.fr        #
+#    Updated: 2021/02/01 21:43:03 by jaeskim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ NAME = cub3D
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-# -g3 -fsanitize=address
+# CFLAGS := -o3
+# CFLAGS := -g3 -fsanitize=address
 
 # libft
 LIBFT = libft.a
@@ -34,7 +35,7 @@ ifeq ($(UNAME_S),Linux)
 	MLX_SUBMODULE = git submodule update --init
 	MLX = libmlx.a
 	MLX_DIR = lib/minilibx-linux
-	MLX_FLAGS = -L./$(MLX_DIR) -lmlx -lXext -lX11
+	MLX_FLAGS = -L./$(MLX_DIR) -lmlx -lXext -lX11 -lm
 	MLX_NOTIC = @printf "✅ $(FG_TEXT_PRIMARY)If you having trouble building minilibx library, \
 	try installing the package below.\n\
 	$(FG_TEXT)$(CL_BOLD)gcc make xorg libxext-dev libbsd-dev$(NO_COLOR)\n"

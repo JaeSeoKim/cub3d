@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 23:19:39 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/31 00:21:18 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/01 16:48:11 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@
 # define TILE 64
 # define FOV 66
 # define WALK_S 0.25
-# define TURN_S 1.5
+# define TURN_S 2
 
 #define U_DIV 1
 #define V_DIV 1
-#define V_MOVE 0.1
+#define V_MOVE 0.0
 
 # define NO 0
 # define SO 1

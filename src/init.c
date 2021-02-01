@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 21:25:17 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/31 00:18:14 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/01 21:41:50 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static void	init_sprite(t_cub3d *g)
 	int		i;
 
 	// TODO: Map Parsing 하여 Sprite 정보 추가 필요.
-	g->num_sp = 10;
+	g->num_sp = 1;
 	g->sp = malloc(sizeof(t_sprite) * g->num_sp);
 	g->sp_order = malloc(sizeof(int) * g->num_sp);
 	g->sp_dist = malloc(sizeof(float) * g->num_sp);

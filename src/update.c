@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:26:06 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/30 21:47:47 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/01 16:48:10 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,8 @@ static void	update_player(t_cub3d *g)
 	turn_dir += g->key.d ? 1 : 0;
 	walk_dir = g->key.w ? 1 : 0;
 	walk_dir += g->key.s ? -1 : 0;
-
 	g->dir = rot_vec(g->dir, turn_dir * TURN_S * M_PI_180);
 	g->plane = rot_vec(g->plane, turn_dir * TURN_S * M_PI_180);
-
 	if (walk_dir != 0)
 	{
 		new_pos.x = g->pos.x + g->dir.x * (walk_dir * WALK_S);
