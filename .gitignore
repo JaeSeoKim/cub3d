@@ -14,7 +14,7 @@
 
 # Linker output
 *.ilk
-*.map
+# *.map // cub3d map file
 *.exp
 
 # Precompiled Headers
