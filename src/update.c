@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:26:06 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/01 16:48:10 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/08 23:11:47 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,9 @@ static void	update_player(t_cub3d *g)
 	{
 		new_pos.x = g->pos.x + g->dir.x * (walk_dir * WALK_S);
 		new_pos.y = g->pos.y + g->dir.y * (walk_dir * WALK_S);
-		if (!g->map.data[
-			(int)g->pos.y * g->map.width + (int)new_pos.x])
+		if (g->map.data[(int)g->pos.y][(int)new_pos.x] != '1')
 			g->pos.x = new_pos.x;
-		if (!g->map.data[
-			(int)new_pos.y * g->map.width + (int)g->pos.x])
+		if (g->map.data[(int)new_pos.y][(int)g->pos.x] != '1')
 			g->pos.y = new_pos.y;
 	}
 }
@@ -58,7 +56,7 @@ static void	cast_ray(t_cub3d *g, t_ray *ray)
 			((side_d.x += delta_d.x) || 1 ? (ray->map.x += step.x) : 0);
 		else if ((ray->side = 1))
 			((side_d.y += delta_d.y) || 1 ? (ray->map.y += step.y) : 0);
-		(g->map.data[ray->map.y * g->map.width + ray->map.x] > 0 ? hit = 1 : 0);
+		(g->map.data[ray->map.y][ray->map.x] == '1' ? hit = 1 : 0);
 	}
 	ray->dist = (ray->side ?
 		(ray->map.y - g->pos.y + (1 - step.y) / 2) / ray->dir.y :
@@ -81,7 +79,7 @@ static void	cast_all_rays(t_cub3d *g)
 		g->rays[i].map = new_ivec(g->pos.x, g->pos.y);
 		cast_ray(g, &g->rays[i]);
 		if (g->rays[i].side)
-			tex_i = g->rays[i].dir.y < 0 ? SO : NO;
+			tex_i = g->rays[i].dir.y < 0 ? NO : SO;
 		else
 			tex_i = g->rays[i].dir.x < 0 ? EA : WE;
 		g->rays[i].tex = &g->tex[tex_i];

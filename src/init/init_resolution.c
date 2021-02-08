@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 16:00:01 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/08 17:34:49 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/08 18:57:14 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	itoa(t_cub3d *g, char *word)
 		--len;
 	}
 	if (len != 0)
-		exit_cub3d_msg(g, "Parsing Error Resolution");
+		exit_cub3d_msg(g, "parsing error resolution");
 	return (n);
 }
 

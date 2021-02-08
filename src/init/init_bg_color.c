@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 18:01:27 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/08 18:08:41 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/08 23:07:04 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	itoa(t_cub3d *g, char *word)
 		--len;
 	}
 	if (len != 0)
-		exit_cub3d_msg(g, "Parsing Error background color");
+		exit_cub3d_msg(g, "parsing error background color");
 	return (n);
 }
 

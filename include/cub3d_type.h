@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:39:01 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/08 18:03:13 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/08 21:38:08 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,9 @@ typedef struct	s_ray
 
 typedef struct	s_map
 {
-	char		*data;
-	int			width;
-	int			height;
+	char		**data;
+	int			w;
+	int			h;
 }				t_map;
 
 typedef struct	s_sprite

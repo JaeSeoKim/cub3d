@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 15:25:30 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/08 18:32:14 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/08 23:08:42 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ static int		extention_check(char *path)
 
 	if ((len = ft_strlen(path)) < 4)
 		return (ERROR);
-	if (path[len - 1] == 'p' && path[len - 2] == 'a' \
-		&& path[len - 3] == 'm' && path[len - 4] == '.')
+	if (path[len - 1] == 'b' && path[len - 2] == 'u' \
+		&& path[len - 3] == 'c' && path[len - 4] == '.')
 		return (SUCCES);
 	return (ERROR);
 }
@@ -77,12 +77,15 @@ void			init_parse(t_cub3d *g, char *path)
 	char	*line;
 
 	if (extention_check(path))
-		exit_cub3d_msg(g, "invaild file extension. (require .map)");
+		exit_cub3d_msg(g, "invaild file extension. (.cub)");
 	if ((fd = open(path, O_RDONLY)) == -1)
 		exit_cub3d_msg(g, "file open fail...");
-	while ((g_parse_check != 0xFF) && (check = get_next_line(fd, &line)) > 0)
+	while ((g_parse_check != 0xFF) && (check = get_next_line(fd, &line)) >= 0)
 		check_parse_type(g, line);
-	if (check == -1)
-		exit_cub3d_msg(g, "file read error");
+	if (check < 0)
+		exit_cub3d_msg(g, !check ? "invaild map file" : "file read error");
+	while ((check = get_next_line(fd, &line)) > 0 && !ft_strlen(line))
+		free(line);
+	init_map(g, fd, line, &check);
 	close(fd);
 }
