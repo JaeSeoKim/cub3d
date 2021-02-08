@@ -6,7 +6,7 @@
 #    By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/06 21:07:58 by jaeskim           #+#    #+#              #
-#    Updated: 2021/02/01 21:43:03 by jaeskim          ###   ########.fr        #
+#    Updated: 2021/02/08 14:57:13 by jaeskim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,16 +61,21 @@ OBJ_DIR = obj
 
 HEADERS = $(wildcard $(INC_DIR)/*.h)
 
-MINILIBX_DIR = $(SRC_DIR)/minilibx_tool
-MINILIBX_SRCS = $(wildcard $(MINILIBX_DIR)/*.c)
+MINILIBX_TOOL_DIR = $(SRC_DIR)/minilibx_tool
+MINILIBX_TOOL_SRCS = $(wildcard $(MINILIBX_TOOL_DIR)/*.c)
+
+INIT_DIR = $(SRC_DIR)/init
+INIT_SRCS = $(wildcard $(INIT_DIR)/*.c)
 
 SRCS = \
 	$(wildcard $(SRC_DIR)/*.c) \
-	$(MINILIBX_SRCS)
+	$(MINILIBX_TOOL_SRCS) \
+	$(INIT_SRCS)
 
 vpath %.c \
 	$(SRC_DIR) \
-	$(MINILIBX_DIR)
+	$(MINILIBX_TOOL_DIR) \
+	$(INIT_DIR)
 
 ifeq ($(UNAME_S),Linux)
 endif

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   ft_split_cnt.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/27 01:02:02 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/08 15:51:03 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/08 15:52:09 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void		ft_free_arr(char **s, int i)
 ** ft_split - split a string
 */
 
-char			**ft_split(char const *s, char c)
+char			**ft_split_cnt(char const *s, char c, int *cnt)
 {
 	char	**result;
 	size_t	count;
@@ -76,5 +76,6 @@ char			**ft_split(char const *s, char c)
 		i++;
 	}
 	result[count] = 0;
+	(*cnt) = count;
 	return (result);
 }

@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:26:11 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/01 21:41:44 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/08 18:12:41 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ static void	render_wall(t_cub3d *g)
 
 void		render(t_cub3d *g)
 {
-	g_color = g->ceiling;
+	g_color = g->bg_color[C - F];
 	rect(&g->v, new_vec(0, 0), g->v.width, g->v.height / 2);
-	g_color = g->floor;
+	g_color = g->bg_color[F - F];
 	rect(&g->v, new_vec(0, g->v.height / 2), g->v.width, g->v.height / 2);
 	render_wall(g);
 	render_sprite(g);

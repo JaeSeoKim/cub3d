@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 21:25:17 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/01 21:41:50 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/08 18:24:02 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,26 +41,12 @@ char	worldMap[mapWidth * mapHeight] = {
 	4, 0, 0, 0, 0, 0, 0, 0, 0, 4, 6, 0, 6, 2, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2,
 	4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3};
 
-static int		load_texture(t_cub3d *g, t_img *img, char *path)
+static void	init_window(t_cub3d *g)
 {
-	if (!(img->ptr = \
-		mlx_xpm_file_to_image(g->mlx, path, &img->width, &img->height)))
-		return (ERROR);
-	img->data = (t_color *)mlx_get_data_addr(\
-		img->ptr, &img->bpp, &img->size_l, &img->endian);
-	img->line = img->size_l / (img->bpp / 8);
-	return (SUCCES);
-}
-
-static void	init_window(t_cub3d *g, int width, int height, char *title)
-{
-	if (!(g->mlx = mlx_init()))
-		exit(ERROR);
-	if (!(g->win = mlx_new_window(g->mlx, width, height, title)))
+	if (!(g->win =
+		mlx_new_window(g->mlx, g->v.width, g->v.height, CUB3D_TITLE)))
 		exit_cub3d(g, ERROR);
-	g->v.width = width;
-	g->v.height = height;
-	if (!(g->v.ptr = mlx_new_image(g->mlx, width, height)))
+	if (!(g->v.ptr = mlx_new_image(g->mlx, g->v.width, g->v.height)))
 		exit_cub3d(g, ERROR);
 	g->v.data = (t_color *)mlx_get_data_addr(
 		g->v.ptr, &g->v.bpp, &g->v.size_l, &g->v.endian);
@@ -78,26 +64,12 @@ static void	init_player(t_cub3d *g, t_vec pos)
 	g->plane.y *= tan(g->fov / 2);
 }
 
-static void	init_texture(t_cub3d *g)
-{
-	(load_texture(g, &g->tex[NO], "./img/wall_n.xpm") ? exit_cub3d(g, ERROR) : 0);
-	(load_texture(g, &g->tex[SO], "./img/wall_s.xpm") ? exit_cub3d(g, ERROR) : 0);
-	(load_texture(g, &g->tex[EA], "./img/wall_e.xpm") ? exit_cub3d(g, ERROR) : 0);
-	(load_texture(g, &g->tex[WE], "./img/wall_w.xpm") ? exit_cub3d(g, ERROR) : 0);
-	(load_texture(g, &g->tex[S], "./img/sprite_squirtle.xpm") ? exit_cub3d(g, ERROR) : 0);
-
-	// TODO: FLOOR, CELINGTexture 추가 필요!
-	// (!load_texture(g, &g->tex[5], "./img/") ? exit_cub3d(g, ERROR) : 0);
-	// (!load_texture(g, &g->tex[6], "./img/") ? exit_cub3d(g, ERROR) : 0);
-	// (!load_texture(g, &g->tex[7], "./img/") ? exit_cub3d(g, ERROR) : 0);
-}
-
 static void	init_sprite(t_cub3d *g)
 {
 	int		i;
 
 	// TODO: Map Parsing 하여 Sprite 정보 추가 필요.
-	g->num_sp = 1;
+	g->num_sp = 10;
 	g->sp = malloc(sizeof(t_sprite) * g->num_sp);
 	g->sp_order = malloc(sizeof(int) * g->num_sp);
 	g->sp_dist = malloc(sizeof(float) * g->num_sp);
@@ -109,10 +81,13 @@ static void	init_sprite(t_cub3d *g)
 	}
 }
 
-void		init(t_cub3d *g, int width, int height, char *title)
+void		init(t_cub3d *g, char *path)
 {
 	ft_memset(g, 0, sizeof(t_cub3d));
-	init_window(g, width, height, title);
+	(!(g->mlx = mlx_init()) ? exit_cub3d_msg(g, "fail mlx_init()") : 0);
+	mlx_get_screen_size(g->mlx, &g->v.width, &g->v.height);
+	init_parse(g, path);
+	init_window(g);
 	init_player(g, new_vec(1.5, 1.5));
 	g->num_rays = g->v.width / WALL_STRIP_WIDTH;
 	if (!(g->rays = malloc(sizeof(t_ray) * g->num_rays)))
@@ -120,8 +95,5 @@ void		init(t_cub3d *g, int width, int height, char *title)
 	g->map.width = mapWidth;
 	g->map.height = mapHeight;
 	g->map.data = (char *)worldMap;
-	g->ceiling = rgba(75, 173, 220, 1);
-	g->floor = rgba(167, 217, 107, 1);
-	init_texture(g);
 	init_sprite(g);
 }

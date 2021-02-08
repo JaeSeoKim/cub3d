@@ -6,7 +6,7 @@
 #    By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/24 20:10:49 by jaeskim           #+#    #+#              #
-#    Updated: 2021/01/17 20:21:09 by jaeskim          ###   ########.fr        #
+#    Updated: 2021/02/08 16:08:52 by jaeskim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,6 +84,7 @@ SRC_STRING = $(addprefix $(SRC_STRING_DIR)/, \
 	ft_atoi.c	\
 	ft_itoa.c	\
 	ft_split.c	\
+	ft_split_cnt.c \
 	ft_strchr.c	\
 	ft_strdup.c	\
 	ft_strjoin.c	\
@@ -91,6 +92,7 @@ SRC_STRING = $(addprefix $(SRC_STRING_DIR)/, \
 	ft_strlcpy.c	\
 	ft_strlen.c	\
 	ft_strmapi.c	\
+	ft_strcmp.c	\
 	ft_strncmp.c	\
 	ft_strndup.c	\
 	ft_strnstr.c	\

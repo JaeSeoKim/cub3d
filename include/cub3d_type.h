@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:39:01 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/31 00:26:47 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/08 18:03:13 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,7 @@ typedef struct	s_cub3d
 
 	t_map		map;
 
-	t_color		floor;
-	t_color		ceiling;
+	t_color		bg_color[2];
 
 	float		fov;
 	float		fov_h;
