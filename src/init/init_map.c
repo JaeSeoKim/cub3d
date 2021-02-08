@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 18:53:47 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/08 23:12:58 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/09 00:35:37 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,21 +88,8 @@ void		init_map(t_cub3d *g, int fd, char *line, int *check)
 	{
 		check_map(g, new_ivec(i % g->map.w, i / g->map.w));
 		if (ft_strchr("NSWE", g->map.data[i / g->map.w][i % g->map.w]))
-		{
-			if (flag)
-				exit_cub3d_msg(g, "invaild map file");
-			g->pos = new_vec(i % g->map.w, i / g->map.w);
-			if (g->map.data[i / g->map.w][i % g->map.w] == 'N')
-				g->dir = new_vec(0, -1);
-			else if (g->map.data[i / g->map.w][i % g->map.w] == 'S')
-				g->dir = new_vec(0, 1);
-			else if (g->map.data[i / g->map.w][i % g->map.w] == 'W')
-				g->dir = new_vec(-1, 0);
-			else if (g->map.data[i / g->map.w][i % g->map.w] == 'E')
-				g->dir = new_vec(1, 0);
-			flag = 1;
-		}
+			init_player(g, new_vec(i % g->map.w, i / g->map.w), &flag);
 	}
-	for (i = 0; i < g->map.h; i++)
-		printf("%s\n", g->map.data[i]);
+	if (!flag)
+		exit_cub3d_msg(g, "parsing player postion error");
 }

@@ -6,19 +6,20 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 21:50:30 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/08 23:04:07 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/09 00:39:01 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// int		main(int ac, char **av)
-int		main(void)
+int		main(int ac, char **av)
 {
 	t_cub3d		g;
 
-	// init(&g, av[ac - 1]);
-	init(&g, "./map/test.cub");
+	ft_memset(&g, 0, sizeof(t_cub3d));
+	if (ac < 2)
+		exit_cub3d_msg(&g, "require map file path");
+	init(&g, av[1]);
 	mlx_hook(g.win, X_KEY_PRESS, X_KEY_PRESS_MASK, handle_key_pressed, &g);
 	mlx_hook(g.win, X_KEY_RELEASE, X_KEY_RELEASE_MASK, handle_key_released, &g);
 	mlx_hook(g.win, X_DESTROY_NOTIFY,

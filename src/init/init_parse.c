@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 15:25:30 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/08 23:08:42 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/09 00:25:27 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,6 @@ void			init_parse(t_cub3d *g, char *path)
 	while ((check = get_next_line(fd, &line)) > 0 && !ft_strlen(line))
 		free(line);
 	init_map(g, fd, line, &check);
+	init_sprite(g);
 	close(fd);
 }

@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 18:01:27 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/08 23:07:04 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/09 00:35:38 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,15 @@ static int	itoa(t_cub3d *g, char *word)
 	int		n;
 
 	n = 0;
-	len = ft_strlen(word);
+	if (!(len = ft_strlen(word)))
+		exit_cub3d_msg(g, "parsing error background color");
 	while (len > 0 && ft_strchr("0123456789", *word))
 	{
 		n *= 10;
 		n += *word++ - '0';
 		--len;
 	}
-	if (len != 0)
+	if (len != 0 || n > 256)
 		exit_cub3d_msg(g, "parsing error background color");
 	return (n);
 }
