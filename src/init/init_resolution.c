@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 16:00:01 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/08 18:57:14 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/15 22:57:07 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void		init_resolution(t_cub3d *g, char **split)
 	g_parse_check |= 1 << R;
 	resolution.x = itoa(g, split[0]);
 	resolution.y = itoa(g, split[1]);
-
 	if (resolution.x < g->v.width)
 		g->v.width = resolution.x;
 	if (resolution.y < g->v.height)

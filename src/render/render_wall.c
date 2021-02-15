@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.c                                           :+:      :+:    :+:   */
+/*   render_wall.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/26 17:26:11 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/08 18:12:41 by jaeskim          ###   ########.fr       */
+/*   Created: 2021/02/15 22:41:26 by jaeskim           #+#    #+#             */
+/*   Updated: 2021/02/15 22:41:40 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	render_wall_texture(t_cub3d *g, t_ray *ray, t_vec pos, int wall_h)
 	}
 }
 
-static void	render_wall(t_cub3d *g)
+void		render_wall(t_cub3d *g)
 {
 	int		i;
 	int		wall_h;
@@ -55,14 +55,4 @@ static void	render_wall(t_cub3d *g)
 		pos.y = g->v.height / 2 - wall_h / 2;
 		render_wall_texture(g, &g->rays[i], pos, wall_h);
 	}
-}
-
-void		render(t_cub3d *g)
-{
-	g_color = g->bg_color[C - F];
-	rect(&g->v, new_vec(0, 0), g->v.width, g->v.height / 2);
-	g_color = g->bg_color[F - F];
-	rect(&g->v, new_vec(0, g->v.height / 2), g->v.width, g->v.height / 2);
-	render_wall(g);
-	render_sprite(g);
 }

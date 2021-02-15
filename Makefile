@@ -6,7 +6,7 @@
 #    By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/06 21:07:58 by jaeskim           #+#    #+#              #
-#    Updated: 2021/02/09 00:39:02 by jaeskim          ###   ########.fr        #
+#    Updated: 2021/02/15 22:57:08 by jaeskim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,6 @@ NAME = cub3D
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-# CFLAGS := -o3
-# CFLAGS := -g3 -fsanitize=address
 
 # libft
 LIBFT = libft.a
@@ -61,21 +59,32 @@ OBJ_DIR = obj
 
 HEADERS = $(wildcard $(INC_DIR)/*.h)
 
-MINILIBX_TOOL_DIR = $(SRC_DIR)/minilibx_tool
-MINILIBX_TOOL_SRCS = $(wildcard $(MINILIBX_TOOL_DIR)/*.c)
+UTIL_DIR = $(SRC_DIR)/util
+UTIL_SRCS = $(wildcard $(UTIL_DIR)/*.c)
 
 INIT_DIR = $(SRC_DIR)/init
 INIT_SRCS = $(wildcard $(INIT_DIR)/*.c)
 
+RENDER_DIR = $(SRC_DIR)/render
+RENDER_SRCS = $(wildcard $(RENDER_DIR)/*.c)
+
+UPDATE_DIR = $(SRC_DIR)/update
+UPDATE_SRCS = $(wildcard $(UPDATE_DIR)/*.c)
+
 SRCS = \
 	$(wildcard $(SRC_DIR)/*.c) \
-	$(MINILIBX_TOOL_SRCS) \
-	$(INIT_SRCS)
+	$(UTIL_SRCS) \
+	$(INIT_SRCS)	\
+	${RENDER_SRCS} \
+	${UPDATE_SRCS}
 
 vpath %.c \
 	$(SRC_DIR) \
-	$(MINILIBX_TOOL_DIR) \
-	$(INIT_DIR)
+	$(UTIL_DIR) \
+	$(INIT_DIR)	\
+	${RENDER_DIR} \
+	${UPDATE_DIR}
+
 
 ifeq ($(UNAME_S),Linux)
 endif
@@ -129,9 +138,6 @@ $(NAME) : cub3d.c $(MLX_FILE) $(LIBFT_FILE) $(HEADERS) $(OBJS)
 	@printf "$(CRLF)📚 $(FG_TEXT)Create $(FG_TEXT_PRIMARY)cub3D$(FG_TEXT)!\n"
 	@$(CC) $(CDEBUG) $(CFLAGS) $(CINCLUDES) $(OBJS) -o $(NAME) $(LIBFT_FLAGS) $(MLX_FLAGS)
 	@printf "$(LF)🎉 $(FG_TEXT)Successfully Created $(FG_TEXT_PRIMARY)$@ $(FG_TEXT)!\n$(NO_COLOR)"
-
-test : $(NAME)
-	@./cub3D
 
 # Libft
 $(LIBFT) : $(LIBFT_FILE)

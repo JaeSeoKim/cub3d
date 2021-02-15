@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 23:19:39 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/08 17:28:25 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/15 22:33:36 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,12 @@
 # include <fcntl.h>
 # include "libft.h"
 # include "x_event.h"
-# include "cub3d_type.h"
-# include "cub3d_init.h"
 
+# include "cub3d_type.h"
 # include "cub3d_util.h"
-# include "minilibx_tool.h"
+# include "cub3d_init.h"
+# include "cub3d_update.h"
+# include "cub3d_render.h"
 
 # ifdef __APPLE__
 #  include "key_mac.h"
@@ -57,12 +58,6 @@ int		handle_key_pressed(int keycode, t_cub3d *g);
 int		handle_key_released(int keycode, t_cub3d *g);
 int		handle_exit_window(t_cub3d *g);
 int		handle_loop(t_cub3d *g);
-
-void	update(t_cub3d *g);
-void	update_sprite(t_cub3d *g);
-
-void	render(t_cub3d *g);
-void	render_sprite(t_cub3d *g);
 
 void	exit_cub3d(t_cub3d *g, int code);
 void	exit_cub3d_msg(t_cub3d *g, char *msg);

@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 21:50:30 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/09 00:39:01 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/15 22:42:08 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		main(int ac, char **av)
 
 	ft_memset(&g, 0, sizeof(t_cub3d));
 	if (ac < 2)
-		exit_cub3d_msg(&g, "require map file path");
+		exit_cub3d_msg(&g, "require map file");
 	init(&g, av[1]);
 	mlx_hook(g.win, X_KEY_PRESS, X_KEY_PRESS_MASK, handle_key_pressed, &g);
 	mlx_hook(g.win, X_KEY_RELEASE, X_KEY_RELEASE_MASK, handle_key_released, &g);

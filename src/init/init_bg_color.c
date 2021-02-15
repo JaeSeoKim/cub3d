@@ -6,13 +6,13 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 18:01:27 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/09 00:35:38 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/15 22:57:06 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void		ft_free_arr(char **s, int i)
+static void	ft_free_arr(char **s, int i)
 {
 	while (i--)
 		free(s[i]);
@@ -46,7 +46,6 @@ void		init_bg_color(t_cub3d *g, char *line, int bg_i)
 	if (((g_parse_check >> bg_i) & 1) == 1)
 		exit_cub3d_msg(g, "invaild map file");
 	g_parse_check |= 1 << bg_i;
-
 	if (!(split = ft_split_cnt(line, ',', &word_cnt)) && word_cnt != 3)
 		exit_cub3d_msg(g, word_cnt != 3 ? "invaild map file" : "malloc failed");
 	g->bg_color[bg_i - F].i = 0;

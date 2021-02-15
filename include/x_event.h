@@ -6,10 +6,9 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 23:21:24 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/26 19:44:00 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/15 22:57:03 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef X_EVENT_H
 # define X_EVENT_H
@@ -23,9 +22,9 @@
 #  define X_KEY_RELEASE_MASK 0
 #  define X_SUB_STRUCTURE_NOTIFY_MASK 0
 # else
-#  define X_KEY_PRESS_MASK 1L<<0
-#  define X_KEY_RELEASE_MASK 1L<<1
-#  define X_SUB_STRUCTURE_NOTIFY_MASK 1L<<19
+#  define X_KEY_PRESS_MASK 1
+#  define X_KEY_RELEASE_MASK 2
+#  define X_SUB_STRUCTURE_NOTIFY_MASK 524288
 # endif
 
 #endif

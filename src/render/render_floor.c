@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   key_linux.h                                        :+:      :+:    :+:   */
+/*   render_floor.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/07 02:01:56 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/15 22:57:05 by jaeskim          ###   ########.fr       */
+/*   Created: 2021/02/15 22:38:28 by jaeskim           #+#    #+#             */
+/*   Updated: 2021/02/15 22:42:07 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef KEY_LINUX_H
-# define KEY_LINUX_H
+#include "cub3d.h"
 
-# define KEY_W		119
-# define KEY_A		97
-# define KEY_S		115
-# define KEY_D		100
-# define KEY_ESC	65307
-# define KEY_UP		65362
-# define KEY_DOWN	65364
-# define KEY_LEFT	65361
-# define KEY_RIGHT	65363
-
-#endif
+void	render_floor(t_cub3d *g)
+{
+	g_color = g->bg_color[F - F];
+	rect(&g->v, new_vec(0, 0), g->v.width, g->v.height / 2);
+}

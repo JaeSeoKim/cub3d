@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:01:56 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/01/26 13:38:08 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/15 22:54:48 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,4 @@
 # define KEY_LEFT	123
 # define KEY_RIGHT	124
 
-# endif
+#endif

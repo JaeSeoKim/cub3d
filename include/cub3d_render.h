@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   key_linux.h                                        :+:      :+:    :+:   */
+/*   cub3d_render.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/07 02:01:56 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/15 22:57:05 by jaeskim          ###   ########.fr       */
+/*   Created: 2021/02/15 22:10:06 by jaeskim           #+#    #+#             */
+/*   Updated: 2021/02/15 22:42:06 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef KEY_LINUX_H
-# define KEY_LINUX_H
+#ifndef CUB3D_RENDER_H
+# define CUB3D_RENDER_H
 
-# define KEY_W		119
-# define KEY_A		97
-# define KEY_S		115
-# define KEY_D		100
-# define KEY_ESC	65307
-# define KEY_UP		65362
-# define KEY_DOWN	65364
-# define KEY_LEFT	65361
-# define KEY_RIGHT	65363
+# include "cub3d.h"
+
+void	render(t_cub3d *g);
+void	render_floor(t_cub3d *g);
+void	render_ceiling(t_cub3d *g);
+void	render_wall(t_cub3d *g);
+void	render_sprite(t_cub3d *g);
 
 #endif

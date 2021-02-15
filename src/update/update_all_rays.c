@@ -1,39 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   update.c                                           :+:      :+:    :+:   */
+/*   update_all_rays.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/26 17:26:06 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/08 23:11:47 by jaeskim          ###   ########.fr       */
+/*   Created: 2021/02/15 22:36:49 by jaeskim           #+#    #+#             */
+/*   Updated: 2021/02/15 22:37:11 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-static void	update_player(t_cub3d *g)
-{
-	int		walk_dir;
-	int		turn_dir;
-	t_vec	new_pos;
-
-	turn_dir = g->key.a ? -1 : 0;
-	turn_dir += g->key.d ? 1 : 0;
-	walk_dir = g->key.w ? 1 : 0;
-	walk_dir += g->key.s ? -1 : 0;
-	g->dir = rot_vec(g->dir, turn_dir * TURN_S * M_PI_180);
-	g->plane = rot_vec(g->plane, turn_dir * TURN_S * M_PI_180);
-	if (walk_dir != 0)
-	{
-		new_pos.x = g->pos.x + g->dir.x * (walk_dir * WALK_S);
-		new_pos.y = g->pos.y + g->dir.y * (walk_dir * WALK_S);
-		if (g->map.data[(int)g->pos.y][(int)new_pos.x] != '1')
-			g->pos.x = new_pos.x;
-		if (g->map.data[(int)new_pos.y][(int)g->pos.x] != '1')
-			g->pos.y = new_pos.y;
-	}
-}
 
 static void	cast_ray(t_cub3d *g, t_ray *ray)
 {
@@ -63,7 +40,7 @@ static void	cast_ray(t_cub3d *g, t_ray *ray)
 		(ray->map.x - g->pos.x + (1 - step.x) / 2) / ray->dir.x);
 }
 
-static void	cast_all_rays(t_cub3d *g)
+void		update_all_rays(t_cub3d *g)
 {
 	int		i;
 	int		tex_i;
@@ -84,11 +61,4 @@ static void	cast_all_rays(t_cub3d *g)
 			tex_i = g->rays[i].dir.x < 0 ? EA : WE;
 		g->rays[i].tex = &g->tex[tex_i];
 	}
-}
-
-void		update(t_cub3d *g)
-{
-	update_player(g);
-	cast_all_rays(g);
-	update_sprite(g);
 }
