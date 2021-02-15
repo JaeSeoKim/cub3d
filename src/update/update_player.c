@@ -6,13 +6,13 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 22:35:34 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/16 00:13:06 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/16 00:14:03 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void update_player(t_cub3d *g)
+void	update_player(t_cub3d *g)
 {
 	int		turn_dir;
 	t_ivec	walk_dir;
