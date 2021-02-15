@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 20:18:54 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/15 22:57:09 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/15 23:10:12 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void		render_sprite_tex(
 	{
 		tex.x = ((iv.x - (-size.x / 2 + move.x)) * sp->tex->width / size.x);
 		iv.y = (sp->trans.y > 0 && iv.x > 0 && iv.x < g->v.width && sp->trans.y
-			< g->rays[iv.x].dist ? start.y - 1 : end.y);
+			< g->rays[iv.x / WALL_STRIP_WIDTH].dist ? start.y - 1 : end.y);
 		while (++iv.y < end.y)
 		{
 			tex.y = (iv.y - move.y) * 256 - g->v.height * 128 + size.y * 128;

@@ -1,4 +1,4 @@
-R 1280 720
+R 480 360
 NO ./img/wall_n.xpm
 SO ./img/wall_s.xpm
 WE ./img/wall_e.xpm

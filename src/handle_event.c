@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:57:51 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/09 00:39:01 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/15 23:52:19 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		handle_key_pressed(int keycode, t_cub3d *g)
 	(keycode == KEY_UP ? g->key.up = 1 : 0);
 	(keycode == KEY_DOWN ? g->key.down = 1 : 0);
 	(keycode == KEY_LEFT ? g->key.left = 1 : 0);
-	(keycode == KEY_DOWN ? g->key.down = 1 : 0);
+	(keycode == KEY_RIGHT ? g->key.right = 1 : 0);
 	if (keycode == KEY_ESC)
 		exit_cub3d(g, SUCCES);
 	return (0);
@@ -36,7 +36,7 @@ int		handle_key_released(int keycode, t_cub3d *g)
 	(keycode == KEY_UP ? g->key.up = 0 : 0);
 	(keycode == KEY_DOWN ? g->key.down = 0 : 0);
 	(keycode == KEY_LEFT ? g->key.left = 0 : 0);
-	(keycode == KEY_DOWN ? g->key.down = 0 : 0);
+	(keycode == KEY_RIGHT ? g->key.right = 0 : 0);
 	return (0);
 }
 
