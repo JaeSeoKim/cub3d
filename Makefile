@@ -6,7 +6,7 @@
 #    By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/06 21:07:58 by jaeskim           #+#    #+#              #
-#    Updated: 2021/02/15 22:57:08 by jaeskim          ###   ########.fr        #
+#    Updated: 2021/02/16 17:13:55 by jaeskim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,19 +57,35 @@ CFLAGS += -I $(INC_DIR)
 SRC_DIR = src
 OBJ_DIR = obj
 
+SRC_BONUS_DIR = src_bonus
+
 HEADERS = $(wildcard $(INC_DIR)/*.h)
+BONUS_HEADERS = $(wildcard $(INC_BONUS_DIR)/*.h)
 
 UTIL_DIR = $(SRC_DIR)/util
 UTIL_SRCS = $(wildcard $(UTIL_DIR)/*.c)
 
+UTIL_BONUS_DIR = $(SRC_BONUS_DIR)/util
+UTIL_BONUS_SRCS = $(wildcard $(UTIL_BONUS_DIR)/*.c)
+
 INIT_DIR = $(SRC_DIR)/init
 INIT_SRCS = $(wildcard $(INIT_DIR)/*.c)
+
+INIT_BONUS_DIR = $(SRC_BONUS_DIR)/init
+INIT_BONUS_SRCS = $(wildcard $(INIT_BONUS_DIR)/*.c)
 
 RENDER_DIR = $(SRC_DIR)/render
 RENDER_SRCS = $(wildcard $(RENDER_DIR)/*.c)
 
+RENDER_BONUS_DIR = $(SRC_BONUS_DIR)/render
+RENDER_BONUS_SRCS = $(wildcard $(RENDER_BONUS_DIR)/*.c)
+
+
 UPDATE_DIR = $(SRC_DIR)/update
 UPDATE_SRCS = $(wildcard $(UPDATE_DIR)/*.c)
+
+UPDATE_BONUS_DIR = $(SRC_BONUS_DIR)/update
+UPDATE_BONUS_SRCS = $(wildcard $(UPDATE_BONUS_DIR)/*.c)
 
 SRCS = \
 	$(wildcard $(SRC_DIR)/*.c) \
@@ -78,6 +94,13 @@ SRCS = \
 	${RENDER_SRCS} \
 	${UPDATE_SRCS}
 
+BONUS_SRCS = \
+	$(wildcard $(SRC_BONUS_DIR)/*.c) \
+	$(UTIL_BONUS_SRCS) \
+	$(INIT_BONUS_SRCS)	\
+	${RENDER_BONUS_SRCS} \
+	${UPDATE_BONUS_SRCS}
+
 vpath %.c \
 	$(SRC_DIR) \
 	$(UTIL_DIR) \
@@ -85,15 +108,24 @@ vpath %.c \
 	${RENDER_DIR} \
 	${UPDATE_DIR}
 
+vpath %.c \
+	$(SRC_BONUS_DIR) \
+	$(UTIL_BONUS_DIR) \
+	$(INIT_BONUS_DIR)	\
+	${RENDER_BONUS_DIR} \
+	${UPDATE_BONUS_DIR}
 
-ifeq ($(UNAME_S),Linux)
-endif
 ifeq ($(UNAME_S),Darwin)
 	SRCS += $(wildcard $(SRC_DIR)/dummy_mac/*.c)
-	vpath %.c $(SRC_DIR)/dummy_mac
+	BONUS_SRCS += $(wildcard $(SRC_BONUS_DIR)/dummy_mac/*.c)
+
+	vpath %.c \
+		$(SRC_DIR)/dummy_mac \
+		$(SRC_BONUS_DIR)/dummy_mac
 endif
 
 OBJS = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.o)))
+OBJS_BONUS = $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS_SRCS:.c=.o)))
 
 # Color
 CL_BOLD	 = \e[1m
@@ -122,9 +154,11 @@ fclean : clean
 	@$(RM) $(RMFLAGS) $(NAME)
 	@printf "$(LF)🧹 $(FG_TEXT)Cleaning $(FG_TEXT_PRIMARY)$(NAME)\n"
 
-lib_clean : $(LIBFT)_fclean $(MLX)_clean
-
 re : fclean all
+
+re_bonus : fclean bonus
+
+lib_clean : $(LIBFT)_fclean $(MLX)_clean
 
 $(OBJ_DIR) :
 	@mkdir $(OBJ_DIR)
@@ -133,10 +167,16 @@ $(OBJ_DIR)/%.o : %.c | $(OBJ_DIR)
 	@$(CC) $(CDEBUG) $(CFLAGS) $(CINCLUDES) -c $< -o $@
 	@printf "$(LF)🚧 $(FG_TEXT)Create $(FG_TEXT_PRIMARY)$@ $(FG_TEXT)from $(FG_TEXT_PRIMARY)$<"
 
-$(NAME) : cub3d.c $(MLX_FILE) $(LIBFT_FILE) $(HEADERS) $(OBJS)
+$(NAME) : $(MLX_FILE) $(LIBFT_FILE) $(HEADERS) $(OBJS)
 	@printf "$(LF)🚀 $(FG_TEXT)Successfully Created $(FG_TEXT_PRIMARY)$(NAME)'s Object files $(FG_TEXT)!"
 	@printf "$(CRLF)📚 $(FG_TEXT)Create $(FG_TEXT_PRIMARY)cub3D$(FG_TEXT)!\n"
 	@$(CC) $(CDEBUG) $(CFLAGS) $(CINCLUDES) $(OBJS) -o $(NAME) $(LIBFT_FLAGS) $(MLX_FLAGS)
+	@printf "$(LF)🎉 $(FG_TEXT)Successfully Created $(FG_TEXT_PRIMARY)$@ $(FG_TEXT)!\n$(NO_COLOR)"
+
+bonus : $(MLX_FILE) $(LIBFT_FILE) $(HEADERS) $(OBJS_BONUS)
+	@printf "$(LF)🚀 $(FG_TEXT)Successfully Created $(FG_TEXT_PRIMARY)$(NAME)'s Object files $(FG_TEXT)!"
+	@printf "$(CRLF)📚 $(FG_TEXT)Create $(FG_TEXT_PRIMARY)cub3D$(FG_TEXT)!\n"
+	@$(CC) $(CDEBUG) $(CFLAGS) $(CINCLUDES) $(OBJS_BONUS) -o $(NAME) $(LIBFT_FLAGS) $(MLX_FLAGS)
 	@printf "$(LF)🎉 $(FG_TEXT)Successfully Created $(FG_TEXT_PRIMARY)$@ $(FG_TEXT)!\n$(NO_COLOR)"
 
 # Libft

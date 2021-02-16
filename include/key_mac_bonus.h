@@ -1,19 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_ceiling.c                                   :+:      :+:    :+:   */
+/*   key_mac_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/15 22:38:28 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/16 17:25:45 by jaeskim          ###   ########.fr       */
+/*   Created: 2020/12/07 02:01:56 by jaeskim           #+#    #+#             */
+/*   Updated: 2021/02/16 17:02:17 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#ifndef KEY_MAC_BONUS_H
+# define KEY_MAC_BONUS_H
 
-void	render_ceiling(t_cub3d *g)
-{
-	g_color = g->bg_color[C - F];
-	rect(&g->v, new_vec(0, 0), g->v.width, g->v.height / 2);
-}
+# define KEY_W		13
+# define KEY_A		0
+# define KEY_S		1
+# define KEY_D		2
+# define KEY_ESC	53
+# define KEY_UP		126
+# define KEY_DOWN	125
+# define KEY_LEFT	123
+# define KEY_RIGHT	124
+
+#endif

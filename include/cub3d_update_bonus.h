@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_ceiling.c                                   :+:      :+:    :+:   */
+/*   cub3d_update_bonus.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/15 22:38:28 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/16 17:25:45 by jaeskim          ###   ########.fr       */
+/*   Created: 2021/02/15 22:09:03 by jaeskim           #+#    #+#             */
+/*   Updated: 2021/02/16 17:06:06 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#ifndef CUB3D_UPDATE_BONUS_H
+# define CUB3D_UPDATE_BONUS_H
 
-void	render_ceiling(t_cub3d *g)
-{
-	g_color = g->bg_color[C - F];
-	rect(&g->v, new_vec(0, 0), g->v.width, g->v.height / 2);
-}
+# include "cub3d_bonus.h"
+
+void	update(t_cub3d *g);
+void	update_player(t_cub3d *g);
+void	update_all_rays(t_cub3d *g);
+void	update_sprite(t_cub3d *g);
+
+#endif

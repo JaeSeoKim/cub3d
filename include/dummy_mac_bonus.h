@@ -1,19 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_ceiling.c                                   :+:      :+:    :+:   */
+/*   dummy_mac_bonus.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/15 22:38:28 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/16 17:25:45 by jaeskim          ###   ########.fr       */
+/*   Created: 2021/01/17 15:26:52 by jaeskim           #+#    #+#             */
+/*   Updated: 2021/02/16 17:02:18 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#ifndef DUMMY_MAC_BONUS_H
+# define DUMMY_MAC_BONUS_H
 
-void	render_ceiling(t_cub3d *g)
-{
-	g_color = g->bg_color[C - F];
-	rect(&g->v, new_vec(0, 0), g->v.width, g->v.height / 2);
-}
+/*
+** linux-minilibx funtion dummys
+*/
+
+int	mlx_destroy_display(void *mlx_ptr);
+
+#endif
