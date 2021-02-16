@@ -6,7 +6,7 @@ EA ./img/EA.xpm
 
 S ./img/ITEM.xpm
 F ./img/FLOOR.xpm
-C ./img/CEILING.xpm
+C ./img/skybox.xpm
 
         1111111111111111111111111
         1000000000110000000220001

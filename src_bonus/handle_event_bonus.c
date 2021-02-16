@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:57:51 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/16 17:27:08 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/16 21:19:59 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,15 @@ int		handle_exit_window(t_cub3d *g)
 
 int		handle_loop(t_cub3d *g)
 {
+	clock_t	now;
+
+	now = clock();
+	g->fps = CLOCKS_PER_SEC / (now - g->prev);
 	update(g);
 	render(g);
 	mlx_put_image_to_window(g->mlx, g->win, g->v.ptr, 0, 0);
+	mlx_string_put(g->mlx, g->win, 10, 10, rgba(0, 0, 0, 1).i, ft_itoa(g->fps));
 	mlx_do_sync(g->mlx);
+	g->prev = now;
 	return (0);
 }

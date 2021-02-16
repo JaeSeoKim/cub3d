@@ -24,7 +24,7 @@
 - [ ] An HUD.
 - [ ] Ability to look up and down.
 - [ ] Jump or crouch.
-- [ ] A distance related shadow effect.
+- [x] A distance related shadow effect.
 - [ ] Life bar.
 - [ ] More items in the maze.
 - [ ] Object collisions.

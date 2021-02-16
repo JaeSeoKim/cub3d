@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 21:25:17 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/16 17:23:59 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/16 21:02:26 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,6 @@ void		init(t_cub3d *g, char *path, int flag)
 	g->num_rays = g->v.width / WALL_STRIP_WIDTH;
 	if (!(g->rays = malloc(sizeof(t_ray) * g->num_rays)))
 		exit_cub3d_msg(g, "malloc failed");
+	g->prev = clock();
+	g->fps = 0;
 }
