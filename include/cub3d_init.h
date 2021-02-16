@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 17:25:20 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/09 00:16:00 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/16 12:36:56 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 
 extern t_uc g_parse_check;
 
-void	init(t_cub3d *g, char *path);
+void	init(t_cub3d *g, char *path, int flag);
 void	init_parse(t_cub3d *g, char *path);
 void	init_resolution(t_cub3d *g, char **split);
 void	init_texture(t_cub3d *g, char *path, int tex_i);

@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 23:19:39 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/16 00:13:05 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/16 13:05:23 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # endif
 
 # define CUB3D_TITLE "jaeskim's cub3D"
-# define WALL_STRIP_WIDTH 4
+# define WALL_STRIP_WIDTH 1
 # define TILE 64
 # define FOV 66
 # define WALK_S 0.08
@@ -53,6 +53,11 @@
 # define M_PI_2 1.57079632679489661923132169163975144
 # define M_PI_4 0.785398163397448309615660845819875721
 # define M_PI_180 0.017453292519943295769236907684886
+
+# define BITMAPFILEHEADER 14
+# define BITMAPINFOHEADER 40
+
+int		save_bmp(t_cub3d *g);
 
 int		handle_key_pressed(int keycode, t_cub3d *g);
 int		handle_key_released(int keycode, t_cub3d *g);
