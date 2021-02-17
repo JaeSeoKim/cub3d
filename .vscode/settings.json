@@ -6,6 +6,7 @@
     "cub3d_init.h": "c",
     "cub3d_type.h": "c",
     "cub3d_bonus.h": "c",
-    "string": "c"
+    "string": "c",
+    "__node_handle": "c"
   }
 }

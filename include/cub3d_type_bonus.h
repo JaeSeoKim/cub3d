@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:39:01 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/16 21:02:16 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/17 14:09:31 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct	s_key
 	char		left	:1;
 	char		right	:1;
 	char		esc		:1;
+	char		m		:1;
 }				t_key;
 
 typedef struct	s_img
@@ -106,6 +107,7 @@ typedef struct	s_cub3d
 	float		*sp_dist;
 
 	t_map		map;
+	int			map_size;
 
 	t_color		bg_color[2];
 

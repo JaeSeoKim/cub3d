@@ -21,7 +21,7 @@
 - [x] Wall collisions.
 - [ ] A skybox.
 - [x] Floor and/or ceiling texture.
-- [ ] An HUD.
+- [x] An HUD.
 - [ ] Ability to look up and down.
 - [ ] Jump or crouch.
 - [x] A distance related shadow effect.

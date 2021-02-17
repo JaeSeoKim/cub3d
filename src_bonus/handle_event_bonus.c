@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:57:51 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/16 21:19:59 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/17 14:51:47 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ int		handle_key_pressed(int keycode, t_cub3d *g)
 	(keycode == KEY_DOWN ? g->key.down = 1 : 0);
 	(keycode == KEY_LEFT ? g->key.left = 1 : 0);
 	(keycode == KEY_RIGHT ? g->key.right = 1 : 0);
+	(keycode == KEY_M ? g->key.m = !g->key.m : 0);
+	(keycode == KEY_PLUS && g->map_size > 2 ? g->map_size-- : 0);
+	(keycode == KEY_MINUS && g->map_size < 7 ? g->map_size++ : 0);
 	if (keycode == KEY_ESC)
 		exit_cub3d(g, SUCCES);
 	return (0);
@@ -55,7 +58,6 @@ int		handle_loop(t_cub3d *g)
 	update(g);
 	render(g);
 	mlx_put_image_to_window(g->mlx, g->win, g->v.ptr, 0, 0);
-	mlx_string_put(g->mlx, g->win, 10, 10, rgba(0, 0, 0, 1).i, ft_itoa(g->fps));
 	mlx_do_sync(g->mlx);
 	g->prev = now;
 	return (0);

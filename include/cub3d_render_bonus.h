@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 22:10:06 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/16 17:06:08 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/16 21:58:39 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,6 @@ void	render_floor(t_cub3d *g);
 void	render_ceiling(t_cub3d *g);
 void	render_wall(t_cub3d *g);
 void	render_sprite(t_cub3d *g);
+void	render_map(t_cub3d *g);
 
 #endif
