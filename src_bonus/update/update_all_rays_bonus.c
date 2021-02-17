@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 22:36:49 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/16 17:26:30 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/17 19:44:07 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void		update_all_rays(t_cub3d *g)
 	i = -1;
 	while (++i < g->num_rays)
 	{
-		camera_x = 2 * (i * WALL_STRIP_WIDTH) / (float)g->v.width - 1;
+		camera_x = 2 * (i * WALL_STRIP_WIDTH) / (float)g->v.w - 1;
 		ft_memset(&g->rays[i], 0, sizeof(t_ray));
 		g->rays[i].dir.x = g->dir.x + g->plane.x * camera_x;
 		g->rays[i].dir.y = g->dir.y + g->plane.y * camera_x;

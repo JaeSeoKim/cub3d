@@ -6,14 +6,17 @@
 #    By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/06 21:07:58 by jaeskim           #+#    #+#              #
-#    Updated: 2021/02/17 16:08:36 by jaeskim          ###   ########.fr        #
+#    Updated: 2021/02/17 22:38:10 by jaeskim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -O3
+CFLAGS = -Wall -Wextra -Werror
+ifneq ($(DEBUG),true)
+	CDEBUG = -O3
+endif
 
 # libft
 LIBFT = libft.a

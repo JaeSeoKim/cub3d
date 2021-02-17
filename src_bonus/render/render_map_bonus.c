@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 21:57:55 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/17 16:02:38 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/17 19:42:41 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ void		render_map(t_cub3d *g)
 	float	step;
 	t_vec	obj;
 
-	size = g->v.height > g->v.width ?
-		g->v.width / g->map_size : g->v.height / g->map_size;
+	size = g->v.h > g->v.w ?
+		g->v.w / g->map_size : g->v.h / g->map_size;
 	obj = new_vec(g->pos.x - 5, g->pos.y - 5);
 	step = ((g->pos.x + 5) - obj.x) / size;
 	g_color = rgba(200, 200, 200, 1);

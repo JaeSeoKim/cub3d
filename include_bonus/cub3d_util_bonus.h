@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:32:35 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/16 17:02:53 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/17 22:21:01 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ t_vec	new_vec(float x, float y);
 t_ivec	new_ivec(int x, int y);
 t_vec	rot_vec(t_vec v, float angle);
 
-void	normalise_pos(t_cub3d *g, t_vec *pos);
-void	normalise_ipos(t_cub3d *g, t_ivec *pos);
+t_vec	nor_pos(t_cub3d *g, t_vec pos);
+t_ivec	nor_int_size(t_ivec size, t_ivec pos);
 
 t_color	rgba(t_uc r, t_uc g, t_uc b, float a);
 void	color_rgba(t_uc r, t_uc g, t_uc b, float a);

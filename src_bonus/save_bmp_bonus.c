@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 12:37:17 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/17 15:19:15 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/17 19:40:23 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ static void	bmp_header(t_cub3d *g, int fd)
 	ft_memset(&info, 0, BITMAPINFOHEADER);
 	ft_memmove(&header[0], "BM", 2);
 	tmp = BITMAPFILEHEADER + BITMAPINFOHEADER +
-		(g->v.bpp / 8) * g->v.width * g->v.height;
+		(g->v.bpp / 8) * g->v.w * g->v.h;
 	ft_memmove(&header[2], &tmp, 4);
 	tmp = BITMAPFILEHEADER + BITMAPINFOHEADER;
 	ft_memmove(&header[10], &tmp, 4);
 	write(fd, header, BITMAPFILEHEADER);
 	tmp = BITMAPINFOHEADER;
 	ft_memmove(&info[0], &tmp, 4);
-	ft_memmove(&info[4], &g->v.width, 4);
-	ft_memmove(&info[8], &g->v.height, 4);
+	ft_memmove(&info[4], &g->v.w, 4);
+	ft_memmove(&info[8], &g->v.h, 4);
 	tmp = 1;
 	ft_memmove(&info[12], &tmp, 2);
 	ft_memmove(&info[14], &g->v.bpp, 2);
@@ -42,11 +42,11 @@ static void	bmp_data(t_cub3d *g, int fd)
 	int		x;
 	int		y;
 
-	y = g->v.height;
+	y = g->v.h;
 	while (y-- > 0)
 	{
 		x = -1;
-		while (++x < g->v.width)
+		while (++x < g->v.w)
 			write(fd, &g->v.data[y * g->v.line + x].i, 4);
 	}
 }

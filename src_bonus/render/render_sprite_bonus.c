@@ -6,13 +6,13 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 20:18:54 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/17 17:05:09 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/17 22:21:17 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-static void	put_sprite_pixel(
+static void		put_sprite_pixel(
 	t_cub3d *g,
 	int dist,
 	t_ivec iv)
@@ -20,11 +20,11 @@ static void	put_sprite_pixel(
 	if (g_color.bit.t != 255)
 	{
 		g_color = calc_rgba(g_color, rgba(0, 0, 0, g->shadow / dist));
-		put_pixel(&g->v, iv.x, iv.y);
+		put_pixel(&g->v, iv.x, iv.y + g->dir_z);
 	}
 }
 
-static void	render_sprite_tex(
+static void		render_sprite_tex(
 	t_cub3d *g,
 	t_sprite *sp,
 	t_ivec size,
@@ -37,27 +37,27 @@ static void	render_sprite_tex(
 
 	start.x = -size.x / 2 + move.x;
 	end.x = size.x / 2 + move.x;
-	start.y = -size.y / 2 + g->v.height / 2;
-	end.y = size.y / 2 + g->v.height / 2;
-	normalise_ipos(g, &start);
-	normalise_ipos(g, &end);
+	start.y = -size.y / 2 + g->v.h / 2;
+	end.y = size.y / 2 + g->v.h / 2;
+	start = nor_int_size(new_ivec(g->v.w, g->v.h), start);
+	end = nor_int_size(new_ivec(g->v.w, g->v.h - g->dir_z), end);
 	iv.x = start.x - 1;
 	while (++iv.x < end.x)
 	{
-		tex.x = ((iv.x - (-size.x / 2 + move.x)) * sp->tex->width / size.x);
-		iv.y = (iv.x > 0 && iv.x < g->v.width && sp->trans.y
+		tex.x = ((iv.x - (-size.x / 2 + move.x)) * sp->tex->w / size.x);
+		iv.y = (iv.x > 0 && iv.x < g->v.w && sp->trans.y
 			< g->rays[iv.x / WALL_STRIP_WIDTH].dist ? start.y - 1 : end.y);
 		while (++iv.y < end.y)
 		{
-			tex.y = (iv.y - move.y) * 256 - g->v.height * 128 + size.y * 128;
-			tex.y = ((tex.y * sp->tex->height) / size.y) / 256;
+			tex.y = (iv.y - move.y) * 256 - g->v.h * 128 + size.y * 128;
+			tex.y = ((tex.y * sp->tex->h) / size.y) / 256;
 			g_color = sp->tex->data[sp->tex->line * tex.y + tex.x];
 			put_sprite_pixel(g, size.y, iv);
 		}
 	}
 }
 
-void		render_sprite(t_cub3d *g)
+void			render_sprite(t_cub3d *g)
 {
 	int			i;
 	t_ivec		move;
@@ -68,7 +68,7 @@ void		render_sprite(t_cub3d *g)
 	while (++i < g->num_sp)
 	{
 		sp = &g->sp[g->sp_order[i]];
-		move.x = (int)((g->v.width / 2) * (1 + sp->trans.x / sp->trans.y));
+		move.x = (int)((g->v.w / 2) * (1 + sp->trans.x / sp->trans.y));
 		move.y = (int)(V_MOVE / sp->trans.y);
 		size.x = (int)fabs((g->fov_h / sp->trans.y) / U_DIV);
 		size.y = (int)fabs((g->fov_h / sp->trans.y) / V_DIV);

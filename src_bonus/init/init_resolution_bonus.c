@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_resolution.c                                  :+:      :+:    :+:   */
+/*   init_resolution_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 16:00:01 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/16 17:09:24 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/17 19:41:41 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void		init_resolution(t_cub3d *g, char **split)
 	g_parse_check |= 1 << R;
 	resolution.x = itoa(g, split[0]);
 	resolution.y = itoa(g, split[1]);
-	if (resolution.x < g->v.width)
-		g->v.width = resolution.x;
-	if (resolution.y < g->v.height)
-		g->v.height = resolution.y;
+	if (resolution.x < g->v.w)
+		g->v.w = resolution.x;
+	if (resolution.y < g->v.h)
+		g->v.h = resolution.y;
 }

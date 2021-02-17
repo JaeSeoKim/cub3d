@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:39:01 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/17 17:03:46 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/17 22:38:04 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ typedef struct	s_img
 {
 	void		*ptr;
 	t_color		*data;
-	int			width;
-	int			height;
+	int			w;
+	int			h;
 	int			size_l;
 	int			line;
 	int			bpp;
@@ -114,15 +114,15 @@ typedef struct	s_cub3d
 	clock_t		prev;
 	float		fps;
 
-	float 		shadow;
+	float		shadow;
 
 	float		fov;
 	float		fov_h;
 	t_vec		dir_plane;
 	t_vec		dir;
+	float		dir_z;
 	t_vec		plane;
 	t_vec		pos;
-	float		pos_z;
 }				t_cub3d;
 
 #endif

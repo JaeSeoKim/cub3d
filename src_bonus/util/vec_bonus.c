@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:21:25 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/16 17:26:53 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/17 22:20:59 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,26 +43,28 @@ t_vec	rot_vec(t_vec v, float angle)
 	return (result);
 }
 
-void	normalise_pos(t_cub3d *g, t_vec *pos)
+t_vec	nor_pos(t_cub3d *g, t_vec pos)
 {
-	if (pos->x < 0)
-		pos->x = 0;
-	else if (pos->x > g->v.width)
-		pos->x = g->v.width - 1;
-	if (pos->y < 0)
-		pos->y = 0;
-	else if (pos->y > g->v.height)
-		pos->y = g->v.height - 1;
+	if (pos.x < 0)
+		pos.x = 0;
+	else if (pos.x > g->v.w)
+		pos.x = g->v.w - 1;
+	if (pos.y < 0)
+		pos.y = 0;
+	else if (pos.y > g->v.h)
+		pos.y = g->v.h - 1;
+	return (pos);
 }
 
-void	normalise_ipos(t_cub3d *g, t_ivec *pos)
+t_ivec	nor_int_size(t_ivec size, t_ivec pos)
 {
-	if (pos->x < 0)
-		pos->x = 0;
-	else if (pos->x > g->v.width)
-		pos->x = g->v.width - 1;
-	if (pos->y < 0)
-		pos->y = 0;
-	else if (pos->y > g->v.height)
-		pos->y = g->v.height - 1;
+	if (pos.x < 0)
+		pos.x = 0;
+	else if (pos.x > size.x)
+		pos.x = size.x - 1;
+	if (pos.y < 0)
+		pos.y = 0;
+	else if (pos.y > size.y)
+		pos.y = size.y - 1;
+	return (pos);
 }

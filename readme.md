@@ -22,7 +22,7 @@
 - [ ] A skybox.
 - [x] Floor and/or ceiling texture.
 - [x] An HUD.
-- [ ] Ability to look up and down.
+- [x] Ability to look up and down.
 - [ ] Jump or crouch.
 - [x] A distance related shadow effect.
 - [ ] Life bar.

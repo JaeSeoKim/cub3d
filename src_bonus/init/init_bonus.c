@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 21:25:17 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/17 17:04:15 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/17 19:41:09 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ static void	init_window(t_cub3d *g, int flag)
 	if (!flag)
 	{
 		if (!(g->win =
-			mlx_new_window(g->mlx, g->v.width, g->v.height, CUB3D_TITLE)))
+			mlx_new_window(g->mlx, g->v.w, g->v.h, CUB3D_TITLE)))
 			exit_cub3d_msg(g, "fail mlx_new_window()");
 	}
-	if (!(g->v.ptr = mlx_new_image(g->mlx, g->v.width, g->v.height)))
+	if (!(g->v.ptr = mlx_new_image(g->mlx, g->v.w, g->v.h)))
 		exit_cub3d_msg(g, "fail mlx_new_image()");
 	if (!(g->v.data = (t_color *)mlx_get_data_addr(
 		g->v.ptr, &g->v.bpp, &g->v.size_l, &g->v.endian)))
@@ -31,10 +31,10 @@ static void	init_window(t_cub3d *g, int flag)
 void		init(t_cub3d *g, char *path, int flag)
 {
 	(!(g->mlx = mlx_init()) ? exit_cub3d_msg(g, "fail mlx_init()") : 0);
-	mlx_get_screen_size(g->mlx, &g->v.width, &g->v.height);
+	mlx_get_screen_size(g->mlx, &g->v.w, &g->v.h);
 	init_parse(g, path);
 	init_window(g, flag);
-	g->num_rays = g->v.width / WALL_STRIP_WIDTH;
+	g->num_rays = g->v.w / WALL_STRIP_WIDTH;
 	if (!(g->rays = malloc(sizeof(t_ray) * g->num_rays)))
 		exit_cub3d_msg(g, "malloc failed");
 	g->key.m = 1;

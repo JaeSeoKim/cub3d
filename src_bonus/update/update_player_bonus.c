@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 22:35:34 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/17 16:10:44 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/17 22:36:51 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,22 +27,13 @@ static int	check_player_pos(t_cub3d *g, float x, float y)
 	return (1);
 }
 
-void		update_player(t_cub3d *g)
+static void	update_player_pos(
+	t_cub3d *g,
+	t_vec turn_vec,
+	t_ivec walk_dir)
 {
-	int		turn_dir;
-	t_ivec	walk_dir;
-	t_vec	turn_vec;
 	t_vec	new_pos;
 
-	turn_dir = g->key.left ? -1 : 0;
-	turn_dir += g->key.right ? 1 : 0;
-	walk_dir.y = g->key.w ? 1 : 0;
-	walk_dir.y += g->key.s ? -1 : 0;
-	walk_dir.x = g->key.a ? -1 : 0;
-	walk_dir.x += g->key.d ? 1 : 0;
-	g->dir = rot_vec(g->dir, turn_dir * 60 / g->fps * TURN_S * M_PI_180);
-	g->plane = rot_vec(g->plane, turn_dir * 60 / g->fps * TURN_S * M_PI_180);
-	turn_vec = rot_vec(g->dir, 90 * M_PI_180);
 	if (walk_dir.x != 0 || walk_dir.y != 0)
 	{
 		new_pos.x = g->pos.x + g->dir.x * (walk_dir.y * 60 / g->fps * WALK_S);
@@ -54,4 +45,26 @@ void		update_player(t_cub3d *g)
 		if (check_player_pos(g, g->pos.x, new_pos.y))
 			g->pos.y = new_pos.y;
 	}
+}
+
+void		update_player(t_cub3d *g)
+{
+	int		turn_dir;
+	t_ivec	walk_dir;
+	t_vec	turn_vec;
+
+	turn_dir = g->key.left ? -1 : 0;
+	turn_dir += g->key.right ? 1 : 0;
+	walk_dir.y = g->key.w ? 1 : 0;
+	walk_dir.y += g->key.s ? -1 : 0;
+	walk_dir.x = g->key.a ? -1 : 0;
+	walk_dir.x += g->key.d ? 1 : 0;
+	g->dir = rot_vec(g->dir, turn_dir * 60 / g->fps * TURN_S * M_PI_180);
+	g->plane = rot_vec(g->plane, turn_dir * 60 / g->fps * TURN_S * M_PI_180);
+	turn_vec = rot_vec(g->dir, 90 * M_PI_180);
+	(g->key.up && g->dir_z < g->fov_h / 2 ?
+		g->dir_z += 60 / g->fps * NOD_S / g->fov_h * g->v.h : 0);
+	(g->key.down && g->dir_z > -g->fov_h / 2 ?
+		g->dir_z -= 60 / g->fps * NOD_S / g->fov_h * g->v.h : 0);
+	update_player_pos(g, turn_vec, walk_dir);
 }

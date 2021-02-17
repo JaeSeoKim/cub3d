@@ -7,6 +7,7 @@
     "cub3d_type.h": "c",
     "cub3d_bonus.h": "c",
     "string": "c",
-    "__node_handle": "c"
+    "__node_handle": "c",
+    "__locale": "c"
   }
 }

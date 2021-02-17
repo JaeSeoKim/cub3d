@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_texture.c                                     :+:      :+:    :+:   */
+/*   init_texture_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 17:35:13 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/16 17:09:19 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/17 19:41:57 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	init_texture(t_cub3d *g, char *path, int tex_i)
 	g_parse_check |= 1 << tex_i;
 	img = &g->tex[tex_i];
 	if (!(img->ptr = \
-		mlx_xpm_file_to_image(g->mlx, path, &img->width, &img->height)))
+		mlx_xpm_file_to_image(g->mlx, path, &img->w, &img->h)))
 		exit_cub3d_msg(g, "texture load fail");
 	if (!(img->data = (t_color *)mlx_get_data_addr(\
 			img->ptr, &img->bpp, &img->size_l, &img->endian)))
