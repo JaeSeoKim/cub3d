@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 23:19:16 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/17 15:44:22 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/17 16:21:21 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	init_player(t_cub3d *g, t_vec pos, int *flag)
 	if (*flag)
 		exit_cub3d_msg(g, "invaild map file");
 	g->pos = pos;
+	g->pos_z = 0;
 	if (g->map.data[(int)pos.y][(int)pos.x] == 'N')
 		g->dir = new_vec(0, -1);
 	else if (g->map.data[(int)pos.y][(int)pos.x] == 'S')

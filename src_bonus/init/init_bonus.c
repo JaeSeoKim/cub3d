@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 21:25:17 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/17 15:23:34 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/17 17:04:15 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void		init(t_cub3d *g, char *path, int flag)
 		exit_cub3d_msg(g, "malloc failed");
 	g->key.m = 1;
 	g->map_size = 7;
+	g->shadow = g->fov_h / 30;
 	g->prev = clock();
 	g->fps = 60.0;
 }

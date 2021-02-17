@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 22:41:26 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/16 21:25:08 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/17 17:06:10 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	render_wall_texture(t_cub3d *g, t_ray *ray, t_vec pos, int wall_h)
 	{
 		y = ((int)tex_p.y & ray->tex->height - 1);
 		g_color = ray->tex->data[y * ray->tex->line + (int)tex_p.x];
-		g_color = calc_rgba(g_color, rgba(0, 0, 0, 30.0 / wall_h));
+		g_color = calc_rgba(g_color, rgba(0, 0, 0, g->shadow / wall_h));
 		iv.x = -1;
 		while (++iv.x < WALL_STRIP_WIDTH)
 			put_pixel(&g->v, pos.x + iv.x, pos.y + iv.y);

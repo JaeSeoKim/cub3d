@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 20:18:54 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/17 14:53:09 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/17 17:05:09 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	put_sprite_pixel(
 {
 	if (g_color.bit.t != 255)
 	{
-		g_color = calc_rgba(g_color, rgba(0, 0, 0, 30.0 / dist));
+		g_color = calc_rgba(g_color, rgba(0, 0, 0, g->shadow / dist));
 		put_pixel(&g->v, iv.x, iv.y);
 	}
 }
