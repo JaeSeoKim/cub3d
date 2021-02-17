@@ -27,7 +27,7 @@
 - [x] A distance related shadow effect.
 - [ ] Life bar.
 - [ ] More items in the maze.
-- [ ] Object collisions.
+- [x] Object collisions.
 - [ ] Earning points and/or losing life by picking up objects/traps. • Doors which can open and close.
 - [ ] Secret doors.
 - [ ] Animations of a gun shot or animated sprite.
