@@ -6,7 +6,7 @@
 #    By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/06 21:07:58 by jaeskim           #+#    #+#              #
-#    Updated: 2021/02/17 14:53:03 by jaeskim          ###   ########.fr        #
+#    Updated: 2021/02/17 15:14:32 by jaeskim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ LIBFT_DIR = lib/libft
 LIBFT_FILE = $(LIBFT_DIR)/$(LIBFT)
 LIBFT_INC_DIR = $(LIBFT_DIR)/include
 LIBFT_FLAGS = -L./$(LIBFT_DIR) -lft
-CFLAGS += -I $(LIBFT_INC_DIR)
+CINCLUDES += -I $(LIBFT_INC_DIR)
 
 ifeq ($(DEBUG),true)
 	CDEBUG = -g
@@ -47,16 +47,18 @@ ifeq ($(UNAME_S),Darwin)
 endif
 MLX_FILE = $(MLX_DIR)/$(MLX)
 MLX_INC_DIR = $(MLX_DIR)
-CFLAGS += -I $(MLX_INC_DIR)
+CINCLUDES += -I $(MLX_INC_DIR)
 
 RM = rm
 RMFLAGS = -f
 
 INC_DIR = include
-CFLAGS += -I $(INC_DIR)
+CINCLUDES += -I $(INC_DIR)
 SRC_DIR = src
 OBJ_DIR = obj
 
+INC_BONUS_DIR = include_bonus
+CINCLUDES += -I $(INC_BONUS_DIR)
 SRC_BONUS_DIR = src_bonus
 
 HEADERS = $(wildcard $(INC_DIR)/*.h)
