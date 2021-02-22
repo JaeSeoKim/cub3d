@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 20:18:54 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/17 22:21:17 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/22 21:58:34 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,10 @@ void			render_sprite(t_cub3d *g)
 	while (++i < g->num_sp)
 	{
 		sp = &g->sp[g->sp_order[i]];
-		move.x = (int)((g->v.w / 2) * (1 + sp->trans.x / sp->trans.y));
-		move.y = (int)(V_MOVE / sp->trans.y);
-		size.x = (int)fabs((g->fov_h / sp->trans.y) / U_DIV);
-		size.y = (int)fabs((g->fov_h / sp->trans.y) / V_DIV);
+		move.x = ((g->v.w / 2) * (1 + sp->trans.x / sp->trans.y));
+		move.y = (V_MOVE / sp->trans.y);
+		size.x = fabs((g->fov_h / sp->trans.y) / U_DIV);
+		size.y = fabs((g->fov_h / sp->trans.y) / V_DIV);
 		if (sp->trans.y > 0)
 			render_sprite_tex(g, sp, size, move);
 	}

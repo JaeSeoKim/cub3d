@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:39:01 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/17 22:38:04 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/23 00:59:37 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct	s_key
 	char		right	:1;
 	char		esc		:1;
 	char		m		:1;
+	char		p		:1;
 }				t_key;
 
 typedef struct	s_img
@@ -94,6 +95,8 @@ typedef struct	s_cub3d
 	void		*win;
 	t_img		v;
 
+	int			pause;
+
 	t_key		key;
 
 	t_img		tex[7];
@@ -123,6 +126,7 @@ typedef struct	s_cub3d
 	float		dir_z;
 	t_vec		plane;
 	t_vec		pos;
+	t_ivec		mouse;
 }				t_cub3d;
 
 #endif

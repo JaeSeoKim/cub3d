@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 22:35:34 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/17 22:36:51 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/23 00:59:36 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,33 @@ static void	update_player_pos(
 	}
 }
 
+static void	update_dir(t_cub3d *g, float *turn_dir)
+{
+	if (g->key.p)
+	{
+		*turn_dir = (g->mouse.x - g->v.w / 2) / (g->v.w / 2.0f) * SENS;
+		g->dir_z -= (g->mouse.y - g->v.h / 2);
+	}
+	else
+	{
+		*turn_dir = g->key.left ? -1 : 0;
+		*turn_dir += g->key.right ? 1 : 0;
+		(g->key.up ? g->dir_z += 60 / g->fps * NOD_S / g->fov_h * g->v.h : 0);
+		(g->key.down ? g->dir_z -= 60 / g->fps * NOD_S / g->fov_h * g->v.h : 0);
+	}
+	if (g->dir_z > g->fov_h / 2)
+		g->dir_z = g->fov_h / 2;
+	if (g->dir_z < -g->fov_h / 2)
+		g->dir_z = -g->fov_h / 2;
+}
+
 void		update_player(t_cub3d *g)
 {
-	int		turn_dir;
+	float	turn_dir;
 	t_ivec	walk_dir;
 	t_vec	turn_vec;
 
-	turn_dir = g->key.left ? -1 : 0;
-	turn_dir += g->key.right ? 1 : 0;
+	update_dir(g, &turn_dir);
 	walk_dir.y = g->key.w ? 1 : 0;
 	walk_dir.y += g->key.s ? -1 : 0;
 	walk_dir.x = g->key.a ? -1 : 0;
@@ -62,9 +81,5 @@ void		update_player(t_cub3d *g)
 	g->dir = rot_vec(g->dir, turn_dir * 60 / g->fps * TURN_S * M_PI_180);
 	g->plane = rot_vec(g->plane, turn_dir * 60 / g->fps * TURN_S * M_PI_180);
 	turn_vec = rot_vec(g->dir, 90 * M_PI_180);
-	(g->key.up && g->dir_z < g->fov_h / 2 ?
-		g->dir_z += 60 / g->fps * NOD_S / g->fov_h * g->v.h : 0);
-	(g->key.down && g->dir_z > -g->fov_h / 2 ?
-		g->dir_z -= 60 / g->fps * NOD_S / g->fov_h * g->v.h : 0);
 	update_player_pos(g, turn_vec, walk_dir);
 }

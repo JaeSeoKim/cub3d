@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 22:09:03 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/16 17:06:06 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/22 22:55:51 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "cub3d_bonus.h"
 
 void	update(t_cub3d *g);
+void	update_mouse(t_cub3d *g);
 void	update_player(t_cub3d *g);
 void	update_all_rays(t_cub3d *g);
 void	update_sprite(t_cub3d *g);

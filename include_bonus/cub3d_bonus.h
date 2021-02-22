@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 23:19:39 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/17 20:07:21 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/23 00:59:24 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@
 # define WALK_S 0.08
 # define TURN_S 3
 # define NOD_S 15
+# define SENS 10
 
 # define U_DIV 1
 # define V_DIV 1

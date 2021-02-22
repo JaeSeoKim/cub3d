@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   update_bonus.c                                     :+:      :+:    :+:   */
+/*   update_mouse_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/26 17:26:06 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/23 00:59:38 by jaeskim          ###   ########.fr       */
+/*   Created: 2021/02/22 22:52:56 by jaeskim           #+#    #+#             */
+/*   Updated: 2021/02/22 23:46:05 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-void	update(t_cub3d *g)
+void	update_mouse(t_cub3d *g)
 {
-	update_mouse(g);
-	update_player(g);
-	g->dir_plane.x = g->dir.x - g->plane.x;
-	g->dir_plane.y = g->dir.y - g->plane.y;
-	update_all_rays(g);
-	update_sprite(g);
+	if (g->key.p)
+	{
+		mlx_mouse_get_pos(g->win, &g->mouse.x, &g->mouse.y);
+		mlx_mouse_move(g->win, g->v.w / 2, g->v.h / 2);
+	}
 }

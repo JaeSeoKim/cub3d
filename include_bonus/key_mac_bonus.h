@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:01:56 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/17 14:13:14 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/18 20:24:27 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,6 @@
 # define KEY_M		46
 # define KEY_PLUS	24
 # define KEY_MINUS	27
+# define KEY_P		35
 
 #endif

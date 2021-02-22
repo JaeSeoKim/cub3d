@@ -33,4 +33,4 @@
 - [ ] Animations of a gun shot or animated sprite.
 - [ ] Several levels.
 - [ ] Sounds and music.
-- [ ] Rotate the point of view with the mouse.
+- [x] Rotate the point of view with the mouse.

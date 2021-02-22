@@ -6,7 +6,7 @@
 #    By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/24 20:10:49 by jaeskim           #+#    #+#              #
-#    Updated: 2021/02/08 16:08:52 by jaeskim          ###   ########.fr        #
+#    Updated: 2021/02/23 01:02:17 by jaeskim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,9 @@ ARFLAGS = crs
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
+ifneq ($(DEBUG),true)
+	CFLAGS = -O3
+endif
 ifeq ($(DEBUG),true)
 	CDEBUG = -g
 endif
