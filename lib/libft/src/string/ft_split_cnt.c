@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/27 01:02:02 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/08 23:06:48 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/25 00:50:11 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ static size_t	ft_count_word(char const *s, char c)
 	return (count);
 }
 
-static void		ft_free_arr(char **s, int i)
+void			ft_free_split(char **s, int cnt)
 {
-	while (i--)
-		free(s[i]);
+	while (cnt--)
+		free(s[cnt]);
 	free(s);
 }
 
@@ -69,7 +69,7 @@ char			**ft_split_cnt(char const *s, char c, int *cnt)
 		wordlen = ft_wordlen(s, c);
 		if (!(result[i] = ft_strndup(s, wordlen)))
 		{
-			ft_free_arr(result, i - 1);
+			ft_free_split(result, i - 1);
 			return (0);
 		}
 		s += wordlen;

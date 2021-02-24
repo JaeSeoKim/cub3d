@@ -1,24 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_parse.c                                       :+:      :+:    :+:   */
+/*   init_parse_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 15:25:30 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/16 17:10:32 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/25 00:51:02 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-t_uc	g_parse_check = 0;
+t_us	g_parse_check = 0;
 
-static void		ft_free_arr(char **s, int i)
+static void		switch_sprite(t_cub3d *g, char **split, int word_cnt)
 {
-	while (i--)
-		free(s[i]);
-	free(s);
+	if (!ft_strcmp(split[0], "S_Y") && word_cnt == 2)
+		init_texture(g, split[1], S_Y);
+	else if (!ft_strcmp(split[0], "S_R") && word_cnt == 2)
+		init_texture(g, split[1], S_R);
+	else if (!ft_strcmp(split[0], "S_G") && word_cnt == 2)
+		init_texture(g, split[1], S_G);
+	else if (!ft_strcmp(split[0], "S_B") && word_cnt == 2)
+		init_texture(g, split[1], S_B);
+	else if (!ft_strcmp(split[0], "S_Y2") && word_cnt == 2)
+		init_texture(g, split[1], S_Y2);
+	else if (!ft_strcmp(split[0], "S_R2") && word_cnt == 2)
+		init_texture(g, split[1], S_R2);
+	else if (!ft_strcmp(split[0], "S_G2") && word_cnt == 2)
+		init_texture(g, split[1], S_G2);
+	else if (!ft_strcmp(split[0], "S_B2") && word_cnt == 2)
+		init_texture(g, split[1], S_B2);
+	else
+		exit_cub3d_msg(g, "invaild map file");
 }
 
 static void		switch_parse(t_cub3d *g, char **split, int word_cnt)
@@ -33,14 +48,12 @@ static void		switch_parse(t_cub3d *g, char **split, int word_cnt)
 		init_texture(g, split[1], EA);
 	else if (!ft_strcmp(split[0], "WE") && word_cnt == 2)
 		init_texture(g, split[1], WE);
-	else if (!ft_strcmp(split[0], "S") && word_cnt == 2)
-		init_texture(g, split[1], S);
 	else if (!ft_strcmp(split[0], "F") && word_cnt == 2)
 		init_texture(g, split[1], F);
 	else if (!ft_strcmp(split[0], "C") && word_cnt == 2)
 		init_texture(g, split[1], C);
 	else
-		exit_cub3d_msg(g, "invaild map file");
+		switch_sprite(g, split, word_cnt);
 }
 
 static void		check_parse_type(t_cub3d *g, char *line)
@@ -53,7 +66,7 @@ static void		check_parse_type(t_cub3d *g, char *line)
 		if (!(split = ft_split_cnt(line, ' ', &word_cnt)))
 			exit_cub3d_msg(g, "malloc failed");
 		switch_parse(g, split, word_cnt);
-		ft_free_arr(split, word_cnt);
+		ft_free_split(split, word_cnt);
 	}
 	free(line);
 }
@@ -80,7 +93,8 @@ void			init_parse(t_cub3d *g, char *path)
 		exit_cub3d_msg(g, "invaild file extension. (.cub)");
 	if ((fd = open(path, O_RDONLY)) == -1)
 		exit_cub3d_msg(g, "file open fail...");
-	while ((g_parse_check != 0xFF) && (check = get_next_line(fd, &line)) >= 0)
+	while ((g_parse_check != (1 << (R + 1)) - 1) && \
+			(check = get_next_line(fd, &line)) >= 0)
 		check_parse_type(g, line);
 	if (check < 0)
 		exit_cub3d_msg(g, !check ? "invaild map file" : "file read error");

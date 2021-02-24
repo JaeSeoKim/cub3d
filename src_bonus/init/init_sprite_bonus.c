@@ -1,18 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_sprite.c                                      :+:      :+:    :+:   */
+/*   init_sprite_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 23:46:07 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/16 17:09:22 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/25 00:54:50 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-void	parsing_sprite(t_cub3d *g, t_list **lst, t_list **curr)
+static t_img	*check_tex(t_cub3d *g, t_sprite *sp, char c)
+{
+	if (c == 'Y')
+	{
+		sp->tex = &g->tex[S_Y];
+		sp->base = S_Y;
+	}
+	else if (c == 'R')
+	{
+		sp->tex = &g->tex[S_R];
+		sp->base = S_R;
+	}
+	else if (c == 'G')
+	{
+		sp->tex = &g->tex[S_G];
+		sp->base = S_G;
+	}
+	else if (c == 'B')
+	{
+		sp->tex = &g->tex[S_B];
+		sp->base = S_B;
+	}
+	return (0);
+}
+
+void			parsing_sprite(t_cub3d *g, t_list **lst, t_list **curr)
 {
 	int			i;
 	t_sprite	*tmp;
@@ -21,12 +46,12 @@ void	parsing_sprite(t_cub3d *g, t_list **lst, t_list **curr)
 	i = -1;
 	while (++i < g->map.w * g->map.h)
 	{
-		if (g->map.data[i / g->map.w][i % g->map.w] == '2')
+		if (ft_strchr("YRGB", g->map.data[i / g->map.w][i % g->map.w]))
 		{
 			if (!(tmp = malloc(sizeof(t_sprite))))
 				exit_cub3d_msg(g, "malloc failed");
 			tmp->pos = new_vec(i % g->map.w + 0.5, i / g->map.w + 0.5);
-			tmp->tex = &g->tex[S];
+			check_tex(g, tmp, g->map.data[i / g->map.w][i % g->map.w]);
 			if (!*lst)
 				(!(*lst = ft_lstnew(tmp)) ?
 					exit_cub3d_msg(g, "malloc failed") : 0);
@@ -38,7 +63,7 @@ void	parsing_sprite(t_cub3d *g, t_list **lst, t_list **curr)
 	}
 }
 
-void	init_sprite(t_cub3d *g)
+void			init_sprite(t_cub3d *g)
 {
 	int			i;
 	t_list		*lst;

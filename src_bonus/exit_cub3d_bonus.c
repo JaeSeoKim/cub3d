@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:28:36 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/16 17:27:00 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/25 01:04:36 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void		exit_cub3d(t_cub3d *g, int code)
 	int		i;
 
 	i = -1;
-	while (++i < 7)
+	while (++i < R)
 		(g->tex[i].ptr ? mlx_destroy_image(g->mlx, g->tex[i].ptr) : 0);
 	check_free(g->rays);
 	check_free(g->sp);

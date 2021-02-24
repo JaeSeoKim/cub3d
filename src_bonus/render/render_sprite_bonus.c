@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 20:18:54 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/22 21:58:34 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/23 03:59:02 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void		render_sprite_tex(
 	end.x = size.x / 2 + move.x;
 	start.y = -size.y / 2 + g->v.h / 2;
 	end.y = size.y / 2 + g->v.h / 2;
-	start = nor_int_size(new_ivec(g->v.w, g->v.h), start);
+	start = nor_int_size(new_ivec(g->v.w, g->v.h + g->dir_z), start);
 	end = nor_int_size(new_ivec(g->v.w, g->v.h - g->dir_z), end);
 	iv.x = start.x - 1;
 	while (++iv.x < end.x)

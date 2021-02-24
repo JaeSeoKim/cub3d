@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 23:19:39 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/23 00:59:24 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/25 01:01:15 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,6 @@
 # include <time.h>
 # include "libft.h"
 # include "x_event.h"
-
-# include "cub3d_type_bonus.h"
-# include "cub3d_util_bonus.h"
-# include "cub3d_init_bonus.h"
-# include "cub3d_update_bonus.h"
-# include "cub3d_render_bonus.h"
 
 # ifdef __APPLE__
 #  include "key_mac_bonus.h"
@@ -59,6 +53,28 @@
 
 # define BITMAPFILEHEADER 14
 # define BITMAPINFOHEADER 40
+
+# define NO 0
+# define SO 1
+# define WE 2
+# define EA 3
+# define S_Y 4
+# define S_Y2 5
+# define S_R 6
+# define S_R2 7
+# define S_G 8
+# define S_G2 9
+# define S_B 10
+# define S_B2 11
+# define F 12
+# define C 13
+# define R 14
+
+# include "cub3d_type_bonus.h"
+# include "cub3d_util_bonus.h"
+# include "cub3d_init_bonus.h"
+# include "cub3d_update_bonus.h"
+# include "cub3d_render_bonus.h"
 
 int		save_bmp(t_cub3d *g);
 

@@ -26,11 +26,12 @@
 - [ ] Jump or crouch.
 - [x] A distance related shadow effect.
 - [ ] Life bar.
-- [ ] More items in the maze.
+- [x] More items in the maze.
 - [x] Object collisions.
-- [ ] Earning points and/or losing life by picking up objects/traps. • Doors which can open and close.
+- [ ] Earning points and/or losing life by picking up objects/traps.
+- [ ] Doors which can open and close.
 - [ ] Secret doors.
-- [ ] Animations of a gun shot or animated sprite.
+- [x] Animations of a gun shot or animated sprite.
 - [ ] Several levels.
 - [ ] Sounds and music.
 - [x] Rotate the point of view with the mouse.

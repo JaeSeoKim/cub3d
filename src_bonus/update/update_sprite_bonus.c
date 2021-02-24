@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 20:54:49 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/17 20:10:49 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/25 01:03:22 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void		update_sprite(t_cub3d *g)
 {
 	int			i;
 	float		inv_det;
-	t_vec		sprite;
+	t_vec		pos;
 	t_sprite	*sp;
 
 	i = -1;
@@ -58,12 +58,11 @@ void		update_sprite(t_cub3d *g)
 	while (++i < g->num_sp)
 	{
 		sp = &g->sp[g->sp_order[i]];
-		sprite.x = sp->pos.x - g->pos.x;
-		sprite.y = sp->pos.y - g->pos.y;
+		sp->tex = &g->tex[sp->base + ((int)g->count % 2 == 0 ? 1 : 0)];
+		pos.x = sp->pos.x - g->pos.x;
+		pos.y = sp->pos.y - g->pos.y;
 		inv_det = 1.0 / (g->plane.x * g->dir.y - g->dir.x * g->plane.y);
-		sp->trans.x = inv_det *
-			(g->dir.y * sprite.x - g->dir.x * sprite.y);
-		sp->trans.y = inv_det *
-			(-g->plane.y * sprite.x + g->plane.x * sprite.y);
+		sp->trans.x = inv_det * (g->dir.y * pos.x - g->dir.x * pos.y);
+		sp->trans.y = inv_det * (-g->plane.y * pos.x + g->plane.x * pos.y);
 	}
 }

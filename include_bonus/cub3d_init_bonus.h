@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 17:25:20 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/18 20:57:31 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/24 22:28:09 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,7 @@
 
 # include "cub3d_bonus.h"
 
-# define NO 0
-# define SO 1
-# define WE 2
-# define EA 3
-# define S 4
-# define F 5
-# define C 6
-# define R 7
-
-extern t_uc g_parse_check;
+extern	t_us g_parse_check;
 
 void	init(t_cub3d *g, char *path, int flag);
 void	init_parse(t_cub3d *g, char *path);

@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 00:42:20 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/08 23:06:00 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/25 00:45:36 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char const *s, char c);
 char	**ft_split_cnt(char const *s, char c, int *cnt);
+void	ft_free_split(char **s, int cnt);
 char	*ft_itoa(int n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char	*ft_convert_base_unsigned(t_ull num, const char *base_set, int base);
