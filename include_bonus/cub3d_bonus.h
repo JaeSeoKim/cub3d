@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 23:19:39 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/25 01:01:15 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/25 03:41:47 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,13 @@
 # define F 12
 # define C 13
 # define R 14
+
+# define LIFEBAR 0
+# define LIFEBAR_PATH "src_bonus/assets/lifebar.xpm"
+# define LIFEBAR_START_X 19
+# define LIFEBAR_START_Y 5
+# define LIFEBAR_SIZE_X 66
+# define LIFEBAR_SIZE_Y 3
 
 # include "cub3d_type_bonus.h"
 # include "cub3d_util_bonus.h"

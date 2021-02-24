@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:57:51 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/25 01:01:45 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/25 04:18:01 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,11 @@ int		handle_loop(t_cub3d *g)
 	g->fps = CLOCKS_PER_SEC / (now - g->prev);
 	(g->fps == 0 ? g->fps = 1 : 0);
 	g->count += 60 / g->fps / 10;
-	if (g->count > 60)
+	if (g->count > 2)
+	{
 		g->count = 0;
+		g->life--;
+	}
 	update(g);
 	render(g);
 	mlx_put_image_to_window(g->mlx, g->win, g->v.ptr, 0, 0);

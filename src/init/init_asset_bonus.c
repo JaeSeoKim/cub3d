@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d_render_bonus.h                               :+:      :+:    :+:   */
+/*   init_asset_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/15 22:10:06 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/25 01:34:21 by jaeskim          ###   ########.fr       */
+/*   Created: 2021/02/25 02:16:03 by jaeskim           #+#    #+#             */
+/*   Updated: 2021/02/25 03:29:12 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_RENDER_BONUS_H
-# define CUB3D_RENDER_BONUS_H
+#include "cub3d_bonus.h"
 
-# include "cub3d_bonus.h"
-
-void	render(t_cub3d *g);
-void	render_floor(t_cub3d *g);
-void	render_ceiling(t_cub3d *g);
-void	render_wall(t_cub3d *g);
-void	render_sprite(t_cub3d *g);
-void	render_map(t_cub3d *g);
-void	render_lifebar(t_cub3d *g);
-
-#endif
+void	init_asset(t_cub3d *g)
+{
+	init_texture(g, "./src_bonus/assets/lifebar.xpm", T_LIFE);
+}

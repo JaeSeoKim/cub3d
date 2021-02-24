@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:39:01 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/25 00:53:00 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/25 02:31:39 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ typedef struct	s_cub3d
 	t_key		key;
 
 	t_img		tex[R];
+	t_img		assets[1];
 
 	int			num_rays;
 	t_ray		*rays;
@@ -129,6 +130,8 @@ typedef struct	s_cub3d
 	t_vec		plane;
 	t_vec		pos;
 	t_ivec		mouse;
+
+	int			life;
 }				t_cub3d;
 
 #endif

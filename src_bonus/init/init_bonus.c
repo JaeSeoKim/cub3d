@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 21:25:17 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/23 01:02:16 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/25 03:29:09 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,6 @@ void		init(t_cub3d *g, char *path, int flag)
 	g->shadow = g->fov_h / 30;
 	g->prev = clock();
 	g->fps = 60.0;
+	g->life = 100;
+	init_assts(g);
 }

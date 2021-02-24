@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_texture_bonus.c                               :+:      :+:    :+:   */
+/*   init_assets_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 17:35:13 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/25 02:25:30 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/25 03:05:20 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-void	init_texture(t_cub3d *g, char *path, int tex_i)
+static void	load_asset(t_cub3d *g, char *path, int tex_i)
 {
 	t_img	*img;
 
-	if (((g_parse_check >> tex_i) & 1) == 1)
-		exit_cub3d_msg(g, "invaild map file");
-	g_parse_check |= 1 << tex_i;
-	img = &g->tex[tex_i];
+	img = &g->assets[tex_i];
 	if (!(img->ptr = \
 		mlx_xpm_file_to_image(g->mlx, path, &img->w, &img->h)))
-		exit_cub3d_msg(g, ft_strjoin("texture load fail need ", path));
+		exit_cub3d_msg(g, ft_strjoin("assets load fail need ", path));
 	if (!(img->data = (t_color *)mlx_get_data_addr(\
 			img->ptr, &img->bpp, &img->size_l, &img->endian)))
 		exit_cub3d_msg(g, "texture data addr load fail..");
 	img->line = img->size_l / (img->bpp / 8);
+}
+
+void		init_assts(t_cub3d *g)
+{
+	load_asset(g, LIFEBAR_PATH, LIFEBAR);
 }

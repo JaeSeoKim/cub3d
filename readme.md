@@ -25,7 +25,7 @@
 - [x] Ability to look up and down.
 - [ ] Jump or crouch.
 - [x] A distance related shadow effect.
-- [ ] Life bar.
+- [x] Life bar.
 - [x] More items in the maze.
 - [x] Object collisions.
 - [ ] Earning points and/or losing life by picking up objects/traps.

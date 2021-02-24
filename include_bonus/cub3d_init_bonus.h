@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 17:25:20 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/24 22:28:09 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/25 03:29:08 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ void	init_texture(t_cub3d *g, char *path, int tex_i);
 void	init_map(t_cub3d *g, int fd, char *line, int *check);
 void	init_player(t_cub3d *g, t_vec pos, int *flag);
 void	init_sprite(t_cub3d *g);
+void	init_assts(t_cub3d *g);
 
 #endif
