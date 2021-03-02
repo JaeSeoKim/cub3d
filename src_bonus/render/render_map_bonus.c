@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 21:57:55 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/25 04:09:23 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/28 22:59:36 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	render_tile_map(t_cub3d *g, int size, t_vec obj, float step)
 			{
 				if (g->map.data[(int)(obj.y)][(int)obj.x] == '1')
 					g_color = rgba(123, 123, 123, 0.5);
-				else if (ft_strchr("YRGB", g->map.data[(int)obj.y][(int)obj.x]))
+				else if (ft_strchr(S_J, g->map.data[(int)obj.y][(int)obj.x]))
 					g_color = rgba(123, 255, 123, 0.5);
 				else
 					g_color = rgba(12, 12, 12, 0.5);

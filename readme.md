@@ -18,6 +18,17 @@
 
 ### 🚩 Bonus part
 
+## Bonus 컨셉
+
+미로를 탈출하면서 포켓몬 구출 하기!
+
+- 시간이 지나면 체력 ↓
+- 포션을 획득시 체력 ↑
+- 포켓몬을 구출시 상단 인터페이스에 출력
+- 모든 포켓몬 4마리를 구출 후 출구로 도착 하면 승리!
+
+---
+
 - [x] Wall collisions.
 - [ ] A skybox.
 - [x] Floor and/or ceiling texture.
@@ -28,10 +39,10 @@
 - [x] Life bar.
 - [x] More items in the maze.
 - [x] Object collisions.
-- [ ] Earning points and/or losing life by picking up objects/traps.
+- [x] Earning points and/or losing life by picking up objects/traps.
 - [ ] Doors which can open and close.
 - [ ] Secret doors.
 - [x] Animations of a gun shot or animated sprite.
 - [ ] Several levels.
-- [ ] Sounds and music.
+- [x] Sounds and music.
 - [x] Rotate the point of view with the mouse.

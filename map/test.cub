@@ -4,7 +4,7 @@ SO ./img/wall_s.xpm
 WE ./img/wall_e.xpm
 EA ./img/wall_w.xpm
 
-S ./img/item.xpm
+S ./img_bonus/TeamRocket.png
 F 220,100,0
 C 225,30,0
 

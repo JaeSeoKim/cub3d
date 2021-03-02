@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 12:37:17 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/16 16:13:54 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/02/28 21:04:45 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	bmp_data(t_cub3d *g, int fd)
 	{
 		x = -1;
 		while (++x < g->v.width)
-			write(fd, &g->v.data[y * g->v.line + x].i, 4);
+			write(fd, &g->v.data[y * g->v.line + x].i, (g->v.bpp / 8));
 	}
 }
 

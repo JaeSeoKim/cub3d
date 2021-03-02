@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:32:35 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/17 22:21:01 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/03/03 00:50:33 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,9 @@ void	put_pixel(t_img *view, int x, int y);
 void	line(t_img *view, t_vec a, t_vec b);
 void	rect(t_img *view, t_vec position, int width, int height);
 void	mid_point_rect(t_img *view, t_vec position, int width, int height);
+
+void	play_sound(int type);
+
+void	put_img(t_cub3d *g, float size_x, t_vec start, t_img *img);
 
 #endif

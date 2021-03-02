@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 22:35:34 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/25 01:16:59 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/03/02 23:40:11 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	check_player_pos(t_cub3d *g, float x, float y)
 
 	if ('1' == g->map.data[(int)y][(int)x])
 		return (0);
-	if (ft_strchr("YRGB", g->map.data[(int)y][(int)x]))
+	if (ft_strchr("O", g->map.data[(int)y][(int)x]))
 	{
 		pos = new_vec(x - floor(x), y - floor(y));
 		if ((0.2 < pos.x && pos.x < 0.8) && (0.2 < pos.y && pos.y < 0.8))

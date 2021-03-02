@@ -6,7 +6,7 @@
 #    By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/24 20:10:49 by jaeskim           #+#    #+#              #
-#    Updated: 2021/02/23 01:02:17 by jaeskim          ###   ########.fr        #
+#    Updated: 2021/03/01 21:40:56 by jaeskim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,6 +62,7 @@ SRC_LST = $(addprefix $(SRC_LST_DIR)/, \
 	ft_lstmap.c	\
 	ft_lstnew.c	\
 	ft_lstsize.c	\
+	ft_lstsort.c	\
 )
 
 SRC_MATH_DIR = $(SRC_DIR)/math

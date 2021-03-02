@@ -6,32 +6,11 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 01:32:26 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/25 04:09:19 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/03/03 00:56:27 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
-
-void	render_life_asset(t_cub3d *g, t_vec size, t_vec start)
-{
-	t_ivec	iv;
-	t_img	*img;
-	t_vec	step;
-
-	img = &g->assets[LIFEBAR];
-	step = new_vec(img->w / size.x, img->h / size.y);
-	iv.x = -1;
-	while (++iv.x < size.x)
-	{
-		iv.y = -1;
-		while (++iv.y < size.y)
-		{
-			g_color = img->data[
-				(int)(step.y * iv.y) * img->line + (int)(step.x * iv.x)];
-			put_pixel(&g->v, start.x + iv.x, start.y + iv.y);
-		}
-	}
-}
 
 void	render_life_gauge(t_cub3d *g, t_vec size, t_vec start)
 {
@@ -52,14 +31,23 @@ void	render_life_gauge(t_cub3d *g, t_vec size, t_vec start)
 
 void	render_lifebar(t_cub3d *g)
 {
+	int		i;
 	t_img	*img;
 	t_vec	size;
 	t_vec	start;
-	t_vec	step;
 
 	img = &g->assets[LIFEBAR];
 	size = new_vec(g->v.w / 3, g->v.w / 3 * img->h / img->w);
 	start = new_vec(g->v.w - g->v.w / 100 - size.x, g->v.h / 50);
-	render_life_asset(g, size, start);
+	put_img(g, size.x, start, img);
 	render_life_gauge(g, size, start);
+	start.y += size.y;
+	start.x = g->v.w - 1;
+	i = -1;
+	while (++i < 4)
+	{
+		start.x -= g->v.w / 20 + g->v.w / 50;
+		if (g->poke[i])
+			put_img(g, g->v.w / 20, start, g->poke[i]);
+	}
 }

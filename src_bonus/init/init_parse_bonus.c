@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 15:25:30 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/25 03:29:11 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/03/02 23:32:42 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,10 @@ static void		switch_sprite(t_cub3d *g, char **split, int word_cnt)
 		init_texture(g, split[1], S_G);
 	else if (!ft_strcmp(split[0], "S_B") && word_cnt == 2)
 		init_texture(g, split[1], S_B);
-	else if (!ft_strcmp(split[0], "S_Y2") && word_cnt == 2)
-		init_texture(g, split[1], S_Y2);
-	else if (!ft_strcmp(split[0], "S_R2") && word_cnt == 2)
-		init_texture(g, split[1], S_R2);
-	else if (!ft_strcmp(split[0], "S_G2") && word_cnt == 2)
-		init_texture(g, split[1], S_G2);
-	else if (!ft_strcmp(split[0], "S_B2") && word_cnt == 2)
-		init_texture(g, split[1], S_B2);
+	else if (!ft_strcmp(split[0], "S_H") && word_cnt == 2)
+		init_texture(g, split[1], S_H);
+	else if (!ft_strcmp(split[0], "S_O") && word_cnt == 2)
+		init_texture(g, split[1], S_O);
 	else
 		exit_cub3d_msg(g, "invaild map file");
 }

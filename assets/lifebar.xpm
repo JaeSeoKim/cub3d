@@ -1,0 +1,19 @@
+/* XPM */
+static char *_0f33ab287cc4e35be9c30b4e591df2fr0ydDVQNBkUc2ZOO[] = {
+/* columns rows colors chars-per-pixel */
+"84 7 6 1 ",
+"  c None",
+"X c #2A2A2A",
+"$ c #506858",
+"% c #F8B040",
+"& c #F8D050",
+": c #F8F8F8",
+/* pixels */
+"  $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  ",
+" $$&&$&&$&&&&&$$::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::$ ",
+"$$$&&$&&$&&$$&$:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX:$",
+"$$$%%%%%$%%%%%$:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX:$",
+"$$$%%$%%$%%$$$$:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX:$",
+" $$%%$%%$%%$$$$$::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::$ ",
+"  $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  "
+};

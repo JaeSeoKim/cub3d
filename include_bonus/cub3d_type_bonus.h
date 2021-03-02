@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:39:01 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/25 02:31:39 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/03/03 00:42:12 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,9 @@ typedef struct	s_sprite
 	t_vec		pos;
 	t_vec		trans;
 	t_img		*tex;
-	int			base;
+	char		base;
+	float		dist;
+	float		move_y;
 }				t_sprite;
 
 typedef struct	s_cub3d
@@ -106,10 +108,9 @@ typedef struct	s_cub3d
 	int			num_rays;
 	t_ray		*rays;
 
-	int			num_sp;
-	t_sprite	*sp;
-	int			*sp_order;
-	float		*sp_dist;
+	t_list		*sp;
+
+	t_img		*poke[4];
 
 	t_map		map;
 	int			map_size;

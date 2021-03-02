@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:28:36 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/25 03:33:59 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/03/03 00:30:32 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,14 @@ void		exit_cub3d(t_cub3d *g, int code)
 	while (++i < R)
 		(g->tex[i].ptr ? mlx_destroy_image(g->mlx, g->tex[i].ptr) : 0);
 	check_free(g->rays);
-	check_free(g->sp);
-	check_free(g->sp_order);
-	check_free(g->sp_dist);
+	ft_lstclear(&g->sp, check_free);
 	i = -1;
 	while (++i < g->map.h)
 		check_free(g->map.data[i]);
 	(g->v.ptr ? mlx_destroy_image(g->mlx, g->v.ptr) : 0);
 	(g->win ? mlx_destroy_window(g->mlx, g->win) : 0);
 	(g->mlx ? mlx_destroy_display(g->mlx) : 0);
+	system("kill `pgrep -f afplay` 2> /dev/null");
 	exit(g ? code : 0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:57:51 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/25 04:18:01 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/03/03 00:57:41 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,13 @@ int		handle_loop(t_cub3d *g)
 	{
 		g->count = 0;
 		g->life--;
+	}
+	if (g->life < 0)
+	{
+		system("kill `pgrep -f afplay` 2> /dev/null");
+		play_sound(GAMEOVER);
+		printf("GAME OVER...");
+		exit_cub3d(g, SUCCES);
 	}
 	update(g);
 	render(g);

@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 23:19:39 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/25 03:41:47 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/03/03 00:39:15 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,26 +54,36 @@
 # define BITMAPFILEHEADER 14
 # define BITMAPINFOHEADER 40
 
+# define S "YRGBHO"
+# define S_J "YRGB"
+
 # define NO 0
 # define SO 1
 # define WE 2
 # define EA 3
 # define S_Y 4
-# define S_Y2 5
-# define S_R 6
-# define S_R2 7
-# define S_G 8
-# define S_G2 9
-# define S_B 10
-# define S_B2 11
-# define F 12
-# define C 13
-# define R 14
+# define S_R 5
+# define S_G 6
+# define S_B 7
+# define S_H 8
+# define S_O 9
+# define F 10
+# define C 11
+# define R 12
+
+# define BGM 0
+# define BGM_PATH "assets/sound/bgm.mp3"
+# define CATCH 1
+# define CATCH_PATH "assets/sound/catch.mp3"
+# define POTION 2
+# define POTION_PATH "assets/sound/potion.mp3"
+# define GAMEOVER 3
+# define GAMEOVER_PATH "assets/sound/gameover.mp3"
 
 # define LIFEBAR 0
-# define LIFEBAR_PATH "src_bonus/assets/lifebar.xpm"
-# define LIFEBAR_START_X 19
-# define LIFEBAR_START_Y 5
+# define LIFEBAR_PATH "assets/lifebar.xpm"
+# define LIFEBAR_START_X 16
+# define LIFEBAR_START_Y 2
 # define LIFEBAR_SIZE_X 66
 # define LIFEBAR_SIZE_Y 3
 
