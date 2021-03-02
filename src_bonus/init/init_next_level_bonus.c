@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 03:23:58 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/03/03 04:41:16 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/03/03 07:51:57 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void		init_next_level(t_cub3d *g, char *path)
 {
 	t_ivec	screen;
 
-	g->loading = 1;
 	ft_memset(&g->poke, 0, sizeof(t_img *) * 4);
 	free_data(g);
 	screen = new_ivec(g->v.w, g->v.h);
@@ -39,6 +38,7 @@ void		init_next_level(t_cub3d *g, char *path)
 	init_parse(g, path);
 	g->v.w = screen.x;
 	g->v.h = screen.y;
+	g->fov_h = g->v.w / 2 / tan(g->fov / 2);
 	free(path);
 	g->num_rays = g->v.w / WALL_STRIP_WIDTH;
 	if (!(g->rays = malloc(sizeof(t_ray) * g->num_rays)))

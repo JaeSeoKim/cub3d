@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:28:36 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/03/03 04:41:15 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/03/03 07:08:42 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void		exit_cub3d(t_cub3d *g, int code)
 	free_data(g);
 	i = -1;
 	while (++i < ASSETS_SIZE)
-		(g->tex[i].ptr ? mlx_destroy_image(g->mlx, g->assets[i].ptr) : 0);
+		(g->assets[i].ptr ? mlx_destroy_image(g->mlx, g->assets[i].ptr) : 0);
 	(g->v.ptr ? mlx_destroy_image(g->mlx, g->v.ptr) : 0);
 	(g->win ? mlx_destroy_window(g->mlx, g->win) : 0);
 	(g->mlx ? mlx_destroy_display(g->mlx) : 0);

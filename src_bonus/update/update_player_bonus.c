@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 22:35:34 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/03/03 03:55:40 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/03/03 07:41:19 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ static int	check_player_pos(t_cub3d *g, float x, float y)
 		if (i == 4)
 		{
 			system("kill `pgrep -f afplay` 2> /dev/null");
-			(g->next_level ? init_next_level(g, g->next_level) :
-				(g->finish = 1));
+			(g->next_level ? (g->loading = 1) : (g->finish = 1));
 		}
 		return (0);
 	}
