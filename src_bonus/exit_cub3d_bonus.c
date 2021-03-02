@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:28:36 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/03/03 00:30:32 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/03/03 04:41:15 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,29 @@ static void	check_free(void *memory)
 		free(memory);
 }
 
-void		exit_cub3d(t_cub3d *g, int code)
+void		free_data(t_cub3d *g)
 {
 	int		i;
 
 	i = -1;
-	while (++i < R)
+	while (++i < TEX_SIZE)
 		(g->tex[i].ptr ? mlx_destroy_image(g->mlx, g->tex[i].ptr) : 0);
 	check_free(g->rays);
 	ft_lstclear(&g->sp, check_free);
 	i = -1;
 	while (++i < g->map.h)
 		check_free(g->map.data[i]);
+	free(g->map.data);
+}
+
+void		exit_cub3d(t_cub3d *g, int code)
+{
+	int		i;
+
+	free_data(g);
+	i = -1;
+	while (++i < ASSETS_SIZE)
+		(g->tex[i].ptr ? mlx_destroy_image(g->mlx, g->assets[i].ptr) : 0);
 	(g->v.ptr ? mlx_destroy_image(g->mlx, g->v.ptr) : 0);
 	(g->win ? mlx_destroy_window(g->mlx, g->win) : 0);
 	(g->mlx ? mlx_destroy_display(g->mlx) : 0);

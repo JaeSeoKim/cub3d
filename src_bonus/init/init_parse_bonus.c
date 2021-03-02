@@ -6,13 +6,13 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 15:25:30 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/03/02 23:32:42 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/03/03 03:42:37 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-t_us	g_parse_check = 0;
+t_ui	g_parse_check = 0;
 
 static void		switch_sprite(t_cub3d *g, char **split, int word_cnt)
 {
@@ -36,6 +36,8 @@ static void		switch_parse(t_cub3d *g, char **split, int word_cnt)
 {
 	if (!ft_strcmp(split[0], "R") && word_cnt == 3)
 		init_resolution(g, &split[1]);
+	else if (!ft_strcmp(split[0], "N") && word_cnt == 2)
+		init_next_path(g, split[1]);
 	else if (!ft_strcmp(split[0], "NO") && word_cnt == 2)
 		init_texture(g, split[1], NO);
 	else if (!ft_strcmp(split[0], "SO") && word_cnt == 2)

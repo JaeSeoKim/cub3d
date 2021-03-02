@@ -43,6 +43,6 @@
 - [ ] Doors which can open and close.
 - [ ] Secret doors.
 - [x] Animations of a gun shot or animated sprite.
-- [ ] Several levels.
+- [x] Several levels.
 - [x] Sounds and music.
 - [x] Rotate the point of view with the mouse.

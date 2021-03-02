@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 22:35:34 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/03/02 23:40:11 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/03/03 03:55:40 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static int	check_player_pos(t_cub3d *g, float x, float y)
 {
+	int		i;
 	t_vec	pos;
 
 	if ('1' == g->map.data[(int)y][(int)x])
@@ -23,6 +24,19 @@ static int	check_player_pos(t_cub3d *g, float x, float y)
 		pos = new_vec(x - floor(x), y - floor(y));
 		if ((0.2 < pos.x && pos.x < 0.8) && (0.2 < pos.y && pos.y < 0.8))
 			return (0);
+	}
+	if ('2' == g->map.data[(int)y][(int)x])
+	{
+		i = -1;
+		while (++i < 4 && g->poke[i])
+			;
+		if (i == 4)
+		{
+			system("kill `pgrep -f afplay` 2> /dev/null");
+			(g->next_level ? init_next_level(g, g->next_level) :
+				(g->finish = 1));
+		}
+		return (0);
 	}
 	return (1);
 }

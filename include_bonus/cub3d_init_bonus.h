@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 17:25:20 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/25 03:29:08 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/03/03 03:25:08 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "cub3d_bonus.h"
 
-extern	t_us g_parse_check;
+extern	t_ui g_parse_check;
 
 void	init(t_cub3d *g, char *path, int flag);
 void	init_parse(t_cub3d *g, char *path);
@@ -25,5 +25,7 @@ void	init_map(t_cub3d *g, int fd, char *line, int *check);
 void	init_player(t_cub3d *g, t_vec pos, int *flag);
 void	init_sprite(t_cub3d *g);
 void	init_assts(t_cub3d *g);
+void	init_next_path(t_cub3d *g, char *path);
+void	init_next_level(t_cub3d *g, char *path);
 
 #endif

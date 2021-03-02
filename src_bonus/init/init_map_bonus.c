@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 18:53:47 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/03/02 23:39:09 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/03/03 04:40:15 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,16 @@ static void	check_map(t_cub3d *g, t_ivec p)
 	t_map	*m;
 
 	m = &g->map;
-	if (!ft_strchr(" 01NSWEYRGBRHO", m->data[p.y][p.x]) ||
+	if (!ft_strchr(" 012NSWEYRGBRHO", m->data[p.y][p.x]) ||
 		((p.y == 0 || p.x == 0 || p.y == m->h - 1 || p.x == m->w - 1) &&
-		!ft_strchr(" 1", m->data[p.y][p.x])))
+		!ft_strchr(" 12", m->data[p.y][p.x])))
 		exit_cub3d_msg(g, "invaild map file");
 	if (m->data[p.y][p.x] == ' ')
 	{
-		if ((p.y != 0 && !ft_strchr(" 1", m->data[p.y - 1][p.x])) ||
-			(p.x != 0 && !ft_strchr(" 1", m->data[p.y][p.x - 1])) ||
-			(p.y < m->h - 1 && !ft_strchr(" 1", m->data[p.y + 1][p.x])) ||
-			(p.x < m->w - 1 && !ft_strchr(" 1", m->data[p.y][p.x + 1])))
+		if ((p.y != 0 && !ft_strchr(" 12", m->data[p.y - 1][p.x])) ||
+			(p.x != 0 && !ft_strchr(" 12", m->data[p.y][p.x - 1])) ||
+			(p.y < m->h - 1 && !ft_strchr(" 12", m->data[p.y + 1][p.x])) ||
+			(p.x < m->w - 1 && !ft_strchr(" 12", m->data[p.y][p.x + 1])))
 			exit_cub3d_msg(g, "invaild map file");
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 17:35:13 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/25 03:05:20 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/03/03 03:52:21 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,7 @@ static void	load_asset(t_cub3d *g, char *path, int tex_i)
 void		init_assts(t_cub3d *g)
 {
 	load_asset(g, LIFEBAR_PATH, LIFEBAR);
+	load_asset(g, MSG_GAMEOVER_PATH, MSG_GAMEOVER);
+	load_asset(g, MSG_GAMEWIN_PATH, MSG_GAMEWIN);
+	load_asset(g, MSG_LEVELUP_PATH, MSG_LEVELUP);
 }

@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 23:19:39 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/03/03 00:39:15 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/03/03 04:45:41 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@
 # define S "YRGBHO"
 # define S_J "YRGB"
 
+# define TEX_SIZE 12
+
 # define NO 0
 # define SO 1
 # define WE 2
@@ -69,7 +71,8 @@
 # define S_O 9
 # define F 10
 # define C 11
-# define R 12
+# define NEXT 12
+# define R 13
 
 # define BGM 0
 # define BGM_PATH "assets/sound/bgm.mp3"
@@ -79,6 +82,12 @@
 # define POTION_PATH "assets/sound/potion.mp3"
 # define GAMEOVER 3
 # define GAMEOVER_PATH "assets/sound/gameover.mp3"
+# define GAMEWIN 4
+# define GAMEWIN_PATH "assets/sound/gamewin.mp3"
+# define LEVELUP 5
+# define LEVELUP_PATH "assets/sound/levelup.mp3"
+
+# define ASSETS_SIZE 4
 
 # define LIFEBAR 0
 # define LIFEBAR_PATH "assets/lifebar.xpm"
@@ -86,6 +95,15 @@
 # define LIFEBAR_START_Y 2
 # define LIFEBAR_SIZE_X 66
 # define LIFEBAR_SIZE_Y 3
+
+# define MSG_GAMEOVER 1
+# define MSG_GAMEOVER_PATH "assets/gameover.xpm"
+
+# define MSG_GAMEWIN 2
+# define MSG_GAMEWIN_PATH "assets/gamewin.xpm"
+
+# define MSG_LEVELUP 3
+# define MSG_LEVELUP_PATH "assets/levelup.xpm"
 
 # include "cub3d_type_bonus.h"
 # include "cub3d_util_bonus.h"
@@ -102,5 +120,6 @@ int		handle_loop(t_cub3d *g);
 
 void	exit_cub3d(t_cub3d *g, int code);
 void	exit_cub3d_msg(t_cub3d *g, char *msg);
+void	free_data(t_cub3d *g);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/06 21:07:58 by jaeskim           #+#    #+#              #
-#    Updated: 2021/03/03 00:37:37 by jaeskim          ###   ########.fr        #
+#    Updated: 2021/03/03 04:20:23 by jaeskim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ NAME = cub3D
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
+# CFLAGS := -g3 -fsanitize=address
 ifneq ($(DEBUG),true)
 	CFLAGS := -O3
 endif

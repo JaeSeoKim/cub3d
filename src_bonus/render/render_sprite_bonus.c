@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 20:18:54 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/03/03 00:10:39 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/03/03 03:07:03 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void			render_sprite(t_cub3d *g)
 		move.y = (V_MOVE / sp->trans.y);
 		size.x = fabs((g->fov_h / sp->trans.y) / U_DIV);
 		size.y = fabs((g->fov_h / sp->trans.y) / V_DIV);
-		sp->move_y = g->dir_z - ((int)g->count % 2 == 0 && \
+		sp->move_y = g->dir_z - ((int)g->count.sec > 30 == 0 && \
 			ft_strchr(S_J, sp->base) ? size.y / 10 : 0);
 		if (sp->trans.y > 0)
 			render_sprite_tex(g, sp, size, move);

@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:57:51 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/03/03 00:57:41 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/03/03 04:45:40 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,23 +58,15 @@ int		handle_loop(t_cub3d *g)
 	now = clock();
 	g->fps = CLOCKS_PER_SEC / (now - g->prev);
 	(g->fps == 0 ? g->fps = 1 : 0);
-	g->count += 60 / g->fps / 10;
-	if (g->count > 2)
+	if (!g->loading)
 	{
-		g->count = 0;
-		g->life--;
+		(g->life < 0 ? render_gameover(g) : 0);
+		(g->finish ? render_finish(g) : 0);
+		update(g);
+		render(g);
+		mlx_put_image_to_window(g->mlx, g->win, g->v.ptr, 0, 0);
+		mlx_do_sync(g->mlx);
 	}
-	if (g->life < 0)
-	{
-		system("kill `pgrep -f afplay` 2> /dev/null");
-		play_sound(GAMEOVER);
-		printf("GAME OVER...");
-		exit_cub3d(g, SUCCES);
-	}
-	update(g);
-	render(g);
-	mlx_put_image_to_window(g->mlx, g->win, g->v.ptr, 0, 0);
-	mlx_do_sync(g->mlx);
 	g->prev = now;
 	return (0);
 }

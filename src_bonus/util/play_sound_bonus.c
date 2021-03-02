@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 22:24:27 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/03/03 00:20:23 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/03/03 04:45:40 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ void	play_sound(int type)
 			ft_strjoin("afplay ", POTION_PATH), " &", 1)));
 	else if (type == GAMEOVER)
 		system((cmd = ft_strjoin("afplay ", GAMEOVER_PATH)));
+	else if (type == GAMEWIN)
+		system((cmd = ft_strjoin("afplay ", GAMEWIN_PATH)));
+	else if (type == LEVELUP)
+		system((cmd = ft_strjoin("afplay ", LEVELUP_PATH)));
 	if (cmd)
 		free(cmd);
 }

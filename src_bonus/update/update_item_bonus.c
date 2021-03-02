@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 23:05:56 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/03/03 00:45:04 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/03/03 04:16:50 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static void	remove_sprite(t_cub3d *g, int flag)
 			else
 				g->sp = curr->next;
 			ft_lstdelone(curr, free);
+			break ;
 		}
 		prev = curr;
 		curr = curr->next;
