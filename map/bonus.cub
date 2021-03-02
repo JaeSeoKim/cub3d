@@ -1,4 +1,4 @@
-R 480 240
+R 1280 720
 N ./map/bonus2.cub
 NO ./img/NO.xpm
 SO ./img/SO.xpm
@@ -13,7 +13,7 @@ S_H ./img_bonus/potion.xpm
 S_O ./img_bonus/오박사.xpm
 
 F ./img_bonus/floor.xpm
-C ./img/skybox.xpm
+C ./img_bonus/skybox.xpm
 
 1111111111111111111
 100000000000000H001
