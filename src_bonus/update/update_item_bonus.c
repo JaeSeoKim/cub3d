@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 23:05:56 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/03/03 04:16:50 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/03/03 22:10:36 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static void	remove_sprite(t_cub3d *g, int flag)
 		prev = curr;
 		curr = curr->next;
 	}
+	g->map.data[(int)g->pos.y][(int)g->pos.x] = '0';
 }
 
 void		update_item(t_cub3d *g)
@@ -53,13 +54,13 @@ void		update_item(t_cub3d *g)
 	if ('H' == g->map.data[(int)g->pos.y][(int)g->pos.x])
 	{
 		play_sound(POTION);
-		g->map.data[(int)g->pos.y][(int)g->pos.x] = '0';
 		remove_sprite(g, 0);
 		g->life += 30;
+		if (g->life > 100)
+			g->life = 100;
 	}
 	if (ft_strchr(S_J, g->map.data[(int)g->pos.y][(int)g->pos.x]))
 	{
-		g->map.data[(int)g->pos.y][(int)g->pos.x] = '0';
 		remove_sprite(g, 1);
 		play_sound(CATCH);
 	}

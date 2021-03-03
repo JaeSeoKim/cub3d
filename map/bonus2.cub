@@ -1,5 +1,6 @@
 R 1280 720
 N ./map/bonus3.cub
+NX ./img_bonus/nextlevel.xpm
 NO ./img/NO.xpm
 SO ./img/SO.xpm
 WE ./img/WE.xpm

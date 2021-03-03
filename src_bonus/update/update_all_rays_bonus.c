@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 22:36:49 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/03/03 07:39:18 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/03/04 00:01:31 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ static void	cast_ray(t_cub3d *g, t_ray *ray)
 		else if ((ray->side = 1))
 			((side_d.y += delta_d.y) || 1 ? (ray->map.y += step.y) : 0);
 		(ft_strchr("12", g->map.data[ray->map.y][ray->map.x]) ? hit = 1 : 0);
+		ray->dist = (ray->side ?
+			(ray->map.y - g->pos.y + (1 - step.y) / 2) / ray->dir.y :
+			(ray->map.x - g->pos.x + (1 - step.x) / 2) / ray->dir.x);
 	}
 	ray->type = g->map.data[ray->map.y][ray->map.x];
 	ray->dist = (ray->side ?
@@ -60,7 +63,7 @@ void		update_all_rays(t_cub3d *g)
 			tex_i = g->rays[i].dir.y < 0 ? NO : SO;
 		else
 			tex_i = g->rays[i].dir.x < 0 ? EA : WE;
-		(g->rays[i].type == '2' ? tex_i = NO : 0);
+		(g->rays[i].type == '2' ? tex_i = NX : 0);
 		g->rays[i].tex = &g->tex[tex_i];
 	}
 }

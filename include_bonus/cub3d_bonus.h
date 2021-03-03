@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 23:19:39 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/03/03 04:45:41 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/03/04 00:08:55 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@
 # define S "YRGBHO"
 # define S_J "YRGB"
 
-# define TEX_SIZE 12
+# define TEX_SIZE 13
 
 # define NO 0
 # define SO 1
@@ -71,8 +71,9 @@
 # define S_O 9
 # define F 10
 # define C 11
-# define NEXT 12
-# define R 13
+# define NX 12
+# define NEXT 13
+# define R 14
 
 # define BGM 0
 # define BGM_PATH "assets/sound/bgm.mp3"

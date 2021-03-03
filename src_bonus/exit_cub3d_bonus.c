@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:28:36 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/03/03 07:08:42 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/03/04 01:49:25 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,18 @@ void		free_data(t_cub3d *g)
 	i = -1;
 	while (++i < TEX_SIZE)
 		(g->tex[i].ptr ? mlx_destroy_image(g->mlx, g->tex[i].ptr) : 0);
+	ft_memset(g->tex, 0, sizeof(t_img) * TEX_SIZE);
 	check_free(g->rays);
+	g->rays = 0;
 	ft_lstclear(&g->sp, check_free);
-	i = -1;
-	while (++i < g->map.h)
-		check_free(g->map.data[i]);
-	free(g->map.data);
+	if (g->map.data)
+	{
+		i = -1;
+		while (++i < g->map.h)
+			check_free(g->map.data[i]);
+		free(g->map.data);
+	}
+	g->map.data = 0;
 }
 
 void		exit_cub3d(t_cub3d *g, int code)

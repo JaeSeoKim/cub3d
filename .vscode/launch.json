@@ -9,7 +9,7 @@
       "type": "cppdbg",
       "request": "launch",
       "program": "${workspaceFolder}/cub3D",
-      "args": ["./map/bonus2.cub"],
+      "args": ["./map/level1_bonus.cub"],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
       "environment": [],

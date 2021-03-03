@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 15:25:30 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/03/03 07:42:39 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/03/04 00:06:42 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ static void		switch_parse(t_cub3d *g, char **split, int word_cnt)
 		init_texture(g, split[1], F);
 	else if (!ft_strcmp(split[0], "C") && word_cnt == 2)
 		init_texture(g, split[1], C);
+	else if (!ft_strcmp(split[0], "NX") && word_cnt == 2)
+		init_texture(g, split[1], NX);
 	else
 		switch_sprite(g, split, word_cnt);
 }

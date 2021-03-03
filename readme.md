@@ -30,7 +30,7 @@
 ---
 
 - [x] Wall collisions.
-- [ ] A skybox.
+- [x] A skybox.
 - [x] Floor and/or ceiling texture.
 - [x] An HUD.
 - [x] Ability to look up and down.
