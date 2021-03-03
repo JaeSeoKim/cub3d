@@ -6,26 +6,22 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 22:36:49 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/03/04 00:01:31 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/03/04 02:04:02 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-static void	cast_ray(t_cub3d *g, t_ray *ray)
+static void	find_hit_ray(
+	t_cub3d *g,
+	t_ray *ray,
+	t_vec side_d,
+	t_vec delta_d)
 {
-	t_vec	side_d;
-	t_vec	delta_d;
-	t_ivec	step;
 	int		hit;
+	t_ivec	step;
 
-	delta_d.x = fabsf(1 / ray->dir.x);
-	delta_d.y = fabsf(1 / ray->dir.y);
 	step = new_ivec(ray->dir.x < 0 ? -1 : 1, ray->dir.y < 0 ? -1 : 1);
-	side_d.x = ray->dir.x < 0 ? (g->pos.x - ray->map.x) * delta_d.x :
-				(ray->map.x + 1.0 - g->pos.x) * delta_d.x;
-	side_d.y = ray->dir.y < 0 ? (g->pos.y - ray->map.y) * delta_d.y :
-				(ray->map.y + 1.0 - g->pos.y) * delta_d.y;
 	hit = 0;
 	while (!hit)
 	{
@@ -38,6 +34,22 @@ static void	cast_ray(t_cub3d *g, t_ray *ray)
 			(ray->map.y - g->pos.y + (1 - step.y) / 2) / ray->dir.y :
 			(ray->map.x - g->pos.x + (1 - step.x) / 2) / ray->dir.x);
 	}
+}
+
+static void	cast_ray(t_cub3d *g, t_ray *ray)
+{
+	t_vec	side_d;
+	t_vec	delta_d;
+	t_ivec	step;
+	int		hit;
+
+	delta_d = new_vec(fabsf(1 / ray->dir.x), fabsf(1 / ray->dir.y));
+	step = new_ivec(ray->dir.x < 0 ? -1 : 1, ray->dir.y < 0 ? -1 : 1);
+	side_d.x = ray->dir.x < 0 ? (g->pos.x - ray->map.x) * delta_d.x :
+				(ray->map.x + 1.0 - g->pos.x) * delta_d.x;
+	side_d.y = ray->dir.y < 0 ? (g->pos.y - ray->map.y) * delta_d.y :
+				(ray->map.y + 1.0 - g->pos.y) * delta_d.y;
+	find_hit_ray(g, ray, side_d, delta_d);
 	ray->type = g->map.data[ray->map.y][ray->map.x];
 	ray->dist = (ray->side ?
 		(ray->map.y - g->pos.y + (1 - step.y) / 2) / ray->dir.y :

@@ -14,7 +14,6 @@
 
 static t_color	get_color(char map)
 {
-
 	if ('1' == map)
 		return (rgba(123, 123, 123, 0.5));
 	else if ('2' == map)
