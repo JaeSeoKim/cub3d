@@ -34,7 +34,7 @@ static int	check_player_pos(t_cub3d *g, float x, float y)
 		{
 			system("kill `pgrep -f afplay` 2> /dev/null");
 			g->next_level ? (g->loading = 1) : 0;
-			g->next_level ? (g->finish = 1) : 0;
+			!g->next_level ? (g->finish = 1) : 0;
 		}
 		return (0);
 	}
