@@ -6,7 +6,7 @@
 /*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 23:19:39 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/02/22 21:58:35 by jaeskim          ###   ########.fr       */
+/*   Updated: 2021/03/05 19:50:03 by jaeskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # endif
 
 # define CUB3D_TITLE "jaeskim's cub3D"
-# define WALL_STRIP_WIDTH 8
+# define WALL_STRIP_WIDTH 1
 # define TILE 64
 # define FOV 66
 # define WALK_S 0.08

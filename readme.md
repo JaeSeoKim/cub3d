@@ -10,15 +10,37 @@
 
 ## 🚀 Content
 
- <!--
- TODO: ReadMe.md 작성 하기!
- -->
-
 ### 🚩 Mandatory part
+
+#### how to use!
+
+##### complie!
+
+```
+make
+```
+
+##### run cub3D!
+
+```
+./cub3D map/test.cub
+```
+
+##### run cub3D with save bmp image
+
+```
+./cub3d --save map/test.cub
+```
+
+##### preview
+
+![image-20210305195505811](image/readme/image-20210305195505811.png)
+
+
 
 ### 🚩 Bonus part
 
-## Bonus 컨셉
+## Bonus Concept!
 
 미로를 탈출하면서 포켓몬 구출 하기!
 
@@ -28,6 +50,32 @@
 - 모든 포켓몬 4마리를 구출 후 출구로 도착 하면 승리!
 
 ---
+
+#### how to use!
+
+##### complie!
+
+```
+make bonus
+```
+
+##### run cub3D!
+
+```
+./cub3D map/level1_bonus.cub
+```
+
+##### run cub3D with save bmp image
+
+```
+./cub3d --save map/level1_bonus
+```
+
+##### preview
+
+![cub3d_bonus_preview](image/readme/cub3d_bonus_preview.gif)
+
+### Bonus List
 
 - [x] Wall collisions.
 - [x] A skybox.

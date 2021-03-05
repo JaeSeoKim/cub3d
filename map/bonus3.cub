@@ -6,10 +6,10 @@ SO ./img/SO.xpm
 WE ./img/WE.xpm
 EA ./img/EA.xpm
 
-S_Y ./img_bonus/피카츄.xpm
-S_R ./img_bonus/파이리.xpm
-S_G ./img_bonus/이상해씨.xpm
-S_B ./img_bonus/꼬부기.xpm
+S_Y ./img_bonus/라이츄.xpm
+S_R ./img_bonus/리자몽.xpm
+S_G ./img_bonus/이상해꽃.xpm
+S_B ./img_bonus/거북왕.xpm
 S_H ./img_bonus/potion.xpm
 S_O ./img_bonus/오박사.xpm
 

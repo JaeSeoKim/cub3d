@@ -1,10 +1,10 @@
 R 720 480
 N ./map/level2_bonus.cub
 NX ./img_bonus/nextlevel.xpm
-NO ./img/NO.xpm
-SO ./img/SO.xpm
-WE ./img/WE.xpm
-EA ./img/EA.xpm
+NO ./img_bonus/wall.xpm
+SO ./img_bonus/wall.xpm
+WE ./img_bonus/wall.xpm
+EA ./img_bonus/wall.xpm
 
 S_Y ./img_bonus/피츄.xpm
 S_R ./img_bonus/파이리.xpm
